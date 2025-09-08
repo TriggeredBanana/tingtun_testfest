@@ -1,0 +1,63 @@
+/* Index/Hjem-side spesifikke stiler */
+
+.welcome-section {
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.welcome-section h2 {
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-info {
+    background-color: #f8f9fa;
+    border-left: 4px solid #0066cc;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.contact-info h2 {
+    color: #0066cc;
+    margin-top: 0;
+}
+
+.intro-image {
+    margin: 1rem 0;
+}
+
+.intro-image img {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.highlight-box {
+    background-color: #e8f4fd;
+    border: 1px solid #b3d9f7;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+}
+
+.highlight-box h4 {
+    color: #0066cc;
+    margin-top: 0;
+}
+
+/* Responsive tilpasninger for forsiden */
+@media (max-width: 768px) {
+    .welcome-section h2 {
+        font-size: 1.75rem;
+    }
+    
+    .contact-info {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+}

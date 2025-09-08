@@ -1,0 +1,158 @@
+/* UiO testfest spesifikke stiler */
+
+.testfest-header {
+    text-align: center;
+    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.testfest-header h1 {
+    margin: 0 0 1rem 0;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.testfest-header p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.uio-link {
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    display: inline-block;
+}
+
+.uio-link a {
+    color: #d32f2f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.uio-link a:hover, .uio-link a:focus {
+    text-decoration: underline;
+}
+
+.task-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.task-item {
+    background-color: #ffffff;
+    border: 1px solid #ffebee;
+    border-left: 5px solid #d32f2f;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.task-item:hover, .task-item:focus-within {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.task-item h2 {
+    color: #d32f2f;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.task-item p {
+    color: #424242;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.sub-tasks {
+    background-color: #fafafa;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.sub-tasks p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.program-schedule {
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.program-schedule h3 {
+    color: #d32f2f;
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.program-schedule ul {
+    list-style-type: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.program-schedule li {
+    background-color: white;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    border-left: 3px solid #d32f2f;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Spesifikk styling for akademiske oppgaver */
+.academic-task {
+    background: linear-gradient(90deg, #fff8f8 0%, #ffffff 100%);
+}
+
+.extra-tasks {
+    background-color: #f3e5f5;
+    border: 1px solid #e1bee7;
+    border-left: 5px solid #7b1fa2;
+}
+
+.extra-tasks h2 {
+    color: #7b1fa2;
+}
+
+/* Responsive tilpasninger */
+@media (max-width: 768px) {
+    .testfest-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .testfest-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .task-item {
+        padding: 1rem;
+    }
+    
+    .task-item:hover {
+        transform: none;
+    }
+    
+    .program-schedule {
+        padding: 1rem;
+    }
+    
+    .sub-tasks {
+        padding: 0.75rem;
+    }
+}

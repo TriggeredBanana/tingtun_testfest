@@ -1,0 +1,115 @@
+/* Metode-side spesifikke stiler */
+
+.method-intro {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.method-intro p {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: #856404;
+}
+
+.checklist-section {
+    margin: 2rem 0;
+}
+
+.checklist-section h2 {
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.checklist-section ol {
+    counter-reset: step-counter;
+    list-style: none;
+    margin-left: 0;
+}
+
+.checklist-section li {
+    counter-increment: step-counter;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+    position: relative;
+}
+
+.checklist-section li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: -12px;
+    top: 1rem;
+    background-color: #0066cc;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.checklist-section li b {
+    color: #0066cc;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.checklist-section li ul {
+    margin: 1rem 0 0 1rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.role-section {
+    margin: 3rem 0;
+}
+
+.service-owner {
+    border-left-color: #28a745;
+}
+
+.service-owner li::before {
+    background-color: #28a745;
+}
+
+.service-owner h2 {
+    color: #28a745;
+}
+
+.tester {
+    border-left-color: #6f42c1;
+}
+
+.tester li::before {
+    background-color: #6f42c1;
+}
+
+.tester h2 {
+    color: #6f42c1;
+}
+
+/* Responsive tilpasninger for metode */
+@media (max-width: 768px) {
+    .checklist-section li {
+        padding-left: 2rem;
+    }
+    
+    .checklist-section li::before {
+        left: 0;
+        position: relative;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
