@@ -1,24 +1,28 @@
 /* Oslo kommune testfest spesifikke stiler */
 
 .testfest-header {
-    text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 8px;
+    text-align: left;
+    background-color: #ffffff;
+    color: #fff;
+    padding: 3rem 2rem;
+    border-radius: 4px;
     margin: 2rem 0;
+    border: 2px solid #333;
 }
 
 .testfest-header h1 {
-    margin: 0 0 1rem 0;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    margin: 0 0 1.5rem 0;
+    color: #000000;
+    font-size: 2.2rem;
+    font-weight: 700;
 }
 
 .testfest-header p {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-    opacity: 0.95;
+    margin: 0.75rem 0;
+    font-size: 1.2rem;
+    color: #000000;
+    font-weight: 400;
+    line-height: 1.7;
 }
 
 .task-grid {
@@ -29,41 +33,39 @@
 
 .task-item {
     background-color: #ffffff;
-    border: 1px solid #e3f2fd;
-    border-left: 5px solid #1976d2;
-    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    border-left: 3px solid #495057;
+    border-radius: 4px;
     padding: 1.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: border-color 0.2s ease;
 }
 
 .task-item:hover, .task-item:focus-within {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
+    border-color: #6c757d;
 }
 
 .task-item h2 {
-    color: #1976d2;
+    color: #000;
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 1.25rem;
 }
 
 .task-item p {
-    color: #424242;
+    color: #000;
     line-height: 1.7;
 }
 
 .program-schedule {
-    background-color: #f3e5f5;
-    border: 1px solid #e1bee7;
-    border-radius: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
     padding: 1.5rem;
     margin: 2rem 0;
 }
 
 .program-schedule h3 {
-    color: #7b1fa2;
+    color: #000;
     margin-top: 0;
     font-size: 1.2rem;
 }
@@ -79,8 +81,8 @@
     margin: 0.5rem 0;
     padding: 0.75rem 1rem;
     border-radius: 4px;
-    border-left: 3px solid #7b1fa2;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-left: 3px solid #6c757d;
+    border: 1px solid #e9ecef;
 }
 
 /* Responsive tilpasninger for testfest sider */
