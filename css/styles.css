@@ -38,7 +38,7 @@ h4 { font-size: 1.25rem; }
 /* Tekst og avsnitt */
 p {
     margin: 0 0 1rem 0;
-    max-width: 70ch; /* Optimal lesebredde */
+    max-width: 95ch; /* Konsistent lesebredde */
     color: #000;
 }
 
@@ -71,9 +71,24 @@ img {
     border: none;
 }
 
+.intro-image {
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.intro-image img {
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
 /* Responsivt layout */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -155,11 +170,12 @@ img {
 .main {
     flex: 1;
     min-width: 300px;
+    max-width: calc(100% - 420px);
 }
 
 .side {
-    flex: 0 0 300px;
-    min-width: 300px;
+    flex: 0 0 400px;
+    min-width: 400px;
 }
 
 /* Oppgaver og innholdsbokser */
@@ -217,6 +233,11 @@ img {
     
     .side {
         flex: none;
+        min-width: 100%;
+    }
+    
+    .main {
+        max-width: 100%;
     }
     
     h1 { font-size: 2rem; }

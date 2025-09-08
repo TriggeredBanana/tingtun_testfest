@@ -1,9 +1,5 @@
 /* FAQ-side spesifikke stiler */
 
-.faq-container {
-    max-width: 800px;
-}
-
 .faq-item {
     margin: 2rem 0;
     border-bottom: 1px solid #e9ecef;
