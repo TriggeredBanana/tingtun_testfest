@@ -126,6 +126,24 @@ img {
     vertical-align: middle;
 }
 
+/* Hamburgermeny knapp */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #000;
+    transition: color 0.2s ease;
+}
+
+.menu-toggle:hover, .menu-toggle:focus {
+    color: #353535;
+    outline: 2px solid #4A90E2;
+    outline-offset: 2px;
+}
+
 /* Navigasjon */
 .menu {
     list-style: none;
@@ -209,39 +227,172 @@ img {
     color: #000;
 }
 
-/* Responsiv design */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
+/* Tablet responsiv design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding: 0 2rem;
     }
     
-    .menu {
-        width: 100%;
-        flex-direction: column;
-        gap: 0;
+    .main {
+        max-width: calc(100% - 350px);
+    }
+    
+    .side {
+        flex: 0 0 330px;
+        min-width: 330px;
     }
     
     .menu a {
-        border-radius: 0;
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Hamburgermeny aktivering */
+@media (max-width: 1300px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .header-content {
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .menu.active {
+        display: flex;
+    }
+    
+    .menu li {
+        width: 100%;
+    }
+    
+    .menu a {
+        padding: 1rem 2rem;
         border-bottom: 1px solid #e9ecef;
+        border-radius: 0;
+        font-size: 1.1rem;
+    }
+    
+    .menu a:last-child {
+        border-bottom: none;
+    }
+    
+    .header {
+        position: relative;
+    }
+}
+
+/* Tablet portrett */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
     }
     
     .row {
         flex-direction: column;
+        gap: 1.5rem;
     }
     
-    .side {
+    .task, .plan {
+        margin: 1.25rem 0;
+        padding: 1.25rem;
+    }
+    
+    .main, .side {
         flex: none;
         min-width: 100%;
+        max-width: 100%;
     }
     
-    .main {
-        max-width: 100%;
+    .intro-image img {
+        min-height: 250px;
     }
     
     h1 { font-size: 2rem; }
     h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.35rem; }
+    
+    p {
+        max-width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .main-content {
+        padding: 1.5rem 0;
+    }
+    
+    .task {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .plan {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .logo-img img {
+        max-width: 150px !important;
+    }
+    
+    .menu a {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        margin: 0 0.25rem;
+    }
+    
+    .intro-image img {
+        min-height: 200px;
+    }
+    
+    h1 { font-size: 1.75rem; margin: 1rem 0 0.75rem 0; }
+    h2 { font-size: 1.5rem; margin: 1rem 0 0.75rem 0; }
+    h3 { font-size: 1.2rem; margin: 1rem 0 0.5rem 0; }
+    h4 { font-size: 1.1rem; margin: 0.75rem 0 0.5rem 0; }
+    
+    p {
+        margin: 0 0 1rem 0;
+        padding: 0 0.25rem;
+    }
+    
+    ul, ol {
+        margin: 0 0 1rem 1.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .testfest-header {
+        padding: 2rem 1rem !important;
+    }
+    
+    .testfest-header h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .task-item, .program-schedule {
+        padding: 1rem !important;
+    }
 }
 
 /* Print-stiler */
