@@ -1,0 +1,78 @@
+/* FAQ-side spesifikke stiler */
+
+.faq-item {
+    margin: 2rem 0;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item h4 {
+    color: #000;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.faq-item p {
+    margin-bottom: 0.75rem;
+    color: #000;
+}
+
+.faq-resources {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid #dee2e6;
+}
+
+.faq-resources h3 {
+    color: #000;
+    margin-top: 0;
+}
+
+.faq-resources ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.faq-resources li {
+    margin: 0.5rem 0;
+    color: #000;
+}
+
+.faq-resources a {
+    color: #0066cc;
+    font-weight: 500;
+}
+
+/* Video og media lenker */
+.media-link {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    display: inline-block;
+    margin: 0.5rem 0;
+}
+
+.media-link a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Responsive tilpasninger for FAQ */
+@media (max-width: 768px) {
+    .faq-resources {
+        padding: 1rem;
+    }
+    
+    .faq-item h4 {
+        font-size: 1.1rem;
+    }
+}
