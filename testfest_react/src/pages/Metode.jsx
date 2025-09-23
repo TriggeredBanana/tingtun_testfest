@@ -1,3 +1,5 @@
+import '../assets/styles/metode.css';
+
 const Metode = () => {
   return (
     <div className="container main-content">

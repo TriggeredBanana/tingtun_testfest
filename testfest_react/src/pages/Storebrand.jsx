@@ -1,3 +1,5 @@
+import '../assets/styles/testfest-pages.css';
+
 const Storebrand = () => {
   return (
     <div className="container main-content">

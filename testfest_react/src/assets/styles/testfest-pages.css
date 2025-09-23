@@ -1,4 +1,4 @@
-/* Storebrand testfest spesifikke stiler */
+/* Felles stiler for testfest-sider (Oslo Kommune, Storebrand, UiO) */
 
 .testfest-header {
     text-align: left;
@@ -54,6 +54,7 @@
 .task-item p {
     color: #000;
     line-height: 1.7;
+    margin-bottom: 0.75rem;
 }
 
 .program-schedule {
@@ -85,7 +86,40 @@
     border: 1px solid #e9ecef;
 }
 
-/* Spesifikk styling for finansielle oppgaver */
+/* UiO-spesifikke stiler */
+.uio-link {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    display: block;
+    width: 100%;
+}
+
+.uio-link a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.uio-link a:hover, .uio-link a:focus {
+    text-decoration: underline;
+}
+
+.sub-tasks {
+    background-color: #fafafa;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.sub-tasks p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Varianter for ulike organisasjoner */
 .financial-task {
     background-color: #ffffff;
     border-left-color: #495057;
@@ -95,7 +129,21 @@
     color: #000;
 }
 
-/* Responsive tilpasninger */
+.academic-task {
+    background-color: #ffffff;
+}
+
+.extra-tasks {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-left: 3px solid #6c757d;
+}
+
+.extra-tasks h2 {
+    color: #000;
+}
+
+/* Responsive tilpasninger for testfest sider */
 @media (max-width: 768px) {
     .testfest-header {
         padding: 1.5rem 1rem;
@@ -115,5 +163,9 @@
     
     .program-schedule {
         padding: 1rem;
+    }
+    
+    .sub-tasks {
+        padding: 0.75rem;
     }
 }
