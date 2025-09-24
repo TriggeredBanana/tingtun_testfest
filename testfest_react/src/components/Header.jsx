@@ -32,11 +32,9 @@ const Header = () => {
           </button>
           <ul className={`menu ${isMenuOpen ? 'active' : ''}`}>
             <li><Link to="/" onClick={closeMenu}>Hjem</Link></li>
-            <li><Link to="/oslo-kommune" onClick={closeMenu}>Oslo kommune</Link></li>
-            <li><Link to="/storebrand" onClick={closeMenu}>Storebrand</Link></li>
-            <li><Link to="/uio" onClick={closeMenu}>Universitetet i Oslo</Link></li>
+            <li><Link to="/testfester" onClick={closeMenu}>Testfester</Link></li>
             <li><Link to="/faq" onClick={closeMenu}>Spørsmål og svar</Link></li>
-            <li><Link to="/metode" onClick={closeMenu}>Metode</Link></li>
+            <li><Link to="/metode" onClick={closeMenu}>Metode</Link></li> 
           </ul>
         </div>
       </div>

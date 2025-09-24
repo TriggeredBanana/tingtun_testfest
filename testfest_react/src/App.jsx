@@ -18,7 +18,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/oslo-kommune" element={<OsloKommune />} />
+          <Route path="/testfester" element={<Testfester />} />
+          <Route path="/oslokommune" element={<OsloKommune />} />
           <Route path="/storebrand" element={<Storebrand />} />
           <Route path="/uio" element={<UiO />} />
           <Route path="/faq" element={<FAQ />} />
