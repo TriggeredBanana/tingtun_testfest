@@ -6,6 +6,7 @@ import Storebrand from './pages/Storebrand';
 import UiO from './pages/UiO';
 import FAQ from './pages/FAQ';
 import Metode from './pages/Metode';
+import Testfester from './pages/Testfester';
 
 // Import your CSS files
 import './assets/styles/styles.css';
