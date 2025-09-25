@@ -9,9 +9,9 @@ const Testfester = () => {
         <div className="main">
           <h2>Tidligere Testfester</h2>
           <ul className="testfester-list">
-            <li><Link to="/oslokommune" onClick>Oslo kommune</Link></li>
-            <li><Link to="/storebrand" onClick>Storebrand</Link></li>
-            <li><Link to="/uio" onClick>Universitet i Oslo</Link></li>
+            <li><Link to="/oslokommune" className="list-link">Oslo kommune</Link></li>
+            <li><Link to="/storebrand" className="list-link">Storebrand</Link></li>
+            <li><Link to="/uio" className="list-link">Universitet i Oslo</Link></li>
           </ul>
         </div>
       </div>

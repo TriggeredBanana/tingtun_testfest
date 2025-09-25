@@ -7,17 +7,25 @@
 
 /* Hvert listepunkt */
 .testfester-list li {
-    counter-increment: testfester-counter;
     margin: 1.5rem 0;
-    padding: 1rem;
-    padding-top: 1rem;
-    background-color: #f8f9fa;
     border-radius: 4px;
-    border-left: 3px solid #495057;
     border: 1px solid #dee2e6;
-    position: relative;
-    color: #000;
+    border-left: 3px solid #495057;
+    background-color: #f8f9fa;
     transition: border-color 0.2s ease;
+    overflow: hidden; 
+    padding: 0;  
+
+}
+
+/**Gjør boksen klikkbar*/
+.testfester-list li .list-link {
+    display: block;          
+    padding: 1.5rem 1rem;    
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
 }
 
 /* Lenker inne i lista */
