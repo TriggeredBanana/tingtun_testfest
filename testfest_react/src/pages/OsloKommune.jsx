@@ -12,7 +12,7 @@ const OsloKommune = () => {
                 </div>
   
                 <div className="task-grid">
-                    <div class="task-item">
+                    <div className="task-item">
                         <h2>Oppgave 1: Kontakt hjemmetjenesten</h2>
                         <p>Du har behov for å sende en melding til hjemmetjenesten der du bor. Finn ut hvordan du kan sende og motta meldinger til hjemmetjenesten.</p>
                     </div>
@@ -35,7 +35,7 @@ const OsloKommune = () => {
             </div>
 		
             <div className="side">
-                <div class="program-schedule">
+                <div className="program-schedule">
                     <h3>Oslo kommune og UiO<br/>Punkter for kveldens program:</h3>
                     <ul>
                         <li>Velkommen – Pizza er servert (Christian)</li>
