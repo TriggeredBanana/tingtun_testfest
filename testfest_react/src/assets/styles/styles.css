@@ -157,7 +157,7 @@ img {
     margin: 0;
 }
 
-.menu a {
+.menu a, .menu button {
     display: block;
     padding: 1rem 1.5rem;
     text-decoration: none;
@@ -168,7 +168,7 @@ img {
     font-weight: 500;
 }
 
-.menu a:hover, .menu a:focus {
+.menu a:hover, .menu a:focus, .menu button:hover, .menu button:focus {
     background-color: #353535;
     color: #fff;
 }
