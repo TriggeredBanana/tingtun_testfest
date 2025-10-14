@@ -11,6 +11,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import Tjenesteeier from './pages/Tjenesteeier';
+import Add from './pages/Add';
 
 // Import your CSS files
 import './assets/styles/styles.css';
@@ -30,6 +32,8 @@ function App() {
             <Route path="/uio" element={<UiO />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/metode" element={<Metode />} /> 
+            <Route path="/tjenesteeier" element={<Tjenesteeier />} />
+            <Route path="/add" element={<Add />} />
             <Route path="/login" element={<Login />} />
             <Route 
               path="/admin" 
