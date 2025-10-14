@@ -7,6 +7,8 @@ import UiO from './pages/UiO';
 import FAQ from './pages/FAQ';
 import Metode from './pages/Metode';
 import Testfester from './pages/Testfester';
+import Tjenesteeier from './pages/Tjenesteeier';
+import Add from './pages/Add';
 
 // Import your CSS files
 import './assets/styles/styles.css';
@@ -25,6 +27,8 @@ function App() {
           <Route path="/uio" element={<UiO />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/metode" element={<Metode />} />
+          <Route path="/tjenesteeier" element={<Tjenesteeier />} />
+          <Route path="/add" element={<Add />} />
         </Routes>
       </div>
     </Router>
