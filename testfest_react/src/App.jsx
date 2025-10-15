@@ -7,6 +7,10 @@ import UiO from './pages/UiO';
 import FAQ from './pages/FAQ';
 import Metode from './pages/Metode';
 import Testfester from './pages/Testfester';
+import AdminDashboard from './pages/AdminDashboard';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
 import Tjenesteeier from './pages/Tjenesteeier';
 import Add from './pages/Add';
 
@@ -16,22 +20,33 @@ import './assets/styles/index.css';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/testfester" element={<Testfester />} />
-          <Route path="/oslokommune" element={<OsloKommune />} />
-          <Route path="/storebrand" element={<Storebrand />} />
-          <Route path="/uio" element={<UiO />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/metode" element={<Metode />} />
-          <Route path="/tjenesteeier" element={<Tjenesteeier />} />
-          <Route path="/add" element={<Add />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/testfester" element={<Testfester />} />
+            <Route path="/oslokommune" element={<OsloKommune />} />
+            <Route path="/storebrand" element={<Storebrand />} />
+            <Route path="/uio" element={<UiO />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/metode" element={<Metode />} /> 
+            <Route path="/tjenesteeier" element={<Tjenesteeier />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute requireSuperUser={true}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

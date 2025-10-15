@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import testfestLogo from '../assets/images/testfest_logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, isSuperUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -11,6 +14,12 @@ const Header = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+    navigate('/');
   };
 
   return (
@@ -34,7 +43,32 @@ const Header = () => {
             <li><Link to="/" onClick={closeMenu}>Hjem</Link></li>
             <li><Link to="/testfester" onClick={closeMenu}>Testfester</Link></li>
             <li><Link to="/faq" onClick={closeMenu}>Spørsmål og svar</Link></li>
-            <li><Link to="/metode" onClick={closeMenu}>Metode</Link></li> 
+            <li><Link to="/metode" onClick={closeMenu}>Metode</Link></li>
+            {isSuperUser && (
+              <li><Link to="/admin" onClick={closeMenu}>Admin</Link></li>
+            )}
+            {isAuthenticated ? (
+              <li>
+                <button 
+                  onClick={handleLogout}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: '1rem 1.5rem',
+                    cursor: 'pointer',
+                    color: 'inherit',
+                    fontSize: '1.1rem',
+                    fontWeight: 500,
+                    width: '100%',
+                    textAlign: 'left'
+                  }}
+                >
+                  Logg ut
+                </button>
+              </li>
+            ) : (
+              <li><Link to="/login" onClick={closeMenu}>Logg inn</Link></li>
+            )}
           </ul>
         </div>
       </div>
