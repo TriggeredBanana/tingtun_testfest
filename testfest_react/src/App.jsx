@@ -14,7 +14,6 @@ import { AuthProvider } from './context/AuthContext';
 import Tjenesteeier from './pages/Tjenesteeier';
 import Add from './pages/Add';
 
-// Import your CSS files
 import './assets/styles/styles.css';
 import './assets/styles/index.css';
 

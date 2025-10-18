@@ -1,4 +1,4 @@
-/* Login Page Styles */
+/* Innloggingsside stiler */
 .login-container {
   display: flex;
   justify-content: center;
@@ -116,7 +116,7 @@
   color: #666;
 }
 
-/* Responsive Design */
+/* Responsivt design */
 @media (max-width: 768px) {
   .login-container {
     padding: 1rem 0;
@@ -142,7 +142,7 @@
   }
 }
 
-/* High Contrast Mode */
+/* Høykontrastmodus */
 @media (prefers-contrast: high) {
   .login-box {
     border: 2px solid #000;

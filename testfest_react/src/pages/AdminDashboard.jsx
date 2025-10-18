@@ -1,32 +1,39 @@
 import { useState, useEffect } from 'react';
 import '../assets/styles/admin-dashboard.css';
+import { getUsers, createUser, updateUser, deleteUser } from '../services/brukerService';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [isAddingUser, setIsAddingUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    id: '',
+    username: '',
     name: '',
     password: '',
     confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
 
-  // Load users from localStorage on component mount
+  // Last brukere fra API ved komponentmontering
   useEffect(() => {
-    const storedUsers = localStorage.getItem('testfest_users');
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers));
-    }
+    fetchUsers();
   }, []);
 
-  // Save users to localStorage whenever users change
-  useEffect(() => {
-    if (users.length > 0) {
-      localStorage.setItem('testfest_users', JSON.stringify(users));
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const data = await getUsers();
+      setUsers(data);
+      setApiError('');
+    } catch (error) {
+      setApiError('Kunne ikke laste brukere. Prøv igjen senere.');
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
     }
-  }, [users]);
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -35,10 +42,8 @@ const AdminDashboard = () => {
       newErrors.name = 'Navn er påkrevd';
     }
 
-    if (!formData.id.trim()) {
-      newErrors.id = 'Bruker-ID er påkrevd';
-    } else if (!editingUser && users.some(user => user.id === formData.id)) {
-      newErrors.id = 'Denne bruker-ID finnes allerede';
+    if (!formData.username.trim()) {
+      newErrors.username = 'Brukernavn er påkrevd';
     }
 
     if (!editingUser && !formData.password) {
@@ -63,96 +68,117 @@ const AdminDashboard = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error for this field when user starts typing
+    // Fjern feil for dette feltet når bruker begynner å skrive
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
         [name]: ''
       }));
     }
+    setApiError('');
   };
 
   const handleAddUser = () => {
     setIsAddingUser(true);
     setEditingUser(null);
     setFormData({
-      id: '',
+      username: '',
       name: '',
       password: '',
       confirmPassword: ''
     });
     setErrors({});
+    setApiError('');
   };
 
   const handleEditUser = (user) => {
     setEditingUser(user);
     setIsAddingUser(true);
     setFormData({
-      id: user.id,
-      name: user.name,
+      username: user.Brukernavn,
+      name: user.Navn,
       password: '',
       confirmPassword: ''
     });
     setErrors({});
+    setApiError('');
   };
 
-  const handleDeleteUser = (userId) => {
-    if (window.confirm('Er du sikker på at du vil slette denne brukeren?')) {
-      setUsers(users.filter(user => user.id !== userId));
+  const handleDeleteUser = async (userId, userName) => {
+    if (window.confirm(`Er du sikker på at du vil slette ${userName}?`)) {
+      try {
+        setLoading(true);
+        await deleteUser(userId);
+        await fetchUsers(); // Oppdater liste
+        setApiError('');
+      } catch (error) {
+        setApiError(error.message || 'Kunne ikke slette bruker');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    if (editingUser) {
-      // Update existing user
-      setUsers(users.map(user => 
-        user.id === editingUser.id 
-          ? {
-              ...user,
-              name: formData.name,
-              ...(formData.password ? { password: formData.password } : {})
-            }
-          : user
-      ));
-    } else {
-      // Add new user
-      const newUser = {
-        id: formData.id,
-        name: formData.name,
-        password: formData.password,
-        createdAt: new Date().toISOString()
-      };
-      setUsers([...users, newUser]);
-    }
+    try {
+      setLoading(true);
+      setApiError('');
 
-    // Reset form
-    setIsAddingUser(false);
-    setEditingUser(null);
-    setFormData({
-      id: '',
-      name: '',
-      password: '',
-      confirmPassword: ''
-    });
-    setErrors({});
+      if (editingUser) {
+        // Oppdater eksisterende bruker
+        const updateData = {
+          name: formData.name,
+          ...(formData.password ? { password: formData.password } : {})
+        };
+        await updateUser(editingUser.BrukerID, updateData);
+      } else {
+        // Legg til ny bruker
+        const newUserData = {
+          username: formData.username,
+          name: formData.name,
+          password: formData.password,
+          isSuperUser: false
+        };
+        await createUser(newUserData);
+      }
+
+      // Oppdater brukerliste
+      await fetchUsers();
+
+      // Tilbakestill skjema
+      setIsAddingUser(false);
+      setEditingUser(null);
+      setFormData({
+        username: '',
+        name: '',
+        password: '',
+        confirmPassword: ''
+      });
+      setErrors({});
+    } catch (error) {
+      setApiError(error.message || 'En feil oppstod');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
     setIsAddingUser(false);
     setEditingUser(null);
     setFormData({
-      id: '',
+      username: '',
       name: '',
       password: '',
       confirmPassword: ''
     });
     setErrors({});
+    setApiError('');
   };
 
   return (
@@ -163,6 +189,12 @@ const AdminDashboard = () => {
           <p className="admin-subtitle">Administrer brukere med tilgang til å opprette Testfester</p>
         </div>
 
+        {apiError && (
+          <div className="alert alert-error">
+            {apiError}
+          </div>
+        )}
+
         <div className="admin-content">
           <div className="admin-section">
             <div className="section-header">
@@ -170,7 +202,7 @@ const AdminDashboard = () => {
               <button 
                 className="btn btn-primary"
                 onClick={handleAddUser}
-                disabled={isAddingUser}
+                disabled={isAddingUser || loading}
               >
                 + Opprett ny bruker
               </button>
@@ -192,25 +224,26 @@ const AdminDashboard = () => {
                       onChange={handleInputChange}
                       className={errors.name ? 'error' : ''}
                       placeholder="Skriv inn brukerens fulle navn"
+                      disabled={loading}
                     />
                     {errors.name && <span className="error-message">{errors.name}</span>}
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="id">
-                      Bruker-ID <span className="required">*</span>
+                    <label htmlFor="username">
+                      Brukernavn <span className="required">*</span>
                     </label>
                     <input
                       type="text"
-                      id="id"
-                      name="id"
-                      value={formData.id}
+                      id="username"
+                      name="username"
+                      value={formData.username}
                       onChange={handleInputChange}
-                      className={errors.id ? 'error' : ''}
-                      placeholder="Skriv inn bruker-ID (unik identifikator)"
-                      disabled={!!editingUser}
+                      className={errors.username ? 'error' : ''}
+                      placeholder="Skriv inn brukernavn (unik identifikator)"
+                      disabled={!!editingUser || loading}
                     />
-                    {errors.id && <span className="error-message">{errors.id}</span>}
+                    {errors.username && <span className="error-message">{errors.username}</span>}
                   </div>
 
                   <div className="form-group">
@@ -226,6 +259,7 @@ const AdminDashboard = () => {
                       onChange={handleInputChange}
                       className={errors.password ? 'error' : ''}
                       placeholder="Minimum 6 tegn"
+                      disabled={loading}
                     />
                     {errors.password && <span className="error-message">{errors.password}</span>}
                   </div>
@@ -243,16 +277,17 @@ const AdminDashboard = () => {
                         onChange={handleInputChange}
                         className={errors.confirmPassword ? 'error' : ''}
                         placeholder="Skriv inn passord på nytt"
+                        disabled={loading}
                       />
                       {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
                     </div>
                   )}
 
                   <div className="form-actions">
-                    <button type="submit" className="btn btn-primary">
-                      {editingUser ? 'Lagre endringer' : 'Opprett bruker'}
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                      {loading ? 'Lagrer...' : (editingUser ? 'Lagre endringer' : 'Opprett bruker')}
                     </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary" onClick={handleCancel} disabled={loading}>
                       Avbryt
                     </button>
                   </div>
@@ -260,7 +295,11 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            {users.length === 0 ? (
+            {loading && users.length === 0 ? (
+              <div className="loading-state">
+                <p>Laster brukere...</p>
+              </div>
+            ) : users.length === 0 ? (
               <div className="empty-state">
                 <p>Ingen brukere opprettet ennå.</p>
                 <p>Klikk på "Opprett ny bruker" for å komme i gang.</p>
@@ -271,18 +310,26 @@ const AdminDashboard = () => {
                   <thead>
                     <tr>
                       <th>Navn</th>
-                      <th>Bruker-ID</th>
+                      <th>Brukernavn</th>
+                      <th>Type</th>
                       <th>Opprettet</th>
                       <th>Handlinger</th>
                     </tr>
                   </thead>
                   <tbody>
                     {users.map((user) => (
-                      <tr key={user.id}>
-                        <td data-label="Navn">{user.name}</td>
-                        <td data-label="Bruker-ID">{user.id}</td>
+                      <tr key={user.BrukerID}>
+                        <td data-label="Navn">{user.Navn}</td>
+                        <td data-label="Brukernavn">{user.Brukernavn}</td>
+                        <td data-label="Type">
+                          {user.ErSuperbruker ? (
+                            <span className="badge badge-admin">Admin</span>
+                          ) : (
+                            <span className="badge badge-user">Bruker</span>
+                          )}
+                        </td>
                         <td data-label="Opprettet">
-                          {new Date(user.createdAt).toLocaleDateString('nb-NO', {
+                          {new Date(user.Opprettet).toLocaleDateString('nb-NO', {
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric'
@@ -293,14 +340,16 @@ const AdminDashboard = () => {
                             <button
                               className="btn btn-edit"
                               onClick={() => handleEditUser(user)}
-                              aria-label={`Rediger ${user.name}`}
+                              disabled={loading}
+                              aria-label={`Rediger ${user.Navn}`}
                             >
                               Rediger
                             </button>
                             <button
                               className="btn btn-delete"
-                              onClick={() => handleDeleteUser(user.id)}
-                              aria-label={`Slett ${user.name}`}
+                              onClick={() => handleDeleteUser(user.BrukerID, user.Navn)}
+                              disabled={loading}
+                              aria-label={`Slett ${user.Navn}`}
                             >
                               Slett
                             </button>
@@ -321,6 +370,12 @@ const AdminDashboard = () => {
                 <span className="stat-label">Totalt antall brukere:</span>
                 <span className="stat-value">{users.length}</span>
               </div>
+              <div className="stat-item">
+                <span className="stat-label">Administratorer:</span>
+                <span className="stat-value">
+                  {users.filter(u => u.ErSuperbruker).length}
+                </span>
+              </div>
             </div>
 
             <div className="info-card">
@@ -336,6 +391,7 @@ const AdminDashboard = () => {
             <div className="info-card warning">
               <h3>Viktig</h3>
               <p>Vær forsiktig når du sletter brukere. Denne handlingen kan ikke angres.</p>
+              <p>Du kan ikke slette den siste administratoren.</p>
             </div>
           </div>
         </div>
