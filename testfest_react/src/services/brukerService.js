@@ -15,14 +15,14 @@ export const getUsers = async () => {
 };
 
 // Opprett ny bruker
-export const createUser = async (userData) => {
+export const createUser = async (brukerData) => {
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(brukerData),
     });
     
     const data = await response.json();
@@ -39,14 +39,14 @@ export const createUser = async (userData) => {
 };
 
 // Oppdater bruker
-export const updateUser = async (userId, userData) => {
+export const updateUser = async (brukerId, brukerData) => {
   try {
-    const response = await fetch(`${API_URL}/${userId}`, {
+    const response = await fetch(`${API_URL}/${brukerId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(brukerData),
     });
     
     const data = await response.json();
@@ -63,9 +63,9 @@ export const updateUser = async (userId, userData) => {
 };
 
 // Slett bruker
-export const deleteUser = async (userId) => {
+export const deleteUser = async (brukerId) => {
   try {
-    const response = await fetch(`${API_URL}/${userId}`, {
+    const response = await fetch(`${API_URL}/${brukerId}`, {
       method: 'DELETE',
     });
     
@@ -83,14 +83,14 @@ export const deleteUser = async (userId) => {
 };
 
 // Login
-export const loginUser = async (username, password) => {
+export const loginUser = async (brukernavn, passord) => {
   try {
     const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ brukernavn, passord }),
     });
     
     const data = await response.json();

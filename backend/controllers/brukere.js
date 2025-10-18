@@ -16,10 +16,10 @@ export const getUsers = (req, res) => {
 
 // Hent én bruker basert på ID
 export const getUserById = (req, res) => {
-  const userId = req.params.id;
+  const brukerId = req.params.id;
   const q = "SELECT BrukerID, Brukernavn, Navn, ErSuperbruker, Opprettet, Oppdatert FROM Brukere WHERE BrukerID = ?";
   
-  db.query(q, [userId], (err, data) => {
+  db.query(q, [brukerId], (err, data) => {
     if (err) {
       console.error("SQL-feil ved henting av bruker:", err);
       return res.status(500).json({ error: "Kunne ikke hente bruker" });
@@ -34,20 +34,20 @@ export const getUserById = (req, res) => {
 // Opprett ny bruker
 export const addUser = async (req, res) => {
   try {
-    const { username, name, password, isSuperUser } = req.body;
+    const { brukernavn, navn, passord, erSuperbruker } = req.body;
 
     // Validering
-    if (!username || !name || !password) {
+    if (!brukernavn || !navn || !passord) {
       return res.status(400).json({ error: "Brukernavn, navn og passord er påkrevd" });
     }
 
-    if (password.length < 6) {
+    if (passord.length < 6) {
       return res.status(400).json({ error: "Passord må være minst 6 tegn" });
     }
 
     // Sjekk om brukernavn allerede eksisterer
     const checkQ = "SELECT BrukerID FROM Brukere WHERE Brukernavn = ?";
-    db.query(checkQ, [username], async (err, data) => {
+    db.query(checkQ, [brukernavn], async (err, data) => {
       if (err) {
         console.error("SQL-feil ved sjekk av brukernavn:", err);
         return res.status(500).json({ error: "Kunne ikke sjekke brukernavn" });
@@ -59,11 +59,11 @@ export const addUser = async (req, res) => {
 
       // Hash passord
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await bcrypt.hash(passord, saltRounds);
 
       // Sett inn ny bruker
       const insertQ = "INSERT INTO Brukere (Brukernavn, Navn, PassordHash, ErSuperbruker) VALUES (?, ?, ?, ?)";
-      const values = [username, name, hashedPassword, isSuperUser || false];
+      const values = [brukernavn, navn, hashedPassword, erSuperbruker || false];
 
       db.query(insertQ, values, (err, result) => {
         if (err) {
@@ -72,7 +72,7 @@ export const addUser = async (req, res) => {
         }
         return res.status(201).json({ 
           message: "Bruker opprettet!",
-          userId: result.insertId 
+          brukerId: result.insertId 
         });
       });
     });
@@ -85,24 +85,24 @@ export const addUser = async (req, res) => {
 // Oppdater bruker
 export const updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const { name, password } = req.body;
+    const brukerId = req.params.id;
+    const { navn, passord } = req.body;
 
-    if (!name) {
+    if (!navn) {
       return res.status(400).json({ error: "Navn er påkrevd" });
     }
 
     // Hvis passord er inkludert, hash det
-    if (password) {
-      if (password.length < 6) {
+    if (passord) {
+      if (passord.length < 6) {
         return res.status(400).json({ error: "Passord må være minst 6 tegn" });
       }
 
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await bcrypt.hash(passord, saltRounds);
       
       const q = "UPDATE Brukere SET Navn = ?, PassordHash = ? WHERE BrukerID = ?";
-      db.query(q, [name, hashedPassword, userId], (err, result) => {
+      db.query(q, [navn, hashedPassword, brukerId], (err, result) => {
         if (err) {
           console.error("SQL-feil ved oppdatering av bruker:", err);
           return res.status(500).json({ error: "Kunne ikke oppdatere bruker" });
@@ -115,7 +115,7 @@ export const updateUser = async (req, res) => {
     } else {
       // Oppdater kun navn
       const q = "UPDATE Brukere SET Navn = ? WHERE BrukerID = ?";
-      db.query(q, [name, userId], (err, result) => {
+      db.query(q, [navn, brukerId], (err, result) => {
         if (err) {
           console.error("SQL-feil ved oppdatering av bruker:", err);
           return res.status(500).json({ error: "Kunne ikke oppdatere bruker" });
@@ -134,7 +134,7 @@ export const updateUser = async (req, res) => {
 
 // Slett bruker
 export const deleteUser = (req, res) => {
-  const userId = req.params.id;
+  const brukerId = req.params.id;
   
   // Forhindre sletting av siste superbruker
   const checkQ = "SELECT COUNT(*) as antallSuperbrukere FROM Brukere WHERE ErSuperbruker = TRUE";
@@ -144,24 +144,24 @@ export const deleteUser = (req, res) => {
       return res.status(500).json({ error: "Kunne ikke sjekke antall superbrukere" });
     }
 
-    const isSuperUserCheckQ = "SELECT ErSuperbruker FROM Brukere WHERE BrukerID = ?";
-    db.query(isSuperUserCheckQ, [userId], (err, userData) => {
+    const erSuperbrukerCheckQ = "SELECT ErSuperbruker FROM Brukere WHERE BrukerID = ?";
+    db.query(erSuperbrukerCheckQ, [brukerId], (err, brukerData) => {
       if (err) {
         console.error("SQL-feil ved sjekk av bruker:", err);
         return res.status(500).json({ error: "Kunne ikke sjekke bruker" });
       }
 
-      if (userData.length === 0) {
+      if (brukerData.length === 0) {
         return res.status(404).json({ error: "Bruker ikke funnet" });
       }
 
-      if (userData[0].ErSuperbruker && data[0].antallSuperbrukere <= 1) {
+      if (brukerData[0].ErSuperbruker && data[0].antallSuperbrukere <= 1) {
         return res.status(403).json({ error: "Kan ikke slette siste superbruker" });
       }
 
       // Slett bruker
       const deleteQ = "DELETE FROM Brukere WHERE BrukerID = ?";
-      db.query(deleteQ, [userId], (err, result) => {
+      db.query(deleteQ, [brukerId], (err, result) => {
         if (err) {
           console.error("SQL-feil ved sletting av bruker:", err);
           return res.status(500).json({ error: "Kunne ikke slette bruker" });
@@ -177,15 +177,15 @@ export const deleteUser = (req, res) => {
 
 // Login (autentisering)
 export const loginUser = (req, res) => {
-  const { username, password } = req.body;
+  const { brukernavn, passord } = req.body;
 
-  if (!username || !password) {
+  if (!brukernavn || !passord) {
     return res.status(400).json({ error: "Brukernavn og passord er påkrevd" });
   }
 
   const q = "SELECT BrukerID, Brukernavn, Navn, PassordHash, ErSuperbruker FROM Brukere WHERE Brukernavn = ?";
   
-  db.query(q, [username], async (err, data) => {
+  db.query(q, [brukernavn], async (err, data) => {
     if (err) {
       console.error("SQL-feil ved login:", err);
       return res.status(500).json({ error: "Serverfeil ved login" });
@@ -198,7 +198,7 @@ export const loginUser = (req, res) => {
     const user = data[0];
 
     // Sammenlign passord
-    const isMatch = await bcrypt.compare(password, user.PassordHash);
+    const isMatch = await bcrypt.compare(passord, user.PassordHash);
     
     if (!isMatch) {
       return res.status(401).json({ error: "Ugyldig brukernavn eller passord" });
@@ -207,11 +207,11 @@ export const loginUser = (req, res) => {
     // Vellykket login - returner brukerdata (uten passord!)
     return res.json({
       success: true,
-      user: {
+      bruker: {
         id: user.BrukerID,
-        username: user.Brukernavn,
-        name: user.Navn,
-        isSuperUser: user.ErSuperbruker
+        brukernavn: user.Brukernavn,
+        navn: user.Navn,
+        erSuperbruker: user.ErSuperbruker
       }
     });
   });

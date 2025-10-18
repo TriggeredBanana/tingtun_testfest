@@ -8,10 +8,10 @@ const AdminDashboard = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
-    name: '',
-    password: '',
-    confirmPassword: ''
+    brukernavn: '',
+    navn: '',
+    passord: '',
+    bekreftPassord: ''
   });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
@@ -38,24 +38,24 @@ const AdminDashboard = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Navn er påkrevd';
+    if (!formData.navn.trim()) {
+      newErrors.navn = 'Navn er påkrevd';
     }
 
-    if (!formData.username.trim()) {
-      newErrors.username = 'Brukernavn er påkrevd';
+    if (!formData.brukernavn.trim()) {
+      newErrors.brukernavn = 'Brukernavn er påkrevd';
     }
 
-    if (!editingUser && !formData.password) {
-      newErrors.password = 'Passord er påkrevd';
+    if (!editingUser && !formData.passord) {
+      newErrors.passord = 'Passord er påkrevd';
     }
 
-    if (!editingUser && formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passordene matcher ikke';
+    if (!editingUser && formData.passord !== formData.bekreftPassord) {
+      newErrors.bekreftPassord = 'Passordene matcher ikke';
     }
 
-    if (formData.password && formData.password.length < 6) {
-      newErrors.password = 'Passord må være minst 6 tegn';
+    if (formData.passord && formData.passord.length < 6) {
+      newErrors.passord = 'Passord må være minst 6 tegn';
     }
 
     setErrors(newErrors);
@@ -82,10 +82,10 @@ const AdminDashboard = () => {
     setIsAddingUser(true);
     setEditingUser(null);
     setFormData({
-      username: '',
-      name: '',
-      password: '',
-      confirmPassword: ''
+      brukernavn: '',
+      navn: '',
+      passord: '',
+      bekreftPassord: ''
     });
     setErrors({});
     setApiError('');
@@ -95,20 +95,20 @@ const AdminDashboard = () => {
     setEditingUser(user);
     setIsAddingUser(true);
     setFormData({
-      username: user.Brukernavn,
-      name: user.Navn,
-      password: '',
-      confirmPassword: ''
+      brukernavn: user.Brukernavn,
+      navn: user.Navn,
+      passord: '',
+      bekreftPassord: ''
     });
     setErrors({});
     setApiError('');
   };
 
-  const handleDeleteUser = async (userId, userName) => {
-    if (window.confirm(`Er du sikker på at du vil slette ${userName}?`)) {
+  const handleDeleteUser = async (brukerId, brukerNavn) => {
+    if (window.confirm(`Er du sikker på at du vil slette ${brukerNavn}?`)) {
       try {
         setLoading(true);
-        await deleteUser(userId);
+        await deleteUser(brukerId);
         await fetchUsers(); // Oppdater liste
         setApiError('');
       } catch (error) {
@@ -133,17 +133,17 @@ const AdminDashboard = () => {
       if (editingUser) {
         // Oppdater eksisterende bruker
         const updateData = {
-          name: formData.name,
-          ...(formData.password ? { password: formData.password } : {})
+          navn: formData.navn,
+          ...(formData.passord ? { passord: formData.passord } : {})
         };
         await updateUser(editingUser.BrukerID, updateData);
       } else {
         // Legg til ny bruker
         const newUserData = {
-          username: formData.username,
-          name: formData.name,
-          password: formData.password,
-          isSuperUser: false
+          brukernavn: formData.brukernavn,
+          navn: formData.navn,
+          passord: formData.passord,
+          erSuperbruker: false
         };
         await createUser(newUserData);
       }
@@ -155,10 +155,10 @@ const AdminDashboard = () => {
       setIsAddingUser(false);
       setEditingUser(null);
       setFormData({
-        username: '',
-        name: '',
-        password: '',
-        confirmPassword: ''
+        brukernavn: '',
+        navn: '',
+        passord: '',
+        bekreftPassord: ''
       });
       setErrors({});
     } catch (error) {
@@ -172,10 +172,10 @@ const AdminDashboard = () => {
     setIsAddingUser(false);
     setEditingUser(null);
     setFormData({
-      username: '',
-      name: '',
-      password: '',
-      confirmPassword: ''
+      brukernavn: '',
+      navn: '',
+      passord: '',
+      bekreftPassord: ''
     });
     setErrors({});
     setApiError('');
@@ -213,73 +213,73 @@ const AdminDashboard = () => {
                 <h3>{editingUser ? 'Rediger bruker' : 'Opprett ny bruker'}</h3>
                 <form onSubmit={handleSubmit} className="user-form">
                   <div className="form-group">
-                    <label htmlFor="name">
+                    <label htmlFor="navn">
                       Navn <span className="required">*</span>
                     </label>
                     <input
                       type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                      id="navn"
+                      name="navn"
+                      value={formData.navn}
                       onChange={handleInputChange}
-                      className={errors.name ? 'error' : ''}
+                      className={errors.navn ? 'error' : ''}
                       placeholder="Skriv inn brukerens fulle navn"
                       disabled={loading}
                     />
-                    {errors.name && <span className="error-message">{errors.name}</span>}
+                    {errors.navn && <span className="error-message">{errors.navn}</span>}
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="username">
+                    <label htmlFor="brukernavn">
                       Brukernavn <span className="required">*</span>
                     </label>
                     <input
                       type="text"
-                      id="username"
-                      name="username"
-                      value={formData.username}
+                      id="brukernavn"
+                      name="brukernavn"
+                      value={formData.brukernavn}
                       onChange={handleInputChange}
-                      className={errors.username ? 'error' : ''}
+                      className={errors.brukernavn ? 'error' : ''}
                       placeholder="Skriv inn brukernavn (unik identifikator)"
                       disabled={!!editingUser || loading}
                     />
-                    {errors.username && <span className="error-message">{errors.username}</span>}
+                    {errors.brukernavn && <span className="error-message">{errors.brukernavn}</span>}
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="password">
+                    <label htmlFor="passord">
                       Passord {editingUser && '(La stå tom for å beholde eksisterende)'}
                       {!editingUser && <span className="required">*</span>}
                     </label>
                     <input
                       type="password"
-                      id="password"
-                      name="password"
-                      value={formData.password}
+                      id="passord"
+                      name="passord"
+                      value={formData.passord}
                       onChange={handleInputChange}
-                      className={errors.password ? 'error' : ''}
+                      className={errors.passord ? 'error' : ''}
                       placeholder="Minimum 6 tegn"
                       disabled={loading}
                     />
-                    {errors.password && <span className="error-message">{errors.password}</span>}
+                    {errors.passord && <span className="error-message">{errors.passord}</span>}
                   </div>
 
                   {!editingUser && (
                     <div className="form-group">
-                      <label htmlFor="confirmPassword">
+                      <label htmlFor="bekreftPassord">
                         Bekreft passord <span className="required">*</span>
                       </label>
                       <input
                         type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
+                        id="bekreftPassord"
+                        name="bekreftPassord"
+                        value={formData.bekreftPassord}
                         onChange={handleInputChange}
-                        className={errors.confirmPassword ? 'error' : ''}
+                        className={errors.bekreftPassord ? 'error' : ''}
                         placeholder="Skriv inn passord på nytt"
                         disabled={loading}
                       />
-                      {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+                      {errors.bekreftPassord && <span className="error-message">{errors.bekreftPassord}</span>}
                     </div>
                   )}
 

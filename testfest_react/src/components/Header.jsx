@@ -5,7 +5,7 @@ import testfestLogo from '../assets/images/testfest_logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, isSuperUser, logout } = useAuth();
+  const { isAuthenticated, erSuperbruker, logout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -44,9 +44,9 @@ const Header = () => {
             <li><Link to="/testfester" onClick={closeMenu}>Testfester</Link></li>
             <li><Link to="/faq" onClick={closeMenu}>Spørsmål og svar</Link></li>
             <li><Link to="/metode" onClick={closeMenu}>Metode</Link></li>
-            {isSuperUser && (
+            {erSuperbruker ? (
               <li><Link to="/admin" onClick={closeMenu}>Admin</Link></li>
-            )}
+            ) : null}
             {isAuthenticated ? (
               <li>
                 <button 

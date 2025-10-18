@@ -13,7 +13,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isSuperUser, setIsSuperUser] = useState(false);
+  const [erSuperbruker, setErSuperbruker] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   // Sjekk autentiseringsstatus ved montering
@@ -26,30 +26,30 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     }
     if (superUserStatus === 'true') {
-      setIsSuperUser(true);
+      setErSuperbruker(true);
     }
     if (userData) {
       setCurrentUser(JSON.parse(userData));
     }
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (brukernavn, passord) => {
     try {
       // Kall backend API for autentisering
-      const response = await loginUserAPI(username, password);
+      const response = await loginUserAPI(brukernavn, passord);
       
       if (response.success) {
-        const { user } = response;
+        const { bruker } = response;
         
         setIsAuthenticated(true);
-        setIsSuperUser(user.isSuperUser);
-        setCurrentUser(user);
+        setErSuperbruker(bruker.erSuperbruker);
+        setCurrentUser(bruker);
         
         localStorage.setItem('testfest_auth', 'true');
-        localStorage.setItem('testfest_superuser', user.isSuperUser.toString());
-        localStorage.setItem('testfest_user', JSON.stringify(user));
+        localStorage.setItem('testfest_superuser', bruker.erSuperbruker.toString());
+        localStorage.setItem('testfest_user', JSON.stringify(bruker));
         
-        return { success: true, isSuperUser: user.isSuperUser };
+        return { success: true, erSuperbruker: bruker.erSuperbruker };
       }
       
       return { success: false, message: 'Login feilet' };
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    setIsSuperUser(false);
+    setErSuperbruker(false);
     setCurrentUser(null);
     localStorage.removeItem('testfest_auth');
     localStorage.removeItem('testfest_superuser');
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ 
       isAuthenticated, 
-      isSuperUser, 
+      erSuperbruker, 
       currentUser,
       login, 
       logout 
