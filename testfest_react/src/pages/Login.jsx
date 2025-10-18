@@ -52,7 +52,7 @@ const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h1>Logg inn</h1>
-          <p className="login-subtitle">Logg inn for å få tilgang til administrasjonspanelet</p>
+          <p className="login-subtitle">Logg inn for å få tilgang til å opprette en testfest!</p>
 
           {error && (
             <div className="error-banner" role="alert">
@@ -98,14 +98,12 @@ const Login = () => {
           </form>
 
           <div className="login-info">
-            <h3>Standard påloggingsinformasjon</h3>
-            <p><strong>Superbruker:</strong></p>
-            <ul>
-              <li>Brukernavn: <code>admin</code></li>
-              <li>Passord: <code>admin123</code></li>
-            </ul>
-            <p className="info-note">
-              <strong>Viktig:</strong> Dette er en demo :)
+            <h3>Påloggingsinformasjon</h3>
+            <p>
+              For å logge inn som bruker må du få tilgang av Tingtun.
+              Kontakt oss her: <br></br> <br></br>
+              Telefon: 918 62 892 <br></br>
+              E-post: contact@tingtun.no
             </p>
           </div>
         </div>
