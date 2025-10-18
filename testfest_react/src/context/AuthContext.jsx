@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { loginUser as loginUserAPI } from '../services/brukerService';
 
 const AuthContext = createContext(null);
 
@@ -12,60 +13,72 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isSuperUser, setIsSuperUser] = useState(false);
+  const [erSuperbruker, setErSuperbruker] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Check authentication status on mount
+  // Sjekk autentiseringsstatus ved montering
   useEffect(() => {
     const authStatus = localStorage.getItem('testfest_auth');
     const superUserStatus = localStorage.getItem('testfest_superuser');
+    const userData = localStorage.getItem('testfest_user');
     
     if (authStatus === 'true') {
       setIsAuthenticated(true);
     }
     if (superUserStatus === 'true') {
-      setIsSuperUser(true);
+      setErSuperbruker(true);
+    }
+    if (userData) {
+      setCurrentUser(JSON.parse(userData));
     }
   }, []);
 
-  const login = (username, password) => {
-    // Super user credentials (in production, this should be handled by backend)
-    const SUPER_USER = {
-      username: 'admin',
-      password: 'admin123' // This should be changed and stored securely
-    };
-
-    if (username === SUPER_USER.username && password === SUPER_USER.password) {
-      setIsAuthenticated(true);
-      setIsSuperUser(true);
-      localStorage.setItem('testfest_auth', 'true');
-      localStorage.setItem('testfest_superuser', 'true');
-      return { success: true, isSuperUser: true };
+  const login = async (brukernavn, passord) => {
+    try {
+      // Kall backend API for autentisering
+      const response = await loginUserAPI(brukernavn, passord);
+      
+      if (response.success) {
+        const { bruker } = response;
+        
+        setIsAuthenticated(true);
+        setErSuperbruker(bruker.erSuperbruker);
+        setCurrentUser(bruker);
+        
+        localStorage.setItem('testfest_auth', 'true');
+        localStorage.setItem('testfest_superuser', bruker.erSuperbruker.toString());
+        localStorage.setItem('testfest_user', JSON.stringify(bruker));
+        
+        return { success: true, erSuperbruker: bruker.erSuperbruker };
+      }
+      
+      return { success: false, message: 'Login feilet' };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { 
+        success: false, 
+        message: error.message || 'Ugyldig brukernavn eller passord' 
+      };
     }
-
-    // Check regular users
-    const users = JSON.parse(localStorage.getItem('testfest_users') || '[]');
-    const user = users.find(u => u.id === username && u.password === password);
-
-    if (user) {
-      setIsAuthenticated(true);
-      setIsSuperUser(false);
-      localStorage.setItem('testfest_auth', 'true');
-      localStorage.setItem('testfest_superuser', 'false');
-      return { success: true, isSuperUser: false };
-    }
-
-    return { success: false, message: 'Ugyldig brukernavn eller passord' };
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    setIsSuperUser(false);
+    setErSuperbruker(false);
+    setCurrentUser(null);
     localStorage.removeItem('testfest_auth');
     localStorage.removeItem('testfest_superuser');
+    localStorage.removeItem('testfest_user');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isSuperUser, login, logout }}>
+    <AuthContext.Provider value={{ 
+      isAuthenticated, 
+      erSuperbruker, 
+      currentUser,
+      login, 
+      logout 
+    }}>
       {children}
     </AuthContext.Provider>
   );

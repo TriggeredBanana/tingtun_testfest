@@ -1,4 +1,4 @@
-/* Admin Dashboard Styles */
+/* Admin Dashboard stiler */
 .admin-dashboard {
   max-width: 1400px;
   margin: 0 auto;
@@ -52,7 +52,7 @@
   margin: 0;
 }
 
-/* Buttons */
+/* Knapper */
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;
@@ -115,7 +115,7 @@
   background-color: #c82333;
 }
 
-/* User Form */
+/* Brukerskjema */
 .user-form-container {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -184,7 +184,7 @@
   margin-top: 0.5rem;
 }
 
-/* Users Table */
+/* Brukertabell */
 .users-table-container {
   overflow-x: auto;
   background-color: #fff;
@@ -227,7 +227,7 @@
   gap: 0.5rem;
 }
 
-/* Empty State */
+/* Tom tilstand */
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
@@ -241,7 +241,7 @@
   margin: 0.5rem 0;
 }
 
-/* Info Cards */
+/* Infokort */
 .info-card {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -291,7 +291,47 @@
   color: #0066cc;
 }
 
-/* Responsive Design */
+/* Varslingsstiler */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.alert-error {
+  background-color: #fee;
+  color: #c00;
+  border: 1px solid #fcc;
+}
+
+/* Lastetilstand */
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+/* Badge-stiler */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.badge-admin {
+  background-color: #10b981;
+  color: white;
+}
+
+.badge-user {
+  background-color: #6b7280;
+  color: white;
+}
+
+/* Responsivt design */
 @media (max-width: 1200px) {
   .admin-content {
     flex-direction: column;
@@ -328,7 +368,7 @@
     width: 100%;
   }
 
-  /* Responsive Table */
+  /* Responsiv tabell */
   .users-table thead {
     display: none;
   }
@@ -398,7 +438,7 @@
   }
 }
 
-/* High Contrast Mode */
+/* Høykontrastmodus */
 @media (prefers-contrast: high) {
   .admin-dashboard {
     background-color: #fff;
@@ -424,7 +464,7 @@
   }
 }
 
-/* Reduced Motion */
+/* Redusert bevegelse */
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .form-group input {

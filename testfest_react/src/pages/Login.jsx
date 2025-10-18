@@ -5,8 +5,8 @@ import '../assets/styles/login.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    brukernavn: '',
+    passord: ''
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,16 +27,16 @@ const Login = () => {
     setIsLoading(true);
     setError('');
 
-    if (!formData.username || !formData.password) {
+    if (!formData.brukernavn || !formData.passord) {
       setError('Vennligst fyll inn både brukernavn og passord');
       setIsLoading(false);
       return;
     }
 
-    const result = login(formData.username, formData.password);
+    const result = await login(formData.brukernavn, formData.passord);
 
     if (result.success) {
-      if (result.isSuperUser) {
+      if (result.erSuperbruker) {
         navigate('/admin');
       } else {
         navigate('/testfester');
@@ -62,12 +62,12 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="username">Brukernavn</label>
+              <label htmlFor="brukernavn">Brukernavn</label>
               <input
                 type="text"
-                id="username"
-                name="username"
-                value={formData.username}
+                id="brukernavn"
+                name="brukernavn"
+                value={formData.brukernavn}
                 onChange={handleInputChange}
                 autoComplete="username"
                 autoFocus
@@ -76,12 +76,12 @@ const Login = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Passord</label>
+              <label htmlFor="passord">Passord</label>
               <input
                 type="password"
-                id="password"
-                name="password"
-                value={formData.password}
+                id="passord"
+                name="passord"
+                value={formData.passord}
                 onChange={handleInputChange}
                 autoComplete="current-password"
                 required
