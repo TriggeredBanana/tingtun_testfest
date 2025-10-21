@@ -47,6 +47,7 @@
     border-color: #6c757d;
 }
 
+
 /* Responsiv tilpasning */
 @media (max-width: 768px) {
     .testfester-list li {
