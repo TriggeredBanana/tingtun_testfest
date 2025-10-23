@@ -118,6 +118,48 @@
     color: #000;
 }
 
+/* Add these new styles while keeping existing ones */
+
+.expandable-item {
+  margin: 0.5rem 0;
+}
+
+.expand-button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.expand-button:focus {
+  outline: 2px solid #0078d4;
+  outline-offset: 2px;
+}
+
+.expand-icon {
+  margin-left: 1rem;
+  font-weight: bold;
+}
+
+.expandable-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 220ms ease-in-out;
+  padding: 0 0.5rem;
+}
+
+.expandable-content.open {
+  max-height: 500px;
+  padding: 0.5rem;
+}
+
 /* Responsive tilpasninger for metode */
 @media (max-width: 768px) {
     /* Nummereringspositionen er nå konsistent på tvers av alle skjermstørrelser */
