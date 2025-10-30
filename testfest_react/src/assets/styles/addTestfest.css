@@ -1,0 +1,175 @@
+/* === Skjema-container === */
+.form {
+  max-width: 650px;
+  margin: 3rem auto;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* === Overskrift === */
+.form h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: #000;
+  text-align: center;
+}
+
+/* === Input-felt === */
+.form input,
+.form textarea {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* === Seksjon for oppgaver === */
+.oppgaver-section {
+  margin-top: 2rem;
+  background-color: #f1f3f5;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.oppgaver-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* === Hver enkelt oppgave-boks === */
+.oppgave-input {
+  background-color: #fff;
+  border: 1px solid #d1d9e0;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.oppgave-input h3 {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* === Knapper === */
+.form button {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form button:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.add-btn {
+  background-color: #007bff;
+  width: 50%;
+  margin: 1rem auto 0 auto;
+  display: block;
+}
+
+.add-btn:hover {
+  background-color: #0069d9;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.remove-btn:hover {
+  background-color: #b02a37;
+}
+
+/* === Responsivt === */
+@media (max-width: 768px) {
+  .form {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .form h1 {
+    font-size: 1.5rem;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .form input,
+  .form textarea {
+    font-size: 0.95rem;
+  }
+
+  .form button {
+    font-size: 0.95rem;
+  }
+}
+
+/* === Høykontrastmodus === */
+@media (prefers-contrast: high) {
+  .form {
+    background-color: #fff;
+    border: 2px solid #000;
+  }
+
+  .form input,
+  .form textarea {
+    border: 2px solid #000;
+  }
+
+  .form button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+  }
+}
+
+/* === Redusert bevegelse === */
+@media (prefers-reduced-motion: reduce) {
+  .form input,
+  .form button {
+    transition: none;
+  }
+}
