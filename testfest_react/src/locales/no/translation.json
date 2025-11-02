@@ -1,0 +1,286 @@
+{
+	"home": {
+		"hero_title": "Velkommen til TestFest",
+		"button_read_more": "Les mer",
+		"button_testfest": "Testfest",
+		"welcome_title": "Velkommen til Testfest",
+		"welcome_paragraph1": "Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Til Testfestene kommer nettstedseiere og mennesker med funksjonsnedsettelse for å teste utvalgte tjenester på ulike måter. Aktuelle verktøy kan være ulike PCer, mobiler, leselister, skjermlesere, skjermforstørrelsesprogramvare og øyesporingsutstyr. Testfestene har allerede bidratt til at Arbeidstilsynet, Oslo kommune, NHN, og Storebrand har funnet og fjernet flere feil. For å legge tilrette for videre bruk av forskningsresultatene etter endt prosjekt, vil vi publisere metode og programvare under en åpen lisens.",
+		"welcome_paragraph2": "I 2024 gjennomførte vi fem Testfester, fire i Oslo og en i Trondheim.",
+		"welcome_paragraph3_part1": "Foreløpige resultater og steg videre er presentert i en video fra",
+		"welcome_mim_link_text": "Mangfold i Mai 2024",
+		"welcome_paragraph3_part2": ".",
+		"welcome_paragraph4_part1": "Ingeborg Fauske Ekdahl fra UiO har presentert erfaringer som tjenesteeier for mulig spredning av Testfest. Tanya Kovtun fra Access Lab i Ukraina har",
+		"welcome_summary_link_text": "oppsummert inntrykk",
+		"welcome_paragraph4_part2": "fra et møte med UiO i tilknytning til",
+		"welcome_ud_link_text": "UD2024",
+		"welcome_paragraph4_part3": ".",
+		"highlight_title": "Bli med du også",
+		"highlight_text": "Prosjektet som ble gjennomført med støtte fra Barn Ungdoms og familiedirektoratet er nå avsluttet. Vi har fått flere spørsmål om videre Testfester i 2025 og kommer tilbake til en dato så snart som mulig.",
+		"contact_title": "Kontakt oss gjerne",
+		"contact_phone_label": "Telefon:",
+		"contact_email_label": "E-post:",
+		"image_alt_participants": "Deltakere fra Testfest"
+	},
+	"nav": {
+		"home": "Hjem",
+		"testfester": "Testfester",
+		"faq": "Spørsmål og svar",
+		"metode": "Metode",
+		"admin": "Admin",
+		"login": "Logg inn",
+		"logout": "Logg ut",
+		"lang_no": "Bytt til norsk",
+		"lang_en": "Bytt til engelsk"
+	},
+	"testfester": {
+		"title": "Tidligere Testfester",
+		"oslo_link": "Oslo kommune",
+		"storebrand_link": "Storebrand",
+		"uio_link": "Universitet i Oslo"
+	},
+	"login": {
+		"title": "Logg inn",
+		"subtitle": "Logg inn for å få tilgang til å opprette en testfest!",
+		"username_label": "Brukernavn",
+		"password_label": "Passord",
+		"loading": "Logger inn...",
+		"submit": "Logg inn",
+		"info_title": "Påloggingsinformasjon",
+		"info_text": "For å logge inn som bruker må du få tilgang av Tingtun. Kontakt oss her:",
+		"error_required": "Vennligst fyll inn både brukernavn og passord"
+	},
+	"common": {
+		"delete": "Slett"
+	},
+	"tjenesteeier": {
+		"title": "Tjenesteeier",
+		"add_new": "Legg til ny Tjenesteeier"
+	},
+	"add": {
+		"title": "Legg til ny Tjenesteeier",
+		"company_placeholder": "Bedrift",
+		"email_placeholder": "E-post",
+		"password_placeholder": "Passord",
+		"submit": "Legg til"
+	},
+	"oslo": {
+		"title": "Testfest 3. September - Oslo kommune",
+		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
+		"intro2": "Send gjerne skriftlig tilbakemelding fra lenken under hver oppgave.",
+		"task1": { "title": "Oppgave 1: Kontakt hjemmetjenesten", "text": "Du har behov for å sende en melding til hjemmetjenesten der du bor. Finn ut hvordan du kan sende og motta meldinger til hjemmetjenesten." },
+		"task2": { "title": "Oppgave 2: Hvor lenge varer juleferien i skolen?", "text": "Du planlegger å reise utenlands med familien i nyttårshelgen. Prøv å finne ut når skolen starter opp igjen etter juleferien." },
+		"task3": { "title": "Oppgave 3: Hvor kan jeg svømme, og hva koster det?", "text": "Du ønsker å bade i en svømmehall i Oslo i ettermiddag klokka 17:30. Hvordan vil du gå fram for å finne ut hvor du kan dra, når det stenger og hvor mye det koster?" },
+		"task4": { "title": "Oppgave 4: Hvorfor er det forbud mot mobiltelefoner i Osloskolen?", "text": "Du har fått beskjed fra din sønn/datter at det plutselig er forbudt å bruke mobiltelefon i skoletiden. Klarer du å finne en nyhetssak om dette på kommunenes nettsider?" },
+		"program": {
+			"title": "Oslo kommune og UiO\nPunkter for kveldens program:",
+			"item1": "Velkommen – Pizza er servert (Christian)",
+			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
+			"item3": "Vi setter igang med testene",
+			"item4": "Pause med påfyll",
+			"item5": "Videre testing og deling av erfaringer",
+			"item6": "Avslutning og oppsummering (Alle)"
+		}
+	},
+	"storebrand": {
+		"title": "Testfest 3. September - Storebrand",
+		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
+		"intro2": "Send gjerne skriftlig tilbakemelding fra lenken under hver oppgave.",
+		"task1": { "title": "Oppgave 1: Pensjonssparing", "text": "Kan du finne ut hvilke pensjonssparingmuligheter Storebrand tilbyr?" },
+		"task2": { "title": "Oppgave 2: Reiseforsikring", "text": "Du skal ut å reise i 3 måneder og trenger reiseforsikring. Hva vil det koste deg hos Storebrand?" },
+		"task3": { "title": "Oppgave 3: Leie av bil", "text": "Du skal leie bil under reiser, se om reiseforsikringen dekker evt skader på denne og hva egenandel da vil koste?" },
+		"task4": { "title": "Oppgave 4: Leie av bil - vilkår", "text": "Reiseforsikringen har mange vilkår, disse vises i en pdf, kan du finne pdfen og se om du finner ut hvilke utgifter forsikringen ikke dekker?" },
+		"task5": { "title": "Oppgave 5: Kundeservice", "text": "Du er usikker på om du forstår dekningene og ønsker å kontakte kundeservice. Hva gjør du?" },
+		"program": {
+			"title": "Oslo kommune og Storebrand\nPunkter for kveldens program:",
+			"item1": "Velkommen – Pizza er servert (Christian)",
+			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
+			"item3": "Vi setter igang med testene",
+			"item4": "Pause med påfyll",
+			"item5": "Videre testing og deling av erfaringer",
+			"item6": "Avslutning og oppsummering (Alle)"
+		}
+	},
+	"uio": {
+		"title": "Testfest 1. oktober - UiO",
+		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
+		"link_text": "Oppgavene under tar utgangspunkt i tjenesten \"Mine studier\" du finner på",
+		"link_label": "Mine studier.",
+		"task1": {
+			"title": "Oppgave 1: Navigering i timeplan",
+			"p1": "1. Du har en venn som lurer på om dere kan finne på noe førstkommende fredag kl. 13:00. Du er usikker på om det krasjer med forelesningene dine og tar opp Mine studier for å sjekke timeplanen.",
+			"a": "a. Kan du finne ut om du har forelesning kl 13.00?",
+			"b": "b. Du lurer på om du har forelesning onsdag neste uke, kan du sjekke det?",
+			"c": "c. Finner du ut hvor denne forelesningen skal være?"
+		},
+		"task2": {
+			"title": "Oppgave 2: Beskjeder",
+			"p1": "1. Du liker å holde deg oppdatert på beskjedene du får som student og ser at du har to uleste beskjeder i Mine studier.",
+			"a": "a. Hvilke beskjeder er det?",
+			"b": "b. For de med skjermleser; Basert på det som skjermleseren leste opp, synes du det er vanskelig å forstå hvilke beskjeder som er ulest?",
+			"c": "c. Burde det vært gjort på noen annen måte?",
+			"p2": "2. Den 13.mai mottok du en beskjed om en spørreundersøkelse som du har glemt å svare på",
+			"d": "a. Kan du finne tilbake til den?",
+			"e": "b. Finner du en spørreundersøkelse i beskjeden?"
+		},
+		"task3": {
+			"title": "Oppgave 3: Sjekkliste",
+			"p1": "1. I Mine studier har du en sjekkliste med ting du må huske å gjøre som ny student. Du har fått beskjed om at du må huske å registrere deg i Studentweb, men er usikker på om du har gjort det.",
+			"a": "a. Kan du sjekke om du har registrert deg i Studentweb?",
+			"p2": "2. Du kommer på at du må betale semesteravgiften, men er usikker på hvordan du skal betale",
+			"b": "a. Finner du noe info om det i sjekklisten?",
+			"c": "b. Med infoen du får i sjekkpunktet, hvordan ville du gått frem for å betale?",
+			"p3": "3. Du lurer på når fristen for å betale semesteravgiften er.",
+			"d": "a. Finner du noe info om det i sjekklisten i Mine studier?",
+			"e": "b. Med infoen du får i sjekkpunktet, hvordan ville du gått frem for å betale?"
+		},
+		"extra": {
+			"title": "Ekstra Oppgaver",
+			"p1": "1. Sjekkliste: Du har gjennomført alle punktene i sjekklisten, og ønsker å fjerne den. Finner du noe sted i sjekklisten hvor du kan fjerne den?",
+			"p2": "2. Beskjeder: Du ønsker å kun se beskjeder sendt på et emne, med emnekoden MAT1110. Kan du sette det som et filter for beskjedene?"
+		},
+		"program": {
+			"title": "Oslo kommune og UiO\nPunkter for kveldens program:",
+			"item1": "Velkommen – Pizza er servert (Eva Elida)",
+			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
+			"item3": "Vi setter igang med testene",
+			"item4": "Pause med påfyll",
+			"item5": "Videre testing og deling av erfaringer",
+			"item6": "Avslutning og oppsummering (Alle)"
+		}
+	},
+	"faq": {
+		"title": "Spørsmål og svar",
+		"q1": "Hvordan kan jeg navigere til Testfest-verktøyet (Testfest Feedback) fra Chrome med tastaturet?",
+		"a1": "På Chrome må du bruke F6 tasten for å komme til bokmerkeraden. Deretter navigerer du videre blant bokmerkene med piltastene til du finner Testfest-verktøyet. I Firefox kan man bruke Tab-tasten for å komme inn på bokmerkeraden.",
+		"q2": "Hvordan kan jeg installere Testfest-verktøyet på min mobil?",
+		"a2_link": "Trykk her for å spille av video som viser installasjon",
+		"a2_thanks": "Takk til Andreas Havsberg som laget videoen.",
+		"a2_desc": "Kommer snart: Tekstbeskrivelse av videoen",
+		"q3": "Hvordan kan jeg sende inn en tilbakemelding om jeg ikke bruker Testfest-verktøyet?",
+		"a3": "Da kan du åpne en nettside med samme tilbakemeldingsskjema i en fane og nettsiden som skal testes i en annen fane i nettleseren. Hver testfest har sin egen startside med lenker til tjenestene som skal testes og til skjema for å melde fra om feil for hver enkelt tjeneste.",
+		"q4": "Hvordan kan jeg åpne en ny fane i nettleseren?",
+		"a4": "Kommer: beskrive for Chrome, Edge og Safari, på desktop og på mobil",
+		"q5": "Hvordan kan jeg bytte mellom faner i nettleseren?",
+		"a5": "Kommer: beskrive for Chrome, Edge og Safari, på desktop og på mobil",
+		"q6": "Hvorfor blir ikke kartet med i skjermbildet?",
+		"a6_prefix": "For å beskytte persondata vil innhold fra andre nettadresser ikke bli inkludert i skjermbildet. Se også",
+		"a6_link_text": "HTML2Canvas spørsmål og svar",
+		"q7": "Hvorfor startet dere med Testfester?",
+		"a7": "Mange nettsteder har tilbakemeldingsfunksjoner. Selv om muligheten finnes, så er det veldig få brukere som sender tilbakemeldinger til nettstedseierne når de opplever hindringer. Med Testfestene ønsker vi å utvikle og etablere en metode og et verktøy som gjør det enklere å komme sammen for å finne, forstå og løse problemene. Dette er ment som et praktisk steg mot et mer likestilt samfunn.",
+		"resources_title": "Mer informasjon om universell utforming",
+		"resources_intro": "Her følger noen lenker til mer informasjon om universell utforming av nettsider og applikasjoner.",
+		"link_wcag": "Retningslinjer for universell utforming av nettinnhold (WCAG)",
+		"link_uutilsynet": "Tilsyn for universell utforming (uutilsynet)",
+		"link_wad": "uuTilsynet om EUs Webdirektiv (WAD)",
+		"link_wad_eu": "Webdirektivet fra EU (svensk oversettelse)",
+		"link_standard": "Standard for Universell utforming",
+		"link_presentation": "Presentasjon om Testfestprosjektet"
+	},
+	"metode": {
+		"title": "Testfest metode",
+		"intro1": "Viktig å huske at det er tjenestene som blir testet. Det er ikke en eksamen for testerne (brukerne). Testernes fremgangsmåter og kompetanse kan hjelpe til med å avdekke barrierer og til å utforme forbedringer.",
+		"intro2": "Et mål med Testfesten er å finne en god balanse mellom nyttig testing og sosialt samvær, hvor testere og brukere kan bli kjent med hverandre. Vi vil legge opp til å dele erfaringer mellom testere og tjenesteeiere i løpet av kvelden. Testere er ofte motivert av at deres innspill blir brukt til faktiske forbedringer. Flott om dere kan bli enige om forbedringer og gjerne en tidsramme for gjennomføring av utbedringer.",
+		"service_owner": {
+			"title": "Huskeliste for tjenesteeiere",
+			"intro1": "Som ekspert på den egne tjenesten er det ofte fristende å hjelpe andre å bruke den. Dette kan påvirke testerne og deres gjennomføring av testen, og føre til at viktige barrierer ikke blir avdekket eller mulige forbedringer ikke blir oppdaget. Testeren kan formidle førsteinntrykket av tjenesten.",
+			"intro2": "Følgende punkter er foreslått for rollen som tjenesteeier:",
+			"steps": [
+				{ "title": "Observer", "content": "Gi testeren litt tid til å utforske tjenesten og beskrive inntrykk og steg mot løsning av oppgaven." },
+				{ "title": "Spør", "p": "Spør gjerne for å forstå hvordan testeren oppfatter tjenesten. For eksempel:", "items": [
+					"Kan du fortelle om hvordan du vil gå frem for å løse oppgaven?",
+					"Hva tenker du når du gjør/ser dette?",
+					"Kan du foreslå en enklere utforming for denne funksjonen?",
+					"Hva ville du forvente om du velger dette menyvalget?"
+				] },
+				{ "title": "Hjelp bare om nødvendig", "content": "Tilby hjelp bare når det er nødvendig eller om testeren ber om det." },
+				{ "title": "Diskuter", "content": "Diskuter gjerne forslag til forbedringer med testeren." }
+			]
+		},
+		"tester": {
+			"title": "Huskeliste for testere",
+			"intro1": "Det vil være til stor hjelp for tjenesteeieren om du kan \"tenke høyt\" mens du bruker tjenesten for å løse oppgavene. Tjenesteeierne deltar på Testfesten for å få innsikter til å forbedre sine tjenester. For å kunne fjerne feil trenger utviklere en beskrivelse for å kunne gjenskape dem.",
+			"intro2": "Følgende punkter er foreslått for rollen som tester:",
+			"steps": [
+				{ "title": "Del skjermleser", "content": "Om du bruker skjermleser, la tjenesteeieren lytte med til den." },
+				{ "title": "Tenk høyt", "p": "Fortell hvordan du oppfatter tjenesten. For eksempel:", "items": [
+					"Hvordan har du tenkt å løse oppgaven - før du setter i gang.",
+					"Hva forventer du ved ulike valg du tar for å finne frem og bruke tjenesten.",
+					"Beskriv uventede resultater."
+				], "p2": "Beskriv hva som ikke funker, og gjerne hvorfor." },
+				{ "title": "Spør om hjelp om nødvendig", "content": "Spør om hjelp om det er noe som ikke funker etter flere forsøk." },
+				{ "title": "Foreslå", "content": "Foreslå gjerne forbedringer for tjenesteeieren." }
+			]
+		},
+		"image_alt": "Deltakere fra Testfest"
+	},
+	"admin": {
+		"title": "Admin Dashboard",
+		"subtitle": "Administrer brukere med tilgang til å opprette Testfester",
+		"load_error": "Kunne ikke laste brukere. Prøv igjen senere.",
+		"delete_error": "Kunne ikke slette bruker",
+		"generic_error": "En feil oppstod",
+		"user_overview": "Brukeroversikt",
+		"add_new_user": "+ Opprett ny bruker",
+		"edit_user": "Rediger bruker",
+		"create_user": "Opprett ny bruker",
+		"form": {
+			"name_label": "Navn",
+			"name_placeholder": "Skriv inn brukerens fulle navn",
+			"username_label": "Brukernavn",
+			"username_placeholder": "Skriv inn brukernavn (unik identifikator)",
+			"password_label": "Passord",
+			"password_placeholder": "Minimum 6 tegn",
+			"confirm_password_label": "Bekreft passord",
+			"confirm_password_placeholder": "Skriv inn passord på nytt",
+			"password_keep_note": "(La stå tom for å beholde eksisterende)",
+			"required_mark": "*",
+			"save_loading": "Lagrer...",
+			"save_changes": "Lagre endringer",
+			"save_create": "Opprett bruker",
+			"cancel": "Avbryt"
+		},
+		"validation": {
+			"name_required": "Navn er påkrevd",
+			"username_required": "Brukernavn er påkrevd",
+			"password_required": "Passord er påkrevd",
+			"password_mismatch": "Passordene matcher ikke",
+			"password_min": "Passord må være minst 6 tegn"
+		},
+		"loading_users": "Laster brukere...",
+		"empty": {
+			"no_users": "Ingen brukere opprettet ennå.",
+			"cta": "Klikk på \"Opprett ny bruker\" for å komme i gang."
+		},
+		"table": {
+			"name": "Navn",
+			"username": "Brukernavn",
+			"type": "Type",
+			"created": "Opprettet",
+			"actions": "Handlinger",
+			"badge_admin": "Admin",
+			"badge_user": "Bruker",
+			"edit": "Rediger",
+			"delete": "Slett",
+			"aria_edit": "Rediger {{name}}",
+			"aria_delete": "Slett {{name}}"
+		},
+		"confirm_delete": "Er du sikker på at du vil slette {{name}}?",
+		"stats": {
+			"title": "Statistikk",
+			"total_users": "Totalt antall brukere:",
+			"admins": "Administratorer:"
+		},
+		"info": {
+			"title": "Informasjon",
+			"p1": "Som superbruker har du full kontroll over alle brukerkontoer.",
+			"li1": "Opprett nye brukere som skal kunne opprette Testfester",
+			"li2": "Rediger eksisterende brukere",
+			"li3": "Slett brukere som ikke lenger skal ha tilgang"
+		},
+		"warning": {
+			"title": "Viktig",
+			"p1": "Vær forsiktig når du sletter brukere. Denne handlingen kan ikke angres.",
+			"p2": "Du kan ikke slette den siste administratoren."
+		}
+	}
+}
