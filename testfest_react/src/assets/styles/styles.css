@@ -173,6 +173,37 @@ img {
     color: #fff;
 }
 
+/* Språkvelger knapp */
+.menu .lang-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 36px;
+    padding: 0.25rem 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu .lang-toggle-btn:hover,
+.menu .lang-toggle-btn:focus {
+    background: transparent !important;
+    color: inherit !important;
+    border-color: #888;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.menu .lang-toggle-btn:focus-visible {
+    outline: 3px solid #4A90E2;
+    outline-offset: 2px;
+}
+
 /* Hovedinnhold */
 .main-content {
     padding: 2rem 0;
