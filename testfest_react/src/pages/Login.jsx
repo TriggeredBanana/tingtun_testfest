@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import '../assets/styles/login.css';
 
 const Login = () => {
@@ -12,6 +13,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { t } = useTranslation();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ const Login = () => {
     setError('');
 
     if (!formData.brukernavn || !formData.passord) {
-      setError('Vennligst fyll inn både brukernavn og passord');
+      setError(t('login.error_required'));
       setIsLoading(false);
       return;
     }
@@ -51,8 +53,8 @@ const Login = () => {
     <div className="container main-content">
       <div className="login-container">
         <div className="login-box">
-          <h1>Logg inn</h1>
-          <p className="login-subtitle">Logg inn for å få tilgang til å opprette en testfest!</p>
+          <h1>{t('login.title')}</h1>
+          <p className="login-subtitle">{t('login.subtitle')}</p>
 
           {error && (
             <div className="error-banner" role="alert">
@@ -62,7 +64,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="brukernavn">Brukernavn</label>
+              <label htmlFor="brukernavn">{t('login.username_label')}</label>
               <input
                 type="text"
                 id="brukernavn"
@@ -76,7 +78,7 @@ const Login = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="passord">Passord</label>
+              <label htmlFor="passord">{t('login.password_label')}</label>
               <input
                 type="password"
                 id="passord"
@@ -93,17 +95,17 @@ const Login = () => {
               className="btn btn-primary btn-full-width"
               disabled={isLoading}
             >
-              {isLoading ? 'Logger inn...' : 'Logg inn'}
+              {isLoading ? t('login.loading') : t('login.submit')}
             </button>
           </form>
 
           <div className="login-info">
-            <h3>Påloggingsinformasjon</h3>
+            <h3>{t('login.info_title')}</h3>
             <p>
-              For å logge inn som bruker må du få tilgang av Tingtun.
-              Kontakt oss her: <br></br> <br></br>
-              Telefon: 918 62 892 <br></br>
-              E-post: contact@tingtun.no
+              {t('login.info_text')}
+              <br></br> <br></br>
+              {t('home.contact_phone_label')} 918 62 892 <br></br>
+              {t('home.contact_email_label')} contact@tingtun.no
             </p>
           </div>
         </div>
