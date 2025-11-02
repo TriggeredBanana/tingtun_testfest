@@ -1,0 +1,24 @@
+{
+	"home": {
+		"hero_title": "Welcome to TestFest",
+		"button_read_more": "Read more",
+		"button_testfest": "Testfest",
+		"welcome_title": "Welcome to Testfest",
+		"welcome_paragraph1": "The goal of the Testfests is to come together in a friendly setting to find, understand, and remove issues on websites. At the Testfests, website owners and people with disabilities test selected services in different ways. Relevant tools may include various PCs, mobile phones, braille displays, screen readers, screen magnification software, and eye-tracking equipment. The Testfests have already helped the Labour Inspection Authority, Oslo Municipality, NHN, and Storebrand find and fix several issues. To facilitate further use of the research results after the project ends, we will publish methods and software under an open license.",
+		"welcome_paragraph2": "In 2024 we held five Testfests, four in Oslo and one in Trondheim.",
+		"welcome_paragraph3_part1": "Preliminary results and next steps are presented in a video from",
+		"welcome_mim_link_text": "Diversity in May 2024",
+		"welcome_paragraph3_part2": ".",
+		"welcome_paragraph4_part1": "Ingeborg Fauske Ekdahl from UiO has presented experiences as a service owner for potential spread of Testfest. Tanya Kovtun from Access Lab in Ukraine has",
+		"welcome_summary_link_text": "summarized impressions",
+		"welcome_paragraph4_part2": "from a meeting with UiO in connection with",
+		"welcome_ud_link_text": "UD2024",
+		"welcome_paragraph4_part3": ".",
+		"highlight_title": "Join us in the future!",
+		"highlight_text": "The project carried out with support from the Norwegian Directorate for Children, Youth and Family Affairs has now concluded. We have received several inquiries about further Testfests in 2025 and will return with a date as soon as possible.",
+		"contact_title": "Feel free to contact us",
+		"contact_phone_label": "Phone:",
+		"contact_email_label": "Email:",
+		"image_alt_participants": "Participants from Testfest"
+	}
+}

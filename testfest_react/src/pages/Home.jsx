@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import deltakereImg from '../assets/images/deltakere.jpg';
 import '../assets/styles/styles.css';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // ensure we start at top when entering the page
   useEffect(() => {
@@ -31,19 +33,19 @@ const Home = () => {
     <div className="container main-content">
       {/* hero fills viewport so underlying content is hidden initially */}
       <div className="hero-section">
-        <h1>Velkommen til TestFest</h1>
+        <h1>{t('home.hero_title')}</h1>
         <div className="button-container">
           <button 
             className="main-button read-more"
             onClick={handleReadMoreClick}
           >
-            Les mer
+            {t('home.button_read_more')}
           </button>
           <button 
             className="main-button testfest"
             onClick={handleTestfestClick}
           >
-            Testfest
+            {t('home.button_testfest')}
           </button>
         </div>
         <p className="hero-quote">
@@ -57,42 +59,44 @@ const Home = () => {
         <div className="row">
           <div className="main">
             <div className="welcome-section">
-              <h1>Velkommen til Testfest</h1>
-              <p>Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Til Testfestene kommer nettstedseiere og mennesker med funksjonsnedsettelse for å teste utvalgte tjenester på ulike måter. Aktuelle verktøy kan være ulike PCer, mobiler, leselister, skjermlesere, skjermforstørrelsesprogramvare og øyesporingsutstyr. Testfestene har allerede bidratt til at Arbeidstilsynet, Oslo kommune, NHN, og Storebrand har funnet og fjernet flere feil. For å legge tilrette for videre bruk av forskningsresultatene etter endt prosjekt, vil vi publisere metode og programvare under en åpen lisens.</p>
-              <p>I 2024 gjennomførte vi fem Testfester, fire i Oslo og en i Trondheim.</p>
+              <h1>{t('home.welcome_title')}</h1>
+              <p>{t('home.welcome_paragraph1')}</p>
+              <p>{t('home.welcome_paragraph2')}</p>
               <p>
-                Foreløpige resultater og steg videre er presentert i en video fra{' '}
+                {t('home.welcome_paragraph3_part1')}{' '}
                 <a href="https://navikt.github.io/mangfold-i-mai/events/testfest.html" target="_blank" rel="noopener noreferrer">
-                  Mangfold i Mai 2024
-                </a>.
+                  {t('home.welcome_mim_link_text')}
+                </a>
+                {t('home.welcome_paragraph3_part2')}
               </p>
               <p>
-                Ingeborg Fauske Ekdahl fra UiO har presentert erfaringer som tjenesteeier for mulig spredning av Testfest. Tanya Kovtun fra Access Lab i Ukraina har{' '}
+                {t('home.welcome_paragraph4_part1')}{' '}
                 <a href="https://www.linkedin.com/posts/tanyakovtun_last-week-i-had-the-opportunity-to-learn-activity-7267177431495557120-5xAE" target="_blank" rel="noopener noreferrer">
-                  oppsummert inntrykk  
+                  {t('home.welcome_summary_link_text')}
                 </a>{' '}
-                 fra et møte med UiO i tilknytning til{' '}
+                {t('home.welcome_paragraph4_part2')}{' '}
                 <a href="https://ud2024.no/" target="_blank" rel="noopener noreferrer">
-                  UD2024
-                </a>.
+                  {t('home.welcome_ud_link_text')}
+                </a>
+                {t('home.welcome_paragraph4_part3')}
               </p>
             </div>
 
             <div className="highlight-box">
-              <h3>Bli med du også</h3>
-              <p>Prosjektet som ble gjennomført med støtte fra Barn Ungdoms og familiedirektoratet er nå avsluttet. Vi har fått flere spørsmål om videre Testfester i 2025 og kommer tilbake til en dato så snart som mulig.</p>
+              <h3>{t('home.highlight_title')}</h3>
+              <p>{t('home.highlight_text')}</p>
             </div>
 
             <div className="contact-info">
-              <h2>Kontakt oss gjerne</h2>
-              <p>Telefon: 918 62 892</p>
-              <p>E-post: contact@tingtun.no</p>
+              <h2>{t('home.contact_title')}</h2>
+              <p>{t('home.contact_phone_label')} 918 62 892</p>
+              <p>{t('home.contact_email_label')} contact@tingtun.no</p>
             </div>
           </div>
 
           <div className="side">
             <div className="intro-image">
-              <img src={deltakereImg} alt="Deltakere fra Testfest" />
+              <img src={deltakereImg} alt={t('home.image_alt_participants')} />
             </div>
           </div>
         </div>

@@ -1,0 +1,24 @@
+{
+	"home": {
+		"hero_title": "Velkommen til TestFest",
+		"button_read_more": "Les mer",
+		"button_testfest": "Testfest",
+		"welcome_title": "Velkommen til Testfest",
+		"welcome_paragraph1": "Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Til Testfestene kommer nettstedseiere og mennesker med funksjonsnedsettelse for å teste utvalgte tjenester på ulike måter. Aktuelle verktøy kan være ulike PCer, mobiler, leselister, skjermlesere, skjermforstørrelsesprogramvare og øyesporingsutstyr. Testfestene har allerede bidratt til at Arbeidstilsynet, Oslo kommune, NHN, og Storebrand har funnet og fjernet flere feil. For å legge tilrette for videre bruk av forskningsresultatene etter endt prosjekt, vil vi publisere metode og programvare under en åpen lisens.",
+		"welcome_paragraph2": "I 2024 gjennomførte vi fem Testfester, fire i Oslo og en i Trondheim.",
+		"welcome_paragraph3_part1": "Foreløpige resultater og steg videre er presentert i en video fra",
+		"welcome_mim_link_text": "Mangfold i Mai 2024",
+		"welcome_paragraph3_part2": ".",
+		"welcome_paragraph4_part1": "Ingeborg Fauske Ekdahl fra UiO har presentert erfaringer som tjenesteeier for mulig spredning av Testfest. Tanya Kovtun fra Access Lab i Ukraina har",
+		"welcome_summary_link_text": "oppsummert inntrykk",
+		"welcome_paragraph4_part2": "fra et møte med UiO i tilknytning til",
+		"welcome_ud_link_text": "UD2024",
+		"welcome_paragraph4_part3": ".",
+		"highlight_title": "Bli med du også",
+		"highlight_text": "Prosjektet som ble gjennomført med støtte fra Barn Ungdoms og familiedirektoratet er nå avsluttet. Vi har fått flere spørsmål om videre Testfester i 2025 og kommer tilbake til en dato så snart som mulig.",
+		"contact_title": "Kontakt oss gjerne",
+		"contact_phone_label": "Telefon:",
+		"contact_email_label": "E-post:",
+		"image_alt_participants": "Deltakere fra Testfest"
+	}
+}
