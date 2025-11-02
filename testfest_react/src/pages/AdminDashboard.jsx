@@ -130,7 +130,7 @@ const AdminDashboard = () => {
 
     try {
       setLoading(true);
-  setApiError('');
+      setApiError('');
 
       if (editingUser) {
         // Oppdater eksisterende bruker
