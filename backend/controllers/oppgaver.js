@@ -1,5 +1,6 @@
 import db from "../connect.js";
 
+//hent oppgaver med testfestID
 export const getOppgaverByTestfestID = (req, res) => {
   const testfestID = req.params.TestfestID;
   console.log("Henter oppgaver for TestfestID:", testfestID);
@@ -14,6 +15,7 @@ export const getOppgaverByTestfestID = (req, res) => {
   });
 };
 
+//legg til oppgaver
 export const addOppgaver = (req, res) => {
   // req.body er en array av oppgaver
   const oppgaver = req.body;
@@ -46,6 +48,7 @@ export const addOppgaver = (req, res) => {
   });
 };
 
+//slett oppgaver
 export const deleteOppgaver = (req, res) => {
   const oppgaverID = req.params.OppgaveID;
   const q = "DELETE FROM Oppgaver WHERE OppgaveID = ?";
@@ -55,4 +58,5 @@ export const deleteOppgaver = (req, res) => {
     return res.json("Oppgave er slettet!");
   });
 };
+
 

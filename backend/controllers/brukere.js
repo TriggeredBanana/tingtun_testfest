@@ -1,5 +1,6 @@
 import db from "../connect.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"; // 👈 legg til øverst
 
 // Hent alle brukere (uten passord!)
 export const getUsers = (req, res) => {
@@ -196,23 +197,82 @@ export const loginUser = (req, res) => {
     }
 
     const user = data[0];
-
-    // Sammenlign passord
+    console.log("📊 Bruker fra database:", {
+      BrukerID: user.BrukerID,
+      Brukernavn: user.Brukernavn,
+      ErSuperbruker: user.ErSuperbruker,
+      ErSuperbrukerType: typeof user.ErSuperbruker
+    });
     const isMatch = await bcrypt.compare(passord, user.PassordHash);
+    
     
     if (!isMatch) {
       return res.status(401).json({ error: "Ugyldig brukernavn eller passord" });
     }
 
-    // Vellykket login - returner brukerdata (uten passord!)
+    // ✅ Lag JWT-token med ALL nødvendig brukerinfo
+    const token = jwt.sign(
+      { 
+        BrukerID: user.BrukerID,
+        Brukernavn: user.Brukernavn,      // ← Legg til dette
+        Navn: user.Navn,                   // ← Legg til dette
+        ErSuperbruker: user.ErSuperbruker
+      },
+      process.env.JWT_SECRET || "hemmelig_nøkkel",
+      { expiresIn: "1h" }
+    );
+
+    // ✅ Send token som HTTP-only cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // sett true i produksjon med HTTPS
+      sameSite: "lax",
+      maxAge: 3600000 // 1 time
+    });
+
+    // ✅ Send brukerdata (uten passord)
     return res.json({
       success: true,
       bruker: {
-        id: user.BrukerID,
-        brukernavn: user.Brukernavn,
-        navn: user.Navn,
-        erSuperbruker: user.ErSuperbruker
+        BrukerID: user.BrukerID,
+        Brukernavn: user.Brukernavn,
+        Navn: user.Navn,
+        ErSuperbruker: user.ErSuperbruker
       }
     });
   });
+};
+// Verifiser om bruker er logget inn via cookie (JWT)
+// I controllers/brukere.js
+export const verifyUser = (req, res) => {
+  try {
+    console.log("🔐 verifyUser - req.user:", req.user); // ← VIKTIG
+    
+    if (!req.user) {
+      return res.status(401).json({ 
+        authenticated: false,
+        message: "Ikke autorisert" 
+      });
+    }
+
+    const response = {
+      authenticated: true,
+      bruker: {
+        BrukerID: req.user.BrukerID,
+        Brukernavn: req.user.Brukernavn,
+        Navn: req.user.Navn,
+        ErSuperbruker: req.user.ErSuperbruker  // ← Sjekk at denne finnes!
+      }
+    };
+
+    console.log("📤 verifyUser response:", response); // ← VIKTIG
+    
+    return res.status(200).json(response);
+  } catch (error) {
+    console.error("Feil ved verify:", error);
+    return res.status(500).json({ 
+      authenticated: false,
+      message: "Serverfeil ved verifisering" 
+    });
+  }
 };

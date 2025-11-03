@@ -1,28 +1,56 @@
 import db from "../connect.js";
 
 export const getTestfester = (req, res) => {
-  const q = `
+  const bruker = req.user; // Kommer fra verifyToken hvis innlogget
+
+  console.log("🔍 getTestfester kall mottatt.");
+  console.log("Bruker fra token:", bruker);
+
+  let query = `
     SELECT 
       t.TestfestID,
       t.Dato,
       t.Status,
       t.ProgramID,
-      t.TjenesteeierID,
-      tj.Bedrift AS BedriftNavn
+      t.BrukerID,
+      b.Navn AS BedriftNavn
     FROM Testfester t
-    LEFT JOIN Tjenesteeier tj ON t.TjenesteeierID = tj.TjenesteeierID
+    LEFT JOIN Brukere b ON t.BrukerID = b.BrukerID
   `;
   
-  db.query(q, (err, data) => {
+  const params = [];
+
+  // Hvis ikke innlogget → vis alle
+  if (!bruker) {
+    console.log("Ikke innlogget - viser alle testfester");
+  }
+  // Vanlig bruker → vis kun egne
+  else if (bruker.ErSuperbruker !== 1 && bruker.ErSuperbruker !== true) {
+    console.log("Vanlig bruker - viser kun egne testfester");
+    query += " WHERE t.BrukerID = ?";
+    params.push(bruker.BrukerID);
+  }
+  // 🛠️ Admin → vis alle
+  else {
+    console.log("Admin-bruker - viser alle testfester");
+  }
+
+  query += " ORDER BY t.Dato DESC";
+
+  console.log("Kjører SQL:", query, params);
+
+  db.query(query, params, (err, rows) => {
     if (err) {
-      console.error("SQL-feil:", err);
-      return res.status(500).json(err);
+      console.error("Feil ved henting av testfester:", err);
+      return res.status(500).json({ error: "Serverfeil" });
     }
-    console.log("Spørring kjørt, rader funnet:", data.length);
-    return res.json(data);
+
+    console.log(`Testfester funnet: ${rows.length}`);
+    res.json(rows);
   });
 };
 
+// Hent testfest etter ID
 export const getTestfesterByID = (req, res) => {
   const testfestID = req.params.TestfestID;
   const q = `
@@ -31,10 +59,10 @@ export const getTestfesterByID = (req, res) => {
       t.Dato,
       t.Status,
       t.ProgramID,
-      t.TjenesteeierID,
-      tj.Bedrift AS BedriftNavn
+      t.BrukerID,
+      b.Navn AS BedriftNavn
     FROM Testfester t
-    LEFT JOIN Tjenesteeier tj ON t.TjenesteeierID = tj.TjenesteeierID
+    LEFT JOIN Brukere b ON t.BrukerID = b.BrukerID
     WHERE t.TestfestID = ?
   `;
 
@@ -49,39 +77,128 @@ export const getTestfesterByID = (req, res) => {
     console.log("Testfest funnet:", data[0]);
     return res.json(data[0]);
   });
-}
+};
 
-//Koble Program med Testfest
+// Tildel program (kun admin)
 export const updateProgramForTestfest = (req, res) => {
-  const q = "UPDATE Testfester SET ProgramID = ? WHERE TestfestID = ?";
-  const values = [req.body.ProgramID, req.params.TestfestID];
+  const { id } = req.params;
+  const { ProgramID } = req.body;
+  const bruker = req.user;
 
-  db.query(q, values, (err, data) => {
-    if (err) {
-      console.error("Feil ved oppdatering av program:", err);
-      return res.status(500).json({ error: "Kunne ikke oppdatere program" });
+  // Sjekk at bruker er admin
+  if (!bruker || bruker.ErSuperbruker !== 1) {
+    return res.status(403).json({ error: "Kun superbruker kan tilordne program" });
+  }
+
+  db.query(
+    "UPDATE Testfester SET ProgramID = ? WHERE TestfestID = ?",
+    [ProgramID, id],
+    (err, result) => {
+      if (err) {
+        console.error("Feil ved tilordning av program:", err);
+        return res.status(500).json({ error: "Serverfeil ved tilordning av program" });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Testfest ikke funnet" });
+      }
+
+      res.json({ success: true, message: "Program tilordnet" });
     }
-    return res.json({ message: "Program koblet til testfest!" });
-  });
-}; 
+  );
+};
 
-export const addTestfester = (req, res) => {
-  const q = "INSERT INTO Testfester (Dato, Status, TjenesteeierID) VALUES (?, ?, ?)";
-  const values = [req.body.Dato, req.body.Status, req.body.TjenesteeierID];
+// Legg til en testfest, må være innlogget
+export const addTestfester =  (req, res) => {
+  const bruker = req.user;
+  if (!bruker) return res.status(401).json({ error: "Ikke innlogget" });
 
-  db.query(q, values, (err, data) => {
-    if (err) return res.status(500).json(err);
-    console.log("Testfest opprettet med ID:", data.insertId);
-    return res.status(201).json({insertId: data.insertId });
+  const { Dato, Status } = req.body;
+
+  db.query(
+    "INSERT INTO Testfester (Dato, Status, BrukerID) VALUES (?, ?, ?)",
+    [Dato, Status, bruker.BrukerID],
+    (err, result) => {
+      if (err) {
+        console.error("Feil ved opprettelse:", err);
+        return res.status(500).json({ error: "Serverfeil" });
+      }
+      res.status(201).json({
+      message: "Testfest opprettet",
+      TestfestID: result.insertId
+});
+    }
+  );
+};
+
+//Redigere en testfest
+export const updateTestfester = (req, res) => {
+  const { TestfestID } = req.params;
+  const { Dato, Status } = req.body;
+  const bruker = req.user;
+
+  if (!bruker) {
+    return res.status(401).json({ error: "Ikke innlogget" });
+  }
+
+  // Admin kan redigere alle, vanlige brukere bare sine egne
+  let query = "UPDATE Testfester SET Dato = ?, Status = ? WHERE TestfestID = ?";
+  let params = [Dato, Status, TestfestID];
+
+  if (bruker.ErSuperbruker !== 1) {
+    query += " AND BrukerID = ?";
+    params.push(bruker.BrukerID);
+  }
+
+  db.query(query, params, (err, result) => {
+    if (err) {
+      console.error("Feil ved oppdatering:", err);
+      return res.status(500).json({ error: "Kunne ikke oppdatere testfest" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ 
+        error: "Testfest ikke funnet eller ingen tilgang" 
+      });
+    }
+
+    res.json({ message: "Testfest oppdatert!" });
   });
 };
 
+// Slett testfest (kun eier eller admin)
 export const deleteTestfester = (req, res) => {
-  const testfesterID = req.params.TestfestID;
-  const q = "DELETE FROM Testfester WHERE TestfestID = ?";
+  const bruker = req.user;
+  const { TestfestID } = req.params;
 
-  db.query(q, [testfesterID], (err) => {
-    if (err) return res.status(500).json(err);
-    return res.json("Testfest er slettet!");
-  });
+  db.query(
+    "SELECT BrukerID FROM Testfester WHERE TestfestID = ?",
+    [TestfestID],
+    (err, rows) => {
+      if (err) {
+        console.error("Feil ved sletting:", err);
+        return res.status(500).json({ error: "Serverfeil" });
+      }
+
+      if (rows.length === 0) {
+        return res.status(404).json({ error: "Testfest ikke funnet" });
+      }
+
+      const eierId = rows[0].BrukerID;
+
+      if (!bruker || (bruker.BrukerID !== eierId && !bruker.ErSuperbruker)) {
+        return res.status(403).json({ error: "Ikke autorisert til å slette" });
+      }
+
+      db.query("DELETE FROM Testfester WHERE TestfestID = ?", [TestfestID], (err) => {
+        if (err) {
+          console.error("Feil ved sletting:", err);
+          return res.status(500).json({ error: "Serverfeil" });
+        }
+        res.json({ message: "Testfest slettet!" });
+      });
+    }
+  );
 };
+
+ 

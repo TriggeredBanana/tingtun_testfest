@@ -1,19 +1,23 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 import { 
-  getTestfesterByID,
   getTestfester, 
+  getTestfesterByID,
   updateProgramForTestfest,
   addTestfester, 
+  updateTestfester,
   deleteTestfester
 } from "../controllers/testfester.js";
 
+
 const router = express.Router();
 
-router.get("/:TestfestID", getTestfesterByID);
 router.get("/", getTestfester);
-router.put("/:TestfestID/program", updateProgramForTestfest);
-router.post("/", addTestfester);
-router.delete("/:TestfestID", deleteTestfester);
+router.get("/:TestfestID", verifyToken, getTestfesterByID);
+router.post("/", verifyToken, addTestfester);
+router.put("/:TestfestID", verifyToken, updateTestfester);
+router.delete("/:TestfestID", verifyToken, deleteTestfester);
+router.put("/:id/program", verifyToken, updateProgramForTestfest);
 
 export default router;

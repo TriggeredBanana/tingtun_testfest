@@ -1,31 +1,30 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
+
 import { 
   getUsers, 
   getUserById,
   addUser, 
   updateUser,
   deleteUser,
-  loginUser
+  loginUser,
+  verifyUser
 } from "../controllers/brukere.js";
 
 const router = express.Router();
 
-// Hent alle brukere
+router.post("/login", loginUser);
+router.get("/verify", verifyToken, verifyUser); 
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  return res.json({ success: true });
+});
+
 router.get("/", getUsers);
 
-// Hent én bruker
-router.get("/:id", getUserById);
-
-// Opprett ny bruker
+router.get("/:id", getUserById);     
 router.post("/", addUser);
-
-// Oppdater bruker
 router.put("/:id", updateUser);
-
-// Slett bruker
 router.delete("/:id", deleteUser);
-
-// Login
-router.post("/login", loginUser);
 
 export default router;

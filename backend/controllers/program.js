@@ -1,5 +1,6 @@
 import db from "../connect.js";
 
+//Hent spesifikke program
 export const getProgrambyID = (req, res) => {
   const { ProgramID } = req.params;
   const q = "SELECT * FROM Program where ProgramID = ?";
@@ -16,6 +17,7 @@ export const getProgrambyID = (req, res) => {
   });
 };
 
+//hent alle program
 export const getProgram = (req, res) => {
   const q = "SELECT * FROM Program";
   db.query(q, (err, data) => {
@@ -28,7 +30,7 @@ export const getProgram = (req, res) => {
   });
 };
 
-
+//legg til program
 export const addProgram = (req, res) => {
   const q = "INSERT INTO Program (Navn, Punkter) VALUES (?, ?, ?)";
   const values = [req.body.Navn, req.body.Punkter];

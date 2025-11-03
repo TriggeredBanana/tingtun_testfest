@@ -145,7 +145,7 @@ const AdminDashboard = () => {
           brukernavn: formData.brukernavn,
           navn: formData.navn,
           passord: formData.passord,
-          erSuperbruker: false
+          ErSuperbruker: false
         };
         await createUser(newUserData);
       }
