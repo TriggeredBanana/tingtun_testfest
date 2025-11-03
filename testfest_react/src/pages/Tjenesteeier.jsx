@@ -3,9 +3,11 @@ import { useEffect} from 'react'
 import {useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Tjenesteeier = () => {
     const [tjenesteeier,setTjenesteeier] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(()=> {
        const fetchAllTjenesteeier = async ()=>{
@@ -29,17 +31,17 @@ const Tjenesteeier = () => {
     };
 
     return <div>
-    <h1>Tjenesteier</h1>
+    <h1>{t('tjenesteeier.title')}</h1>
     <div className="tjenesteiere">
         {tjenesteeier.map(tjenesteeiere=> (
             <div className="tjenesteeier" key={tjenesteeiere.TjenesteeierID}>
                 <h2>{tjenesteeiere.Bedrift}</h2>
                 <p>{tjenesteeiere.Mail}</p>
-                <button className="delete" onClick={()=>handleDelete(tjenesteeiere.TjenesteeierID)}>Slett</button>
+                <button className="delete" onClick={()=>handleDelete(tjenesteeiere.TjenesteeierID)}>{t('common.delete')}</button>
             </div>
             ))}
     </div>
-    <Link to="/add" className="button-link">Legg til ny Tjenesteeier</Link>
+    <Link to="/add" className="button-link">{t('tjenesteeier.add_new')}</Link>
     </div>
 }
 export default Tjenesteeier;

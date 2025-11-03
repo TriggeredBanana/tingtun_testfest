@@ -1,11 +1,13 @@
 import '../assets/styles/testfest.css';
 import '../assets/styles/styles.css';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useEffect} from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 
 const Testfester = () => {
+    const { t } = useTranslation();
     const [testfester,setTestfester] = useState([]);
     const [programmer, setProgrammer] = useState([]);
     const [loadingAssign, setLoadingAssign] = useState({});

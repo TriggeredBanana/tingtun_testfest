@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const Add = () => {
@@ -10,6 +11,7 @@ const Add = () => {
         Mail: "",
         Passord: "",
     });
+    const { t } = useTranslation();
 
     const navigate = useNavigate()
 
@@ -29,11 +31,11 @@ const Add = () => {
     
     return (
         <div className="form">
-            <h1>Legg til ny Tjenesteeier</h1>
-            <input type="text" placeholder="Bedrift" onChange={handleChange} name="Bedrift" />
-            <input type="text" placeholder="Mail"onChange={handleChange} name="Mail"/>
-            <input type="text" placeholder="Passord" onChange={handleChange} name="Passord"/>
-            <button onClick={handleClick}>Legg til</button>
+            <h1>{t('add.title')}</h1>
+            <input type="text" placeholder={t('add.company_placeholder')} onChange={handleChange} name="Bedrift" />
+            <input type="text" placeholder={t('add.email_placeholder')} onChange={handleChange} name="Mail"/>
+            <input type="text" placeholder={t('add.password_placeholder')} onChange={handleChange} name="Passord"/>
+            <button onClick={handleClick}>{t('add.submit')}</button>
         </div>
     )
 }

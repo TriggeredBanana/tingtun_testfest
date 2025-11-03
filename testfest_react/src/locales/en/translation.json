@@ -1,0 +1,286 @@
+{
+	"home": {
+		"hero_title": "Welcome to TestFest",
+		"button_read_more": "Read more",
+		"button_testfest": "Testfest",
+		"welcome_title": "Welcome to Testfest",
+		"welcome_paragraph1": "The goal of the Testfests is to come together in a friendly setting to find, understand, and remove issues on websites. At the Testfests, website owners and people with disabilities test selected services in different ways. Relevant tools may include various PCs, mobile phones, braille displays, screen readers, screen magnification software, and eye-tracking equipment. The Testfests have already helped the Labour Inspection Authority, Oslo Municipality, NHN, and Storebrand find and fix several issues. To facilitate further use of the research results after the project ends, we will publish methods and software under an open license.",
+		"welcome_paragraph2": "In 2024 we held five Testfests, four in Oslo and one in Trondheim.",
+		"welcome_paragraph3_part1": "Preliminary results and next steps are presented in a video from",
+		"welcome_mim_link_text": "Diversity in May 2024",
+		"welcome_paragraph3_part2": ".",
+		"welcome_paragraph4_part1": "Ingeborg Fauske Ekdahl from UiO has presented experiences as a service owner for potential spread of Testfest. Tanya Kovtun from Access Lab in Ukraine has",
+		"welcome_summary_link_text": "summarized impressions",
+		"welcome_paragraph4_part2": "from a meeting with UiO in connection with",
+		"welcome_ud_link_text": "UD2024",
+		"welcome_paragraph4_part3": ".",
+		"highlight_title": "Join us in the future!",
+    "highlight_text": "The project carried out with support from the Norwegian Directorate for Children, Youth and Family Affairs has now concluded. We have received several inquiries about further Testfests in 2025 and will return with a date as soon as possible.",
+		"contact_title": "Feel free to contact us",
+		"contact_phone_label": "Phone:",
+		"contact_email_label": "Email:",
+		"image_alt_participants": "Participants from Testfest"
+	},
+	"nav": {
+		"home": "Home",
+		"testfester": "Testfests",
+		"faq": "FAQ",
+		"metode": "Method",
+		"admin": "Admin",
+		"login": "Log in",
+		"logout": "Log out",
+		"lang_no": "Switch to Norwegian",
+		"lang_en": "Switch to English"
+	},
+	"testfester": {
+		"title": "Previous Testfests",
+		"oslo_link": "Oslo Municipality",
+		"storebrand_link": "Storebrand",
+		"uio_link": "University of Oslo"
+	},
+	"login": {
+		"title": "Log in",
+		"subtitle": "Log in to get access to create a Testfest!",
+		"username_label": "Username",
+		"password_label": "Password",
+		"loading": "Logging in...",
+		"submit": "Log in",
+		"info_title": "Login information",
+		"info_text": "To log in as a user you must be granted access by Tingtun. Contact us here:",
+		"error_required": "Please enter both username and password"
+	},
+	"common": {
+		"delete": "Delete"
+	},
+	"tjenesteeier": {
+		"title": "Service owner",
+		"add_new": "Add new service owner"
+	},
+	"add": {
+		"title": "Add new service owner",
+		"company_placeholder": "Company",
+		"email_placeholder": "Email",
+		"password_placeholder": "Password",
+		"submit": "Add"
+	},
+	"oslo": {
+		"title": "Testfest 3 September - Oslo Municipality",
+		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
+		"intro2": "Please send written feedback via the link under each task.",
+		"task1": { "title": "Task 1: Contact home care services", "text": "You need to send a message to the home care service where you live. Find out how you can send and receive messages with the home care service." },
+		"task2": { "title": "Task 2: How long is the school Christmas holiday?", "text": "You’re planning to travel abroad with your family over New Year. Try to find out when school starts again after the Christmas break." },
+		"task3": { "title": "Task 3: Where can I swim, and what does it cost?", "text": "You want to go swimming at a pool in Oslo this afternoon at 17:30. How would you find where to go, when it closes, and how much it costs?" },
+		"task4": { "title": "Task 4: Why are mobile phones banned in Oslo schools?", "text": "Your child says mobile phones are suddenly banned during school hours. Can you find a news article about this on the municipality’s website?" },
+		"program": {
+			"title": "Oslo Municipality and UiO\nTonight’s program:",
+			"item1": "Welcome – Pizza is served (Christian)",
+			"item2": "Introduction to Testfest (Mikael and Joschua)",
+			"item3": "We start the testing",
+			"item4": "Break with refreshments",
+			"item5": "Further testing and sharing experiences",
+			"item6": "Closing and summary (All)"
+		}
+	},
+	"storebrand": {
+		"title": "Testfest 3 September - Storebrand",
+		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
+		"intro2": "Please send written feedback via the link under each task.",
+		"task1": { "title": "Task 1: Pension savings", "text": "Can you find which pension savings options Storebrand offers?" },
+		"task2": { "title": "Task 2: Travel insurance", "text": "You’re going to travel for 3 months and need travel insurance. What will it cost you with Storebrand?" },
+		"task3": { "title": "Task 3: Car rental", "text": "You’re renting a car while traveling. Check whether the travel insurance covers possible damage and what the deductible will be." },
+		"task4": { "title": "Task 4: Car rental – terms", "text": "The travel insurance has many terms shown in a PDF. Can you find the PDF and determine which expenses are not covered?" },
+		"task5": { "title": "Task 5: Customer service", "text": "You’re unsure about the coverage and want to contact customer service. What do you do?" },
+		"program": {
+			"title": "Oslo Municipality and Storebrand\nTonight’s program:",
+			"item1": "Welcome – Pizza is served (Christian)",
+			"item2": "Introduction to Testfest (Mikael and Joschua)",
+			"item3": "We start the testing",
+			"item4": "Break with refreshments",
+			"item5": "Further testing and sharing experiences",
+			"item6": "Closing and summary (All)"
+		}
+	},
+	"uio": {
+		"title": "Testfest 1 October - UiO",
+		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
+		"link_text": "The tasks below are based on the \"My Studies\" service you can find at",
+		"link_label": "My Studies.",
+		"task1": {
+			"title": "Task 1: Navigate the timetable",
+			"p1": "1. A friend asks if you can meet next Friday at 13:00. You’re unsure whether this conflicts with your lectures and open My Studies to check your timetable.",
+			"a": "a. Can you find out if you have a lecture at 13:00?",
+			"b": "b. You wonder whether you have a lecture next Wednesday—can you check?",
+			"c": "c. Can you see where this lecture will be held?"
+		},
+		"task2": {
+			"title": "Task 2: Messages",
+			"p1": "1. You like to stay updated on your student messages and you see that you have two unread messages in My Studies.",
+			"a": "a. What are the messages?",
+			"b": "b. For screen reader users: Based on what was read out, is it difficult to understand which messages are unread?",
+			"c": "c. Should this be done in a different way?",
+			"p2": "2. On May 13 you received a message about a survey that you forgot to answer",
+			"d": "a. Can you find it again?",
+			"e": "b. Do you find a survey inside the message?"
+		},
+		"task3": {
+			"title": "Task 3: Checklist",
+			"p1": "1. In My Studies you have a checklist of things to remember as a new student. You’ve been told to remember to register in Studentweb, but you’re unsure whether you’ve done it.",
+			"a": "a. Can you check whether you’re registered in Studentweb?",
+			"p2": "2. You remember that you need to pay the semester fee, but you’re unsure how to pay",
+			"b": "a. Do you find any information about this in the checklist?",
+			"c": "b. Based on the information in the checklist, how would you proceed to pay?",
+			"p3": "3. You wonder when the deadline to pay the semester fee is.",
+			"d": "a. Do you find any information about this in the checklist in My Studies?",
+			"e": "b. Based on the information in the checklist, how would you proceed to pay?"
+		},
+		"extra": {
+			"title": "Extra tasks",
+			"p1": "1. Checklist: You’ve completed all checklist items and want to remove it. Can you find a place to remove it?",
+			"p2": "2. Messages: You only want to see messages sent on a course with the code MAT1110. Can you set this as a filter?"
+		},
+		"program": {
+			"title": "Oslo Municipality and UiO\nTonight’s program:",
+			"item1": "Welcome – Pizza is served (Eva Elida)",
+			"item2": "Introduction to Testfest (Mikael and Joschua)",
+			"item3": "We start the testing",
+			"item4": "Break with refreshments",
+			"item5": "Further testing and sharing experiences",
+			"item6": "Closing and summary (All)"
+		}
+	},
+	"faq": {
+		"title": "Questions and answers",
+		"q1": "How can I navigate to the Testfest tool (Testfest Feedback) in Chrome using the keyboard?",
+		"a1": "In Chrome you need to use the F6 key to move to the bookmarks bar. Then navigate among your bookmarks with the arrow keys until you find the Testfest tool. In Firefox you can use the Tab key to reach the bookmarks bar.",
+		"q2": "How can I install the Testfest tool on my phone?",
+		"a2_link": "Click here to watch a video showing the installation",
+		"a2_thanks": "Thanks to Andreas Havsberg who made the video.",
+		"a2_desc": "Coming soon: Text description of the video",
+		"q3": "How can I submit feedback if I’m not using the Testfest tool?",
+		"a3": "You can open a web page with the same feedback form in one tab and the site to be tested in another tab. Each Testfest has its own start page with links to the services being tested and to the forms for reporting issues for each service.",
+		"q4": "How can I open a new tab in the browser?",
+		"a4": "Coming: describe this for Chrome, Edge and Safari, on desktop and mobile",
+		"q5": "How can I switch between tabs in the browser?",
+		"a5": "Coming: describe this for Chrome, Edge and Safari, on desktop and mobile",
+		"q6": "Why isn’t the map included in the screenshot?",
+		"a6_prefix": "To protect personal data, content from other origins is not included in the screenshot. See also",
+		"a6_link_text": "HTML2Canvas FAQ",
+		"q7": "Why did you start doing Testfests?",
+		"a7": "Many websites have feedback features. Even though the possibility exists, very few users submit feedback to site owners when they encounter barriers. With the Testfests we want to develop and establish a method and a tool that makes it easier to come together to find, understand and solve the problems. This is intended as a practical step towards a more equal society.",
+		"resources_title": "More information about accessibility",
+		"resources_intro": "Here are some links with more information about accessibility for websites and applications.",
+		"link_wcag": "Web Content Accessibility Guidelines (WCAG)",
+		"link_uutilsynet": "The Norwegian authority for accessibility (uutilsynet)",
+		"link_wad": "uutilsynet on the EU Web Accessibility Directive (WAD)",
+		"link_wad_eu": "The EU directive (Swedish translation)",
+		"link_standard": "Accessibility standard",
+		"link_presentation": "Presentation about the Testfest project"
+	},
+	"metode": {
+		"title": "Testfest method",
+		"intro1": "It’s important to remember that it’s the services being tested. It’s not an exam for the testers (users). The testers’ approaches and expertise can help uncover barriers and shape improvements.",
+		"intro2": "A goal of the Testfest is to find a good balance between useful testing and social interaction, where testers and service owners can get to know each other. We plan to share experiences between testers and service owners during the evening. Testers are often motivated when their feedback is used for real improvements. It’s great if you can agree on improvements and preferably a timeline for implementing them.",
+		"service_owner": {
+			"title": "Checklist for service owners",
+			"intro1": "As an expert on your own service, it can be tempting to help others use it. This can influence the testers and their execution of the test, and lead to important barriers not being uncovered or possible improvements not being discovered. The tester can convey the first impression of the service.",
+			"intro2": "The following points are suggested for the role of service owner:",
+			"steps": [
+				{ "title": "Observe", "content": "Give the tester some time to explore the service and describe impressions and steps towards solving the task." },
+				{ "title": "Ask", "p": "Ask to understand how the tester perceives the service. For example:", "items": [
+					"Can you describe how you would proceed to solve the task?",
+					"What do you think when you do/see this?",
+					"Can you suggest a simpler design for this feature?",
+					"What would you expect if you chose this menu option?"
+				] },
+				{ "title": "Help only if necessary", "content": "Offer help only when it’s necessary or if the tester asks for it." },
+				{ "title": "Discuss", "content": "Feel free to discuss proposed improvements with the tester." }
+			]
+		},
+		"tester": {
+			"title": "Checklist for testers",
+			"intro1": "It will be very helpful for the service owner if you can ‘think aloud’ while using the service to solve the tasks. Service owners participate in the Testfest to gain insights to improve their services. To fix bugs, developers need a description that allows them to reproduce the issue.",
+			"intro2": "The following points are suggested for the role of tester:",
+			"steps": [
+				{ "title": "Share screen reader", "content": "If you use a screen reader, let the service owner listen to it." },
+				{ "title": "Think aloud", "p": "Explain how you perceive the service. For example:", "items": [
+					"How do you plan to solve the task – before you start.",
+					"What do you expect when making different choices to navigate and use the service.",
+					"Describe unexpected results."
+				], "p2": "Describe what doesn’t work, and preferably why." },
+				{ "title": "Ask for help if needed", "content": "Ask for help if something doesn’t work after several attempts." },
+				{ "title": "Suggest", "content": "Feel free to suggest improvements to the service owner." }
+			]
+		},
+		"image_alt": "Participants from Testfest"
+	},
+	"admin": {
+		"title": "Admin Dashboard",
+		"subtitle": "Manage users who can create Testfests",
+		"load_error": "Could not load users. Please try again later.",
+		"delete_error": "Could not delete user",
+		"generic_error": "An error occurred",
+		"user_overview": "User overview",
+		"add_new_user": "+ Create new user",
+		"edit_user": "Edit user",
+		"create_user": "Create new user",
+		"form": {
+			"name_label": "Name",
+			"name_placeholder": "Enter the user's full name",
+			"username_label": "Username",
+			"username_placeholder": "Enter username (unique identifier)",
+			"password_label": "Password",
+			"password_placeholder": "Minimum 6 characters",
+			"confirm_password_label": "Confirm password",
+			"confirm_password_placeholder": "Re-enter the password",
+			"password_keep_note": "(Leave empty to keep existing)",
+			"required_mark": "*",
+			"save_loading": "Saving...",
+			"save_changes": "Save changes",
+			"save_create": "Create user",
+			"cancel": "Cancel"
+		},
+		"validation": {
+			"name_required": "Name is required",
+			"username_required": "Username is required",
+			"password_required": "Password is required",
+			"password_mismatch": "Passwords do not match",
+			"password_min": "Password must be at least 6 characters"
+		},
+		"loading_users": "Loading users...",
+		"empty": {
+			"no_users": "No users created yet.",
+			"cta": "Click \"Create new user\" to get started."
+		},
+		"table": {
+			"name": "Name",
+			"username": "Username",
+			"type": "Type",
+			"created": "Created",
+			"actions": "Actions",
+			"badge_admin": "Admin",
+			"badge_user": "User",
+			"edit": "Edit",
+			"delete": "Delete",
+			"aria_edit": "Edit {{name}}",
+			"aria_delete": "Delete {{name}}"
+		},
+		"confirm_delete": "Are you sure you want to delete {{name}}?",
+		"stats": {
+			"title": "Statistics",
+			"total_users": "Total users:",
+			"admins": "Administrators:"
+		},
+		"info": {
+			"title": "Information",
+			"p1": "As a superuser you have full control over all user accounts.",
+			"li1": "Create new users who should be able to create Testfests",
+			"li2": "Edit existing users",
+			"li3": "Delete users who should no longer have access"
+		},
+		"warning": {
+			"title": "Important",
+			"p1": "Be careful when deleting users. This action cannot be undone.",
+			"p2": "You cannot delete the last administrator."
+		}
+	}
+}
