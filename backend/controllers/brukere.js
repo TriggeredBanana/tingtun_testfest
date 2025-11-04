@@ -199,12 +199,6 @@ export const loginUser = (req, res) => {
 
     const user = data[0];
 
-    console.log(" Bruker fra database:", {
-      BrukerID: user.BrukerID,
-      Brukernavn: user.Brukernavn,
-      ErSuperbruker: user.ErSuperbruker,
-      ErSuperbrukerType: typeof user.ErSuperbruker
-    });
     const isMatch = await bcrypt.compare(passord, user.PassordHash);
     
     
@@ -250,7 +244,8 @@ export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/"
   });
   return res.json({ success: true, message: "Du er logget ut" });
 };
@@ -258,12 +253,10 @@ export const logoutUser = (req, res) => {
 // Verifiser om bruker er logget inn via cookie (JWT)
 export const verifyUser = (req, res) => {
   try {
-    console.log("verifyUser - req.user:", req.user); 
-    
-    if (!req.user) {
-      return res.status(401).json({ 
+    if (!req.user || !req.isAuthenticated) {
+      return res.status(200).json({ 
         authenticated: false,
-        message: "Ikke autorisert" 
+        message: "Ikke innlogget" 
       });
     }
 
@@ -276,8 +269,6 @@ export const verifyUser = (req, res) => {
         ErSuperbruker: req.user.ErSuperbruker 
       }
     };
-
-    console.log("verifyUser response:", response); 
     
     return res.status(200).json(response);
   } catch (error) {

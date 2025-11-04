@@ -6,6 +6,7 @@ export const verifyToken = (req, res, next) => {
 
   if (!token) {
     req.user = null;
+    req.isAuthenticated = false;
     return next();
   }
 
@@ -13,11 +14,14 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, getJwtSecret(), (err, decoded) => {
     if (err) {
       console.error("JWT-verifisering feilet:", err.message);
-      return res.status(403).json({ error: "Ugyldig token" });
+      req.user = null;
+      req.isAuthenticated = false;
+      return next();
     }
 
     req.user = decoded;
     req.user.ErSuperbruker = Boolean(decoded.ErSuperbruker); //ErSuperbruker til ren boolean 
+    req.isAuthenticated = true;
 
     next();
   });

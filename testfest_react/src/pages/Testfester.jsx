@@ -26,24 +26,13 @@ useEffect(() => {
       let url = "http://localhost:8800/testfester"; 
 
       if (isAuthenticated && currentUser && currentUser.BrukerID) {
-        console.log("Innlogget bruker:", currentUser);
+        // Innlogget bruker
       } else if (isAuthenticated) {
-        console.log("Auth OK, men ingen brukerdata ennå → venter...");
+        // Venter på brukerdata
         return; 
-      } else {
-        console.log("Ingen bruker logget inn → henter ALLE testfester");
       }
 
-      console.log("API-kall:", url);
-
       const res = await axios.get(url);
-      console.log("Data mottatt:", res.data);
-
-      console.log("CurrentUser.BrukerID:", currentUser?.BrukerID, typeof currentUser?.BrukerID);
-      res.data.forEach(t => {
-        console.log(`Testfest ${t.TestfestID}: BrukerID=${t.BrukerID} (${typeof t.BrukerID}), matcher=${Number(t.BrukerID) === Number(currentUser?.BrukerID)}`);
-      });
-      
       setTestfester(res.data);
     } catch (err) {
       console.error(err);
@@ -118,10 +107,6 @@ if (isAuthenticated && currentUser && !ErSuperbruker) {
 egneTestfester = testfester.filter(t => Number(t.BrukerID) === Number(currentUser.BrukerID));
 andresTestfester = testfester.filter(t => Number(t.BrukerID) !== Number(currentUser.BrukerID));
 }
-
-// Debug
-console.log("IsAuthenticated:", isAuthenticated);
-console.log("erSuperbruker:", ErSuperbruker);
 
 if (currentUser === null && isAuthenticated) {
   return <p>Laster brukerdata...</p>;

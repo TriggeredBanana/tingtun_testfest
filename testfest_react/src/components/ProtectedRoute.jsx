@@ -4,8 +4,6 @@ import { useAuth } from '../context/AuthContext';
 const ProtectedRoute = ({ children, requireSuperUser = false }) => {
   const { isAuthenticated, ErSuperbruker, authLoading } = useAuth();
 
-  console.log("ProtectedRoute:", { isAuthenticated, ErSuperbruker, authLoading, requireSuperUser });
-
   if (authLoading) {
     return <div>Laster...</div>;
   }

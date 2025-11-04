@@ -18,6 +18,6 @@ router.get("/:TestfestID", verifyToken, getTestfesterByID);
 router.post("/", verifyToken, addTestfester);
 router.put("/:TestfestID", verifyToken, updateTestfester);
 router.delete("/:TestfestID", verifyToken, deleteTestfester);
-router.put("/:id/program", verifyToken, updateProgramForTestfest);
+router.put("/:TestfestID/program", verifyToken, updateProgramForTestfest);
 
 export default router;

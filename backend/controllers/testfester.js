@@ -145,7 +145,7 @@ export const updateTestfester = (req, res) => {
   let query = "UPDATE Testfester SET Dato = ?, Status = ? WHERE TestfestID = ?";
   let params = [Dato, Status, TestfestID];
 
-  if (bruker.ErSuperbruker !== 1) {
+  if (!bruker.ErSuperbruker) {
     query += " AND BrukerID = ?";
     params.push(bruker.BrukerID);
   }
@@ -186,7 +186,11 @@ export const deleteTestfester = (req, res) => {
 
       const eierId = rows[0].BrukerID;
 
-      if (!bruker || (!bruker.ErSuperbruker)) {
+      if (!bruker) {
+        return res.status(401).json({ error: "Ikke innlogget" });
+      }
+
+      if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
         return res.status(403).json({ error: "Ikke autorisert til å slette" });
       }
 

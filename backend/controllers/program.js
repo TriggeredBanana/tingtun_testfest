@@ -32,7 +32,7 @@ export const getProgram = (req, res) => {
 
 //legg til program
 export const addProgram = (req, res) => {
-  const q = "INSERT INTO Program (Navn, Punkter) VALUES (?, ?, ?)";
+  const q = "INSERT INTO Program (Navn, Punkter) VALUES (?, ?)";
   const values = [req.body.Navn, req.body.Punkter];
 
   db.query(q, values, (err, data) => {
