@@ -6,8 +6,9 @@ import { useEffect} from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
-import AddTestfester from "./AddTestfester";
 import { useNavigate } from "react-router-dom";
+
+axios.defaults.withCredentials = true; //sender cookies sendes automatisk
 
 const Testfester = () => {
     const { t } = useTranslation();
@@ -15,18 +16,17 @@ const Testfester = () => {
     const [programmer, setProgrammer] = useState([]);
     const [loadingAssign, setLoadingAssign] = useState({});
     const { isAuthenticated, ErSuperbruker, currentUser, authLoading } = useAuth();
-    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
 
 useEffect(() => {
   const fetchAllTestfester = async () => {
+    if (authLoading) return;
     try {
-      let url = "http://localhost:8800/Testfester"; 
+      let url = "http://localhost:8800/testfester"; 
 
       if (isAuthenticated && currentUser && currentUser.BrukerID) {
         console.log("Innlogget bruker:", currentUser);
-        url += `?BrukerID=${currentUser.BrukerID}`;
       } else if (isAuthenticated) {
         console.log("Auth OK, men ingen brukerdata ennå → venter...");
         return; 
@@ -51,7 +51,7 @@ useEffect(() => {
   };
 
   fetchAllTestfester();
-}, [isAuthenticated, currentUser]);
+}, [isAuthenticated, currentUser, authLoading]);
 
 
   //slette testfest, kun for brukere og admin
@@ -59,7 +59,7 @@ useEffect(() => {
     if (!window.confirm("Er du sikker på at du vil slette denne testfesten?")) return;
 
     try {
-      await axios.delete(`http://localhost:8800/Testfester/${TestfestID}`, {
+      await axios.delete(`http://localhost:8800/testfester/${TestfestID}`, {
         data: {
           BrukerID: currentUser?.BrukerID,
           ErSuperbruker: ErSuperbruker
@@ -78,7 +78,7 @@ useEffect(() => {
     if (ErSuperbruker) {
       const fetchProgrammer = async () => {
         try {
-          const res = await axios.get("http://localhost:8800/Program");
+          const res = await axios.get("http://localhost:8800/program");
           setProgrammer(res.data);
         } catch (err) {
           console.error("Feil ved henting av programmer:", err);
@@ -88,11 +88,10 @@ useEffect(() => {
     }
   }, [ErSuperbruker]);
 
-  //Kun tilgjengelig for admin
     const handleAssignProgram = async (TestfestID, ProgramID) => {
       try {
         setLoadingAssign(prev => ({ ...prev, [TestfestID]: true }));
-        await axios.put(`http://localhost:8800/Testfester/${TestfestID}/program`, { 
+        await axios.put(`http://localhost:8800/testfester/${TestfestID}/program`, { 
           ProgramID,
           BrukerID: isAuthenticated?.BrukerID,
           ErSuperbruker: ErSuperbruker
@@ -189,7 +188,7 @@ if (currentUser === null && isAuthenticated) {
                 <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
                  {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")} – {testfest.Status}
                 </Link>
-                <button className="rediger" onClick={() => navigate(`/testfester/${testfest.TestfestID}`)}>
+                <button className="rediger" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
                 Rediger
               </button>
                 <button className="delete" onClick={() => handleDelete(testfest.TestfestID)}>
@@ -254,22 +253,10 @@ if (currentUser === null && isAuthenticated) {
       )}
       {/* Opprett ny testfest – bare hvis innlogget */}
       {isAuthenticated && (
-        <button className="button-link" onClick={() => setShowModal(true)}>
+        <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
           Opprett Testfest
         </button>
-      )}
-
-      {/* === MODAL === */}
-      {showModal && (
-        <div className="modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <AddTestfester 
-              onClose={() => setShowModal(false)} 
-              onAdded={() => window.location.reload()} 
-            />
-        </div>
-        </div>    
-      )}
+      )} 
     </div>
   ); 
 };

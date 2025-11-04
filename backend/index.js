@@ -22,8 +22,8 @@ app.use(cors({
 // Ruter
 app.use("/tjenesteeier", tjenesteeierRoutes);
 app.use("/brukere", userRoutes);
-app.use("/Testfester", testfesterRoutes);
-app.use("/Oppgaver", oppgaverRoutes);
+app.use("/testfester", testfesterRoutes);
+app.use("/oppgaver", oppgaverRoutes);
 app.use("/program", programRoutes);
 
 app.listen(8800, () => {

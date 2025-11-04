@@ -7,15 +7,16 @@ import {useNavigate} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 
+axios.defaults.withCredentials = true; //sender cookies sendes automatisk
+
 const AddTestfester = ({ onClose, onAdded }) => {
-  const { currentUser } = useAuth(); // Hent innlogget bruker
+  const { currentUser, authLoading } = useAuth(); // Hent innlogget bruker
   const navigate = useNavigate();
   const { TestfestID } = useParams();
 
   const [testfester,setTestfester] = useState({
       Dato: "",
       Status: "Kommende",
-      BrukerID: "",
     });
     
   const [testfestID, setTestfestID] = useState(null);
@@ -26,9 +27,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
       if (!TestfestID) return; // Bare ved redigering
       
       try {
-        const res = await axios.get(`http://localhost:8800/testfester/${TestfestID}`, {
-          withCredentials: true
-        });
+        const res = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
         setTestfester(res.data);
         setTestfestID(res.data.TestfestID);
         console.log("Redigerer testfest:", res.data);
@@ -43,11 +42,11 @@ const AddTestfester = ({ onClose, onAdded }) => {
 
   // useEffect for å sjekke autentisering
   useEffect(() => {
-    if (!currentUser) {
+    if (!authLoading && !currentUser) {
       alert("Du må være logget inn!");
       navigate('/login');
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, authLoading, navigate]);
 
   const handleChange = (e) =>{
      setTestfester(prev=>({...prev, [e.target.name]: e.target.value}))
@@ -61,25 +60,21 @@ const AddTestfester = ({ onClose, onAdded }) => {
         }
 
         const testfestData = {
-        ...testfester,
-        BrukerID: currentUser.BrukerID
+        Dato: testfester.Dato,
+        Status: testfester.Status
       };
 
       try {
         if (TestfestID) {
           //Oppdater eksisterende
-          await axios.put(`http://localhost:8800/Testfester/${TestfestID}`, testfestData, 
-            {withCredentials: true}
-          );
+          await axios.put(`http://localhost:8800/testfester/${TestfestID}`, testfestData);
           alert("Testfest oppdatert!");
           if (onAdded) onAdded(); 
           if (onClose) onClose();
         } else {
           // Opprett ny
-          const res = await axios.post("http://localhost:8800/Testfester", testfestData, 
-            {withCredentials: true}
-          );
-          const newID = (res.data.insertId || res.data.TestfestID);
+          const res = await axios.post("http://localhost:8800/testfester", testfestData);
+          const newID = res.data.TestfestID;
           setTestfestID(newID);
           alert("Testfest opprettet! Du kan nå legge til oppgaver.");
 
@@ -105,9 +100,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
     }));
 
     try {
-        await axios.post("http://localhost:8800/Oppgaver", oppgaverMedID,
-          {withCredentials: true}
-        );
+        await axios.post("http://localhost:8800/oppgaver", oppgaverMedID);
         alert("Oppgaver lagret!");
         navigate(`/testfester/${testfestID}`); 
     } catch (err) {

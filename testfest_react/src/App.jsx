@@ -46,7 +46,6 @@ function App() {
             />
             <Route path="/testfester/:TestfestID" element={<TestfestDetaljer />} />
             <Route path="/addTestfester" element={<AddTestfester />} />
-            <Route path="/testfester/:ProgramID" element={<Testfester />} />
           </Routes>
         </div>
       </Router>

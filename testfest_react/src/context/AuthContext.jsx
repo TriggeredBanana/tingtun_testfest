@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-axios.defaults.withCredentials = true; // 👈 viktig
+axios.defaults.withCredentials = true;
 
 const AuthContext = createContext(null);
 
@@ -19,12 +19,12 @@ useEffect(() => {
   const checkAuth = async () => {
     try {
       const res = await fetch("http://localhost:8800/brukere/verify", {
-        credentials: "include", // <---- send med cookies
+        credentials: "include", // send med cookies
       });
       const data = await res.json();
       if (res.ok && data.authenticated) {
         setIsAuthenticated(true);
-        setErSuperbruker(data.bruker?.ErSuperbruker === 1 || data.bruker?.ErSuperbruker === true);
+        setErSuperbruker(Boolean(data.bruker?.ErSuperbruker));
         setCurrentUser(data.bruker);
       } else {
         setIsAuthenticated(false);
@@ -46,19 +46,15 @@ const login = async (brukernavn, passord) => {
     const res = await fetch("http://localhost:8800/brukere/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", // <---- VIKTIG
+      credentials: "include", 
       body: JSON.stringify({ brukernavn, passord }),
     });
 
     const data = await res.json();
-
-    console.log("📥 Login response:", data);
-    console.log("🔑 ErSuperbruker fra response:", data.bruker?.ErSuperbruker);
-    console.log("🔑 Type:", typeof data.bruker?.ErSuperbruker);
     
     if (res.ok && data.success) {
       setIsAuthenticated(true);
-      setErSuperbruker(data.bruker.ErSuperbruker === 1);
+      setErSuperbruker(Boolean(data.bruker?.ErSuperbruker));
       setCurrentUser(data.bruker);
       return { success: true };
     } else {

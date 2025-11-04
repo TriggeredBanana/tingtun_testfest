@@ -8,6 +8,7 @@ import {
   updateUser,
   deleteUser,
   loginUser,
+  logoutUser,
   verifyUser
 } from "../controllers/brukere.js";
 
@@ -15,10 +16,7 @@ const router = express.Router();
 
 router.post("/login", loginUser);
 router.get("/verify", verifyToken, verifyUser); 
-router.post("/logout", (req, res) => {
-  res.clearCookie("token");
-  return res.json({ success: true });
-});
+router.post("/logout", logoutUser);
 
 router.get("/", getUsers);
 

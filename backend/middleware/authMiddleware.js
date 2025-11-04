@@ -1,21 +1,25 @@
 import jwt from "jsonwebtoken";
+import { getJwtSecret } from "./jwtConfig.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
     req.user = null;
-    return next;
+    return next();
   }
 
-jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-    console.error("JWT-verifisering feilet:", err.message);
-    return res.status(403).json({ error: "Ugyldig token" });
-  }
+  //fallback
+  jwt.verify(token, getJwtSecret(), (err, decoded) => {
+    if (err) {
+      console.error("JWT-verifisering feilet:", err.message);
+      return res.status(403).json({ error: "Ugyldig token" });
+    }
 
-  console.log("Token OK, decoded payload:", decoded);
-  req.user = decoded;
-  next();
+    req.user = decoded;
+    req.user.ErSuperbruker = Boolean(decoded.ErSuperbruker); //ErSuperbruker til ren boolean 
+
+    next();
   });
 };
+

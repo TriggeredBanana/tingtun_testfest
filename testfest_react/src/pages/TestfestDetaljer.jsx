@@ -4,6 +4,8 @@ import { useEffect} from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true; //sender cookies automatisk
+
 const TestfestDetaljer = () => {
   const { TestfestID } = useParams();
   const [testfest, setTestfester] = useState({});
@@ -13,11 +15,11 @@ const TestfestDetaljer = () => {
   useEffect(()=> {
        const fetchData = async ()=>{
         try{
-            const testfestRes = await axios.get(`http://localhost:8800/Testfester/${TestfestID}`);
+            const testfestRes = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
             setTestfester(testfestRes.data);
 
             // Hent oppgaver for denne testfesten
-            const oppgaverRes = await axios.get(`http://localhost:8800/Oppgaver/${TestfestID}`);
+            const oppgaverRes = await axios.get(`http://localhost:8800/oppgaver/${TestfestID}`);
             setOppgaver(oppgaverRes.data);
         } catch(err){
             console.log(err);

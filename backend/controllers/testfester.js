@@ -25,12 +25,12 @@ export const getTestfester = (req, res) => {
     console.log("Ikke innlogget - viser alle testfester");
   }
   // Vanlig bruker → vis kun egne
-  else if (bruker.ErSuperbruker !== 1 && bruker.ErSuperbruker !== true) {
+  else if (!bruker.ErSuperbruker) {
     console.log("Vanlig bruker - viser kun egne testfester");
     query += " WHERE t.BrukerID = ?";
     params.push(bruker.BrukerID);
   }
-  // 🛠️ Admin → vis alle
+  // Admin → vis alle
   else {
     console.log("Admin-bruker - viser alle testfester");
   }
@@ -81,18 +81,18 @@ export const getTestfesterByID = (req, res) => {
 
 // Tildel program (kun admin)
 export const updateProgramForTestfest = (req, res) => {
-  const { id } = req.params;
+  const { TestfestID } = req.params;
   const { ProgramID } = req.body;
   const bruker = req.user;
 
   // Sjekk at bruker er admin
-  if (!bruker || bruker.ErSuperbruker !== 1) {
+  if (!bruker || !bruker.ErSuperbruker) {
     return res.status(403).json({ error: "Kun superbruker kan tilordne program" });
   }
 
   db.query(
     "UPDATE Testfester SET ProgramID = ? WHERE TestfestID = ?",
-    [ProgramID, id],
+    [ProgramID, TestfestID],
     (err, result) => {
       if (err) {
         console.error("Feil ved tilordning av program:", err);
@@ -186,7 +186,7 @@ export const deleteTestfester = (req, res) => {
 
       const eierId = rows[0].BrukerID;
 
-      if (!bruker || (bruker.BrukerID !== eierId && !bruker.ErSuperbruker)) {
+      if (!bruker || (!bruker.ErSuperbruker)) {
         return res.status(403).json({ error: "Ikke autorisert til å slette" });
       }
 

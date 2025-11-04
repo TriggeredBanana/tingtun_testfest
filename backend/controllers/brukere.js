@@ -1,6 +1,7 @@
 import db from "../connect.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"; // 👈 legg til øverst
+import jwt from "jsonwebtoken"; 
+import { getJwtSecret } from "../middleware/jwtConfig.js";
 
 // Hent alle brukere (uten passord!)
 export const getUsers = (req, res) => {
@@ -197,7 +198,8 @@ export const loginUser = (req, res) => {
     }
 
     const user = data[0];
-    console.log("📊 Bruker fra database:", {
+
+    console.log(" Bruker fra database:", {
       BrukerID: user.BrukerID,
       Brukernavn: user.Brukernavn,
       ErSuperbruker: user.ErSuperbruker,
@@ -210,27 +212,27 @@ export const loginUser = (req, res) => {
       return res.status(401).json({ error: "Ugyldig brukernavn eller passord" });
     }
 
-    // ✅ Lag JWT-token med ALL nødvendig brukerinfo
+    // Lag JWT-token med ALL nødvendig brukerinfo
     const token = jwt.sign(
       { 
         BrukerID: user.BrukerID,
-        Brukernavn: user.Brukernavn,      // ← Legg til dette
-        Navn: user.Navn,                   // ← Legg til dette
+        Brukernavn: user.Brukernavn,     
+        Navn: user.Navn,                  
         ErSuperbruker: user.ErSuperbruker
       },
-      process.env.JWT_SECRET || "hemmelig_nøkkel",
+      getJwtSecret(),
       { expiresIn: "1h" }
     );
 
-    // ✅ Send token som HTTP-only cookie
+    // Send token som HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // sett true i produksjon med HTTPS
-      sameSite: "lax",
-      maxAge: 3600000 // 1 time
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 3600000 
     });
 
-    // ✅ Send brukerdata (uten passord)
+    // Send brukerdata (uten passord)
     return res.json({
       success: true,
       bruker: {
@@ -242,11 +244,21 @@ export const loginUser = (req, res) => {
     });
   });
 };
+
+//Håndtere logout
+export const logoutUser = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+  });
+  return res.json({ success: true, message: "Du er logget ut" });
+};
+
 // Verifiser om bruker er logget inn via cookie (JWT)
-// I controllers/brukere.js
 export const verifyUser = (req, res) => {
   try {
-    console.log("🔐 verifyUser - req.user:", req.user); // ← VIKTIG
+    console.log("verifyUser - req.user:", req.user); 
     
     if (!req.user) {
       return res.status(401).json({ 
@@ -261,11 +273,11 @@ export const verifyUser = (req, res) => {
         BrukerID: req.user.BrukerID,
         Brukernavn: req.user.Brukernavn,
         Navn: req.user.Navn,
-        ErSuperbruker: req.user.ErSuperbruker  // ← Sjekk at denne finnes!
+        ErSuperbruker: req.user.ErSuperbruker 
       }
     };
 
-    console.log("📤 verifyUser response:", response); // ← VIKTIG
+    console.log("verifyUser response:", response); 
     
     return res.status(200).json(response);
   } catch (error) {
