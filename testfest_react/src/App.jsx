@@ -13,6 +13,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Tjenesteeier from './pages/Tjenesteeier';
 import Add from './pages/Add';
+import TestfestDetaljer from './pages/TestfestDetaljer';
+import AddTestfester from './pages/AddTestfester';
 
 import './assets/styles/styles.css';
 import './assets/styles/index.css';
@@ -42,6 +44,8 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route path="/testfester/:TestfestID" element={<TestfestDetaljer />} />
+            <Route path="/addTestfester" element={<AddTestfester />} />
           </Routes>
         </div>
       </Router>

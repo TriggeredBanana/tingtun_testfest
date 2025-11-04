@@ -6,7 +6,7 @@ import testfestLogo from '../assets/images/testfest_logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, erSuperbruker, logout } = useAuth();
+  const { isAuthenticated, ErSuperbruker, logout, isLoading } = useAuth();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -25,6 +25,7 @@ const Header = () => {
     logout();
     closeMenu();
     navigate('/');
+
   };
 
   // Bytt språk mellom norsk og engelsk (én knapp som toggler)
@@ -37,7 +38,10 @@ const Header = () => {
     const next = isNorwegian() ? 'en' : 'no';
     i18n.changeLanguage(next);
   };
-
+  
+  if (isLoading) {
+    return <header>Laster...</header>; // eller null
+  }
   return (
     <header className="header">
       <div className="container">
@@ -60,7 +64,7 @@ const Header = () => {
             <li><Link to="/testfester" onClick={closeMenu}>{t('nav.testfester')}</Link></li>
             <li><Link to="/faq" onClick={closeMenu}>{t('nav.faq')}</Link></li>
             <li><Link to="/metode" onClick={closeMenu}>{t('nav.metode')}</Link></li>
-            {erSuperbruker ? (
+            {ErSuperbruker ? (
               <li><Link to="/admin" onClick={closeMenu}>{t('nav.admin')}</Link></li>
             ) : null}
             {isAuthenticated ? (

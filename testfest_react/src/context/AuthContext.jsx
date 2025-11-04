@@ -1,84 +1,90 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { loginUser as loginUserAPI } from '../services/brukerService';
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const AuthContext = createContext(null);
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [erSuperbruker, setErSuperbruker] = useState(false);
+  const [ErSuperbruker, setErSuperbruker] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  // Sjekk autentiseringsstatus ved montering
-  useEffect(() => {
-    const authStatus = localStorage.getItem('testfest_auth');
-    const superUserStatus = localStorage.getItem('testfest_superuser');
-    const userData = localStorage.getItem('testfest_user');
-    
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-    }
-    if (superUserStatus === 'true') {
-      setErSuperbruker(true);
-    }
-    if (userData) {
-      setCurrentUser(JSON.parse(userData));
-    }
-  }, []);
 
-  const login = async (brukernavn, passord) => {
+  // Kjør ved oppstart
+useEffect(() => {
+  const checkAuth = async () => {
     try {
-      // Kall backend API for autentisering
-      const response = await loginUserAPI(brukernavn, passord);
-      
-      if (response.success) {
-        const { bruker } = response;
-        
+      const res = await fetch("http://localhost:8800/brukere/verify", {
+        credentials: "include", // send med cookies
+      });
+      const data = await res.json();
+      if (res.ok && data.authenticated) {
         setIsAuthenticated(true);
-        setErSuperbruker(bruker.erSuperbruker);
-        setCurrentUser(bruker);
-        
-        localStorage.setItem('testfest_auth', 'true');
-        localStorage.setItem('testfest_superuser', bruker.erSuperbruker.toString());
-        localStorage.setItem('testfest_user', JSON.stringify(bruker));
-        
-        return { success: true, erSuperbruker: bruker.erSuperbruker };
+        setErSuperbruker(Boolean(data.bruker?.ErSuperbruker));
+        setCurrentUser(data.bruker);
+      } else {
+        setIsAuthenticated(false);
+        setErSuperbruker(false);
+        setCurrentUser(null);
       }
-      
-      return { success: false, message: 'Login feilet' };
-    } catch (error) {
-      console.error('Login error:', error);
-      return { 
-        success: false, 
-        message: error.message || 'Ugyldig brukernavn eller passord' 
-      };
+    } catch (err) {
+      console.error("Feil ved verify:", err);
+      setIsAuthenticated(false);
+    } finally {
+      setAuthLoading(false);
     }
   };
+  checkAuth();
+}, []);
 
-  const logout = () => {
+const login = async (brukernavn, passord) => {
+  try {
+    const res = await fetch("http://localhost:8800/brukere/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", 
+      body: JSON.stringify({ brukernavn, passord }),
+    });
+
+    const data = await res.json();
+    
+    if (res.ok && data.success) {
+      setIsAuthenticated(true);
+      setErSuperbruker(Boolean(data.bruker?.ErSuperbruker));
+      setCurrentUser(data.bruker);
+      return { success: true };
+    } else {
+      return { success: false, message: data.message || "Feil brukernavn/passord" };
+    }
+  } catch (err) {
+    console.error("Login-feil:", err);
+    return { success: false, message: "Serverfeil" };
+  }
+};
+
+
+  const logout = async () => {
+    await axios.post("http://localhost:8800/brukere/logout"); // Du kan lage en logout-route som sletter cookien
     setIsAuthenticated(false);
     setErSuperbruker(false);
     setCurrentUser(null);
-    localStorage.removeItem('testfest_auth');
-    localStorage.removeItem('testfest_superuser');
-    localStorage.removeItem('testfest_user');
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated, 
-      erSuperbruker, 
-      currentUser,
-      login, 
-      logout 
-    }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        ErSuperbruker,
+        currentUser,
+        authLoading,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -38,7 +38,7 @@ const Login = () => {
     const result = await login(formData.brukernavn, formData.passord);
 
     if (result.success) {
-      if (result.erSuperbruker) {
+      if (result.ErSuperbruker) {
         navigate('/admin');
       } else {
         navigate('/testfester');

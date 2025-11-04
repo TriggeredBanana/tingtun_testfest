@@ -1,62 +1,122 @@
 .testfester-list {
-    list-style: none;                
-    counter-reset: testfester-counter; 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
     margin: 2rem 0;
     padding: 0;
 }
 
-/* Hvert listepunkt */
-.testfester-list li {
-    margin: 1.5rem 0;
-    border-radius: 4px;
+/* Hver enkelt testfest-boks */
+.testfester-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
     border: 1px solid #dee2e6;
-    border-left: 3px solid #495057;
+    border-left: 4px solid #495057;
     background-color: #f8f9fa;
-    transition: border-color 0.2s ease;
-    overflow: hidden; 
-    padding: 0;  
-
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-/**Gjør boksen klikkbar*/
-.testfester-list li .list-link {
-    display: block;          
-    padding: 1.5rem 1rem;    
-    color: #000;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
-}
-
-/* Lenker inne i lista */
-.testfester-list li a {
-    color: #000;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-decoration: none;
-}
-
-.testfester-list li a:hover,
-.testfester-list li a:focus {
-    text-decoration: underline;
-    color: #000;
-}
-
-/* Hover-effekt på listepunktene */
-.testfester-list li:hover {
+.testfester-item:hover {
     border-color: #6c757d;
+    background-color: #f1f3f5;
+}
+
+/* Klikkbar lenke til venstre */
+.testfester-item .list-link {
+    flex-grow: 1;
+    color: #000;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.testfester-item .list-link:hover {
+    text-decoration: underline;
+}
+
+/* Liten slett-knapp til høyre */
+button.delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+button.delete:hover {
+    background-color: #b02a37;
+}
+
+/* "Opprett testfest"-knapp */
+.button-link {
+    display: inline-block;
+    margin: 1rem 0;
+    padding: 0.7rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.button-link:hover,
+.button-link:focus {
+    background-color: #034e99;
+    color: #f5f6f7;
+    text-decoration: none;
+    transform: translateY(-2px);
 }
 
 /* Responsiv tilpasning */
 @media (max-width: 768px) {
-    .testfester-list li {
-        padding: 1rem;
-        padding-top: 2rem;
+    .testfester-item {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .testfester-list li::before {
-        width: 20px;
-        height: 20px;
-        font-size: 0.8rem;
+    button.delete {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+        width: auto;
+    }
+
+    .button-link {
+        width: 100%;
+        text-align: center;
     }
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* mørk bakgrunn */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
