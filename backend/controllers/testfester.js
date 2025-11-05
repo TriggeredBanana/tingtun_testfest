@@ -3,9 +3,6 @@ import db from "../connect.js";
 export const getTestfester = (req, res) => {
   const bruker = req.user; // Kommer fra verifyToken hvis innlogget
 
-  console.log("🔍 getTestfester kall mottatt.");
-  console.log("Bruker fra token:", bruker);
-
   let query = `
     SELECT 
       t.TestfestID,
@@ -22,22 +19,15 @@ export const getTestfester = (req, res) => {
 
   // Hvis ikke innlogget → vis alle
   if (!bruker) {
-    console.log("Ikke innlogget - viser alle testfester");
+    // Viser alle testfester
   }
   // Vanlig bruker → vis kun egne
   else if (!bruker.ErSuperbruker) {
-    console.log("Vanlig bruker - viser kun egne testfester");
     query += " WHERE t.BrukerID = ?";
     params.push(bruker.BrukerID);
   }
-  // Admin → vis alle
-  else {
-    console.log("Admin-bruker - viser alle testfester");
-  }
 
   query += " ORDER BY t.Dato DESC";
-
-  console.log("Kjører SQL:", query, params);
 
   db.query(query, params, (err, rows) => {
     if (err) {
@@ -45,14 +35,19 @@ export const getTestfester = (req, res) => {
       return res.status(500).json({ error: "Serverfeil" });
     }
 
-    console.log(`Testfester funnet: ${rows.length}`);
     res.json(rows);
   });
 };
 
 // Hent testfest etter ID
 export const getTestfesterByID = (req, res) => {
-  const testfestID = req.params.TestfestID;
+  const testfestID = Number(req.params.TestfestID);
+  
+  // Validate TestfestID
+  if (isNaN(testfestID) || testfestID <= 0) {
+    return res.status(400).json({ error: "Ugyldig TestfestID" });
+  }
+
   const q = `
     SELECT 
       t.TestfestID,
@@ -74,16 +69,20 @@ export const getTestfesterByID = (req, res) => {
     if (data.length === 0) {
       return res.status(404).json({ error: "Testfest ikke funnet" });
     }
-    console.log("Testfest funnet:", data[0]);
     return res.json(data[0]);
   });
 };
 
 // Tildel program (kun admin)
 export const updateProgramForTestfest = (req, res) => {
-  const { TestfestID } = req.params;
+  const testfestID = Number(req.params.TestfestID);
   const { ProgramID } = req.body;
   const bruker = req.user;
+
+  // Validate TestfestID
+  if (isNaN(testfestID) || testfestID <= 0) {
+    return res.status(400).json({ error: "Ugyldig TestfestID" });
+  }
 
   // Sjekk at bruker er admin
   if (!bruker || !bruker.ErSuperbruker) {
@@ -92,7 +91,7 @@ export const updateProgramForTestfest = (req, res) => {
 
   db.query(
     "UPDATE Testfester SET ProgramID = ? WHERE TestfestID = ?",
-    [ProgramID, TestfestID],
+    [ProgramID, testfestID],
     (err, result) => {
       if (err) {
         console.error("Feil ved tilordning av program:", err);
@@ -115,6 +114,11 @@ export const addTestfester =  (req, res) => {
 
   const { Dato, Status } = req.body;
 
+  // Validate input
+  if (!Dato || !Status) {
+    return res.status(400).json({ error: "Dato og Status er påkrevd" });
+  }
+
   db.query(
     "INSERT INTO Testfester (Dato, Status, BrukerID) VALUES (?, ?, ?)",
     [Dato, Status, bruker.BrukerID],
@@ -131,19 +135,29 @@ export const addTestfester =  (req, res) => {
   );
 };
 
-//Redigere en testfest
+// Redigere en testfest
 export const updateTestfester = (req, res) => {
-  const { TestfestID } = req.params;
+  const testfestID = Number(req.params.TestfestID);
   const { Dato, Status } = req.body;
   const bruker = req.user;
+
+  // Validate TestfestID
+  if (isNaN(testfestID) || testfestID <= 0) {
+    return res.status(400).json({ error: "Ugyldig TestfestID" });
+  }
 
   if (!bruker) {
     return res.status(401).json({ error: "Ikke innlogget" });
   }
 
+  // Validate input
+  if (!Dato || !Status) {
+    return res.status(400).json({ error: "Dato og Status er påkrevd" });
+  }
+
   // Admin kan redigere alle, vanlige brukere bare sine egne
   let query = "UPDATE Testfester SET Dato = ?, Status = ? WHERE TestfestID = ?";
-  let params = [Dato, Status, TestfestID];
+  let params = [Dato, Status, testfestID];
 
   if (!bruker.ErSuperbruker) {
     query += " AND BrukerID = ?";
@@ -169,11 +183,16 @@ export const updateTestfester = (req, res) => {
 // Slett testfest (kun eier eller admin)
 export const deleteTestfester = (req, res) => {
   const bruker = req.user;
-  const { TestfestID } = req.params;
+  const testfestID = Number(req.params.TestfestID);
+
+  // Validate TestfestID
+  if (isNaN(testfestID) || testfestID <= 0) {
+    return res.status(400).json({ error: "Ugyldig TestfestID" });
+  }
 
   db.query(
     "SELECT BrukerID FROM Testfester WHERE TestfestID = ?",
-    [TestfestID],
+    [testfestID],
     (err, rows) => {
       if (err) {
         console.error("Feil ved sletting:", err);
@@ -194,7 +213,7 @@ export const deleteTestfester = (req, res) => {
         return res.status(403).json({ error: "Ikke autorisert til å slette" });
       }
 
-      db.query("DELETE FROM Testfester WHERE TestfestID = ?", [TestfestID], (err) => {
+      db.query("DELETE FROM Testfester WHERE TestfestID = ?", [testfestID], (err) => {
         if (err) {
           console.error("Feil ved sletting:", err);
           return res.status(500).json({ error: "Serverfeil" });

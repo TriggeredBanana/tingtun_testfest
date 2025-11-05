@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 import { 
   getOppgaverByTestfestID, 
@@ -9,7 +10,7 @@ import {
 const router = express.Router();
 
 router.get("/:TestfestID", getOppgaverByTestfestID);
-router.post("/", addOppgaver);
-router.delete("/:OppgaveID", deleteOppgaver);
+router.post("/", verifyToken, addOppgaver);
+router.delete("/:OppgaveID", verifyToken, deleteOppgaver);
 
 export default router;

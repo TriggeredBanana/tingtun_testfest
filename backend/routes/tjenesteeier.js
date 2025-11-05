@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 import { 
   getTjenesteeiere, 
@@ -8,8 +9,8 @@ import {
 
 const router = express.Router();
 
-router.get("/", getTjenesteeiere);
-router.post("/", addTjenesteeier);
-router.delete("/:TjenesteeierID", deleteTjenesteeier);
+router.get("/", verifyToken, getTjenesteeiere);
+router.post("/", verifyToken, addTjenesteeier);
+router.delete("/:TjenesteeierID", verifyToken, deleteTjenesteeier);
 
 export default router;

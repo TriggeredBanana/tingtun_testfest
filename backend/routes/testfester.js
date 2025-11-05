@@ -14,7 +14,7 @@ import {
 const router = express.Router();
 
 router.get("/", getTestfester);
-router.get("/:TestfestID", verifyToken, getTestfesterByID);
+router.get("/:TestfestID", getTestfesterByID);
 router.post("/", verifyToken, addTestfester);
 router.put("/:TestfestID", verifyToken, updateTestfester);
 router.delete("/:TestfestID", verifyToken, deleteTestfester);
