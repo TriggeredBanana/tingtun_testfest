@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 
-axios.defaults.withCredentials = true; //sender cookies sendes automatisk
+axios.defaults.withCredentials = true; // Sender cookies sendes automatisk
 
 const AddTestfester = ({ onClose, onAdded }) => {
   const { currentUser, authLoading } = useAuth(); // Hent innlogget bruker
@@ -30,7 +30,6 @@ const AddTestfester = ({ onClose, onAdded }) => {
         const res = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
         setTestfester(res.data);
         setTestfestID(res.data.TestfestID);
-        console.log("Redigerer testfest:", res.data);
       } catch (err) {
         console.error("Kunne ikke hente testfest:", err);
         alert("Kunne ikke hente testfest-data.");
@@ -66,7 +65,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
 
       try {
         if (TestfestID) {
-          //Oppdater eksisterende
+          // Oppdater eksisterende
           await axios.put(`http://localhost:8800/testfester/${TestfestID}`, testfestData);
           alert("Testfest oppdatert!");
           if (onAdded) onAdded(); 
@@ -89,22 +88,26 @@ const AddTestfester = ({ onClose, onAdded }) => {
     { Tittel: "", Beskrivelse: "" }
     ]);
 
-    //lagre alle oppgaver
+    // Lagre alle oppgaver
     const handleSaveOppgaver = async () => {
-     if (!testfestID) 
+    const idToUse = testfestID || Number(TestfestID); // Bruk enten state eller param
+    
+    if (!idToUse) {
       return alert("Opprett testfest først!");
+    }
 
     const oppgaverMedID = oppgaver.map(o => ({
         ...o,
-        TestfestID: testfestID
+        TestfestID: Number(idToUse) // Passer på at det er et nummer
     }));
 
     try {
         await axios.post("http://localhost:8800/oppgaver", oppgaverMedID);
         alert("Oppgaver lagret!");
-        navigate(`/testfester/${testfestID}`); 
+        navigate(`/testfester/${idToUse}`); 
     } catch (err) {
         console.log("Feil ved lagring av oppgaver:", err);
+        alert("Kunne ikke lagre oppgaver. Sjekk konsollen for detaljer.");
     }
     };
         
@@ -116,11 +119,11 @@ const AddTestfester = ({ onClose, onAdded }) => {
     };
     setOppgaver(nyeOppgaver);
   };
-    //legg til ny Oppgave
+    // Legg til ny Oppgave
     const addOppgave = () => {
         setOppgaver([...oppgaver, { Tittel: "", Beskrivelse: "" }]);
     };
-    //fjern oppgave
+    // Fjern oppgave
     const removeOppgave = (index) => {
         const nyeOppgaver = oppgaver.filter((_, i) => i !== index);
         setOppgaver(nyeOppgaver);
@@ -141,8 +144,6 @@ const AddTestfester = ({ onClose, onAdded }) => {
       Dato: dato,
       Status: status
     }))};
-
-    console.log(testfester)
     
     return (
     <div className="modal-task">

@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 import { 
   addProgram,
@@ -9,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.post("/", addProgram);
+router.post("/", verifyToken, addProgram);
 router.get("/:ProgramID", getProgrambyID);
 router.get("/", getProgram)
  
