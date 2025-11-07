@@ -73,6 +73,36 @@ export const addOppgaver = async (req, res) => {
     return res.status(500).json({ error: "Kunne ikke lagre oppgaver" });
   }
 };
+//oppdater oppgaver
+export const updateOppgaver = (req, res) => {
+  const oppgaveID = Number(req.params.OppgaveID);
+  const { Tittel, Beskrivelse } = req.body;
+  const bruker = req.user;
+
+  if (isNaN(oppgaveID)) {
+    return res.status(400).json({ error: "Ugyldig OppgaveID" });
+  }
+
+  if (!Tittel || !Beskrivelse) {
+    return res.status(400).json({ error: "Tittel og Beskrivelse er påkrevd" });
+  }
+
+  const q = "UPDATE Oppgaver SET Tittel = ?, Beskrivelse = ? WHERE OppgaveID = ?";
+  const values = [Tittel, Beskrivelse, oppgaveID];
+
+  db.query(q, values, (err, result) => {
+    if (err) {
+      console.error("Feil ved oppdatering:", err);
+      return res.status(500).json({ error: "Kunne ikke oppdatere oppgave" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Oppgave ikke funnet" });
+    }
+
+    return res.json({ message: "Oppgave oppdatert!" });
+  });
+};
 
 // Slett oppgaver
 export const deleteOppgaver = (req, res) => {
