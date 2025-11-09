@@ -73,11 +73,16 @@ export const addOppgaver = async (req, res) => {
     return res.status(500).json({ error: "Kunne ikke lagre oppgaver" });
   }
 };
+
 //oppdater oppgaver
 export const updateOppgaver = (req, res) => {
   const oppgaveID = Number(req.params.OppgaveID);
   const { Tittel, Beskrivelse } = req.body;
   const bruker = req.user;
+
+  if (!bruker) {
+    return res.status(401).json({ error: "Ikke innlogget" });
+  }
 
   if (isNaN(oppgaveID)) {
     return res.status(400).json({ error: "Ugyldig OppgaveID" });
@@ -86,23 +91,49 @@ export const updateOppgaver = (req, res) => {
   if (!Tittel || !Beskrivelse) {
     return res.status(400).json({ error: "Tittel og Beskrivelse er påkrevd" });
   }
+  // Først sjekk om bruker eier testfesten (eller er admin)
+  const checkQ = `
+    SELECT o.OppgaveID, t.BrukerID 
+    FROM Oppgaver o
+    JOIN Testfester t ON o.TestfestID = t.TestfestID
+    WHERE o.OppgaveID = ?
+  `;
 
-  const q = "UPDATE Oppgaver SET Tittel = ?, Beskrivelse = ? WHERE OppgaveID = ?";
-  const values = [Tittel, Beskrivelse, oppgaveID];
-
-  db.query(q, values, (err, result) => {
+  db.query(checkQ, [oppgaveID], (err, rows) => {
     if (err) {
-      console.error("Feil ved oppdatering:", err);
-      return res.status(500).json({ error: "Kunne ikke oppdatere oppgave" });
+      return res.status(500).json({ error: "Serverfeil" });
     }
 
-    if (result.affectedRows === 0) {
+    if (rows.length === 0) {
       return res.status(404).json({ error: "Oppgave ikke funnet" });
     }
 
-    return res.json({ message: "Oppgave oppdatert!" });
+    const eierId = rows[0].BrukerID;
+
+    // Sjekk autorisasjon
+    if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
+      return res.status(403).json({ error: "Ikke autorisert til å oppdatere denne oppgaven" });
+    }
+
+    // Oppdater oppgaven
+    const updateQ = "UPDATE Oppgaver SET Tittel = ?, Beskrivelse = ? WHERE OppgaveID = ?";
+    const values = [Tittel, Beskrivelse, oppgaveID];
+
+    db.query(updateQ, values, (err, result) => {
+      if (err) {
+        console.error("Feil ved oppdatering:", err);
+        return res.status(500).json({ error: "Serverfeil ved oppdatering" });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Oppgave ikke funnet" });
+      }
+
+      return res.json({ message: "Oppgave er oppdatert!" });
+    });
   });
 };
+
 
 // Slett oppgaver
 export const deleteOppgaver = (req, res) => {
