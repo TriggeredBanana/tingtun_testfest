@@ -112,126 +112,144 @@ if (currentUser === null && isAuthenticated) {
   return <p>Laster brukerdata...</p>;
 }
    return (
-    <div className="container main-content">
+    <div className="container main-content testfester-page">
       <h1>Testfester</h1>
 
       {/* === SUPERBRUKER-VISNING === */}
       {ErSuperbruker && (
-        <>
-        <div className="previous-section">
+        <section>
           <h2>Alle Testfester (Admin)</h2>
           {testfester.length > 0 ? (
-            testfester.map(testfest => (
-              <div className="testfester-item" key={testfest.TestfestID}>
-                <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
-                  {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
-                </Link>
-
-                <div className="assign-program">
-                  <label>
-                    Nåværende program:{" "}
-                    {testfest.ProgramID
-                      ? (programmer.find(p => p.ProgramID === testfest.ProgramID)?.Navn || `ID ${testfest.ProgramID}`)
-                      : "Ingen"}
-                    <select
-                      value={testfest.ProgramID ?? ""}
-                      onChange={(e) => handleAssignProgram(testfest.TestfestID, Number(e.target.value) || null)}
-                      disabled={loadingAssign[testfest.TestfestID]}
-                    >
-                      <option value="">Velg program</option>
-                      {programmer.map(program => (
-                        <option key={program.ProgramID} value={program.ProgramID}>
-                          {program.Navn}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-
-                <button className="button-edit" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
-                Rediger
-              </button>
-                <button className="delete" onClick={() => handleDelete(testfest.TestfestID)}>
-                  Slett
-                </button>
-              </div>
-            ))
+            <ul className="testfester-list">
+              {testfester.map(testfest => (
+                <li className="testfester-item" key={testfest.TestfestID}>
+                  <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
+                    <div className="testfest-info">
+                      {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
+                      <div className="assign-program" onClick={(e) => e.preventDefault()}>
+                        <label htmlFor={`program-select-${testfest.TestfestID}`}>
+                          Program:
+                        </label>
+                        <select
+                          id={`program-select-${testfest.TestfestID}`}
+                          value={testfest.ProgramID ?? ""}
+                          onChange={(e) => handleAssignProgram(testfest.TestfestID, Number(e.target.value) || null)}
+                          disabled={loadingAssign[testfest.TestfestID]}
+                        >
+                          <option value="">Velg program</option>
+                          {programmer.map(program => (
+                            <option key={program.ProgramID} value={program.ProgramID}>
+                              {program.Navn}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="item-actions">
+                      <button className="button-edit" aria-label={`Rediger testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); navigate(`/addTestfester/${testfest.TestfestID}`); }}>
+                        Rediger
+                      </button>
+                      <button className="button-delete" aria-label={`Slett testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); handleDelete(testfest.TestfestID); }}>
+                        Slett
+                      </button>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>Ingen Testfester registrert</p>
           )}
-          </div>
-        </>
+        </section>
       )}
             {/* === BRUKER-VISNING === */}
       {!ErSuperbruker && isAuthenticated && (
         <>
-        <div className="previous-section">
+        <section>
           <h2>Dine Testfester</h2>
           {egneTestfester.length > 0 ? (
-            egneTestfester.map(testfest => (
-              <div className="testfester-item" key={testfest.TestfestID}>
-                <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
-                 {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")} – {testfest.Status}
-                </Link>
-                <button className="button-edit" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
-                Rediger
-              </button>
-                <button className="delete" onClick={() => handleDelete(testfest.TestfestID)}>
-                  Slett
-                </button>
-              </div>
-            ))
+            <ul className="testfester-list">
+              {egneTestfester.map(testfest => (
+                <li className="testfester-item" key={testfest.TestfestID}>
+                  <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
+                    <div className="testfest-info">
+                      {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")} – {testfest.Status}
+                    </div>
+                    <div className="item-actions">
+                      <button className="button-edit" aria-label={`Rediger din testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); navigate(`/addTestfester/${testfest.TestfestID}`); }}>
+                        Rediger
+                      </button>
+                      <button className="button-delete" aria-label={`Slett din testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); handleDelete(testfest.TestfestID); }}>
+                        Slett
+                      </button>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>Du har ingen egne Testfester</p>
           )}
-          </div>
-          <div className="previous-section">
+          </section>
+          <section>
           <h2>Andre Testfester</h2>
           {andresTestfester.length > 0 ? (
-            andresTestfester.map(testfest => (
-              <div className="testfester-item" key={testfest.TestfestID}>  
-                <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
-                  {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
-                </Link>
-              </div>
-            ))
+            <ul className="testfester-list">
+              {andresTestfester.map(testfest => (
+                <li className="testfester-item" key={testfest.TestfestID}>  
+                  <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
+                    <div className="testfest-info">
+                      {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>Ingen andre Testfester</p>
           )}
-          </div>
+          </section>
         </>
       )}
             {/* === IKKE INNLOGGET-VISNING === */}
       {!isAuthenticated && (
         <>
-        <div className="previous-section">
+        <section>
           <h2>Kommende Testfester</h2>
           {kommende.length > 0 ? (
-            kommende.map(testfest => (
-              <div className="testfester-item" key={testfest.TestfestID}>
-                <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
-                    {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")}
-                </Link>
-              </div>
-            ))
+             <ul className="testfester-list">
+              {kommende.map(testfest => (
+                <li className="testfester-item" key={testfest.TestfestID}>
+                  <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
+                    <div className="testfest-info">
+                      {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>Ingen kommende testfester</p>
           )}
-          </div>
+          </section>
+          <section>
           <h2>Tidligere Testfester</h2>
-          <div className="previous-section">
           {tidligere.length > 0 ? (
-            tidligere.map(testfest => (
-              <div className="testfester-item" key={testfest.TestfestID}>
-                <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
-                    {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")}
-                </Link>
-              </div>
-            ))
+            <ul className="testfester-list">
+              {tidligere.map(testfest => (
+                <li className="testfester-item" key={testfest.TestfestID}>
+                  <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
+                    <div className="testfest-info">
+                      {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : (
             <p>Ingen tidligere Testfester</p>
           )}
-          </div>
+          </section>
         </>
       )}
       {/* Opprett ny testfest – bare hvis innlogget */}

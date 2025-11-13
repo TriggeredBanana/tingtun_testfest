@@ -1,104 +1,184 @@
+.testfester-page h2 {
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
 .testfester-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     list-style: none;
     margin: 2rem 0;
     padding: 0;
 }
 
-/* Hver enkelt testfest-boks */
 .testfester-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    background-color: #ffffff;
     border: 1px solid #dee2e6;
-    border-left: 4px solid #495057;
-    background-color: #f8f9fa;
-    border-radius: 6px;
-    padding: 1rem 1.25rem;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
 }
 
 .testfester-item:hover {
-    border-color: #6c757d;
-    background-color: #f1f3f5;
+    border-color: #212529;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Klikkbar lenke til venstre */
+.testfester-item:focus-within {
+    border-color: #212529;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
 .testfester-item .list-link {
-    flex-grow: 1;
-    color: #000;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #000000;
+    font-weight: 600;
     text-decoration: none;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    padding: 1.25rem 1.5rem;
+    flex-grow: 1;
 }
 
-.testfester-item .list-link:hover {
-    text-decoration: underline;
+.testfester-item .list-link:hover,
+.testfester-item .list-link:focus {
+    text-decoration: none;
+    outline: 3px solid #212529;
+    outline-offset: -3px;
 }
 
-/* Liten slett-knapp til høyre */
-button.delete {
-    background-color: #dc3545;
+.testfest-info {
+    color: #000000;
+    flex-grow: 1;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.button-delete,
+.button-edit {
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.85rem;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-    flex-shrink: 0;
-    align-self: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-button.delete:hover {
-    background-color: #b02a37;
+.button-delete:hover, .button-delete:focus,
+.button-edit:hover, .button-edit:focus {
+    transform: translateY(-1px);
+    outline: 2px solid #212529;
+    outline-offset: 2px;
 }
 
-/* "Opprett testfest"-knapp */
+.button-delete {
+    background-color: #c82333; /* Darker, more accessible red */
+}
+.button-delete:hover, .button-delete:focus {
+    background-color: #a81e2b;
+}
+
+.button-edit {
+    background-color: #1f8e46; /* Darker, more accessible green */
+}
+.button-edit:hover, .button-edit:focus {
+    background-color: #157347;
+}
+
 .button-link {
     display: inline-block;
     margin: 1rem 0;
-    padding: 0.7rem 1.2rem;
-    background-color: #007bff;
+    padding: 0.8rem 1.5rem;
+    background-color: #0056b3;
     color: white;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
     border-radius: 6px;
     text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .button-link:hover,
 .button-link:focus {
-    background-color: #034e99;
-    color: #f5f6f7;
+    background-color: #004494;
+    color: white;
     text-decoration: none;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 86, 179, 0.2);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
 }
 
-.button-edit {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    flex-shrink: 0;
-    align-self: center;
+.assign-program {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-left: 1rem;
 }
 
-.button-edit:hover {
-  background-color: #218838;
+.assign-program label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.assign-program select {
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.375rem;
+  color: #fff;
+}
+
+.status-badge.status-kommende {
+  background-color: #1f8e46; /* Green */
+}
+
+.status-badge.status-tidligere {
+  background-color: #6c757d; /* Gray */
 }
 
 .oppgaver-section {
   margin-top: 2rem;
-  background-color: #f1f3f5;
+  background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 1.5rem;
@@ -106,30 +186,32 @@ button.delete:hover {
 
 .oppgave-card {
   margin-top: 1rem;
-  background-color: #fffdfd;
-  border: 0.5px solid #fcf9f9;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
   border-radius: 8px;
   padding: 1.5rem;
   white-space: pre-wrap;
 }
 
-
 .program-schedule {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 1.5rem;
     margin: 2rem 0;
     white-space: pre-wrap;
 }
 
 .program-schedule h3 {
-    color: #000;
+    color: #343a40;
     margin-top: 0;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
 }
 
 .program-schedule ul {
+    list-style: none;
     margin: 1rem 0;
     padding: 0;
 }
@@ -139,21 +221,19 @@ button.delete:hover {
     margin: 0.5rem 0;
     padding: 0.75rem 1rem;
     border-radius: 4px;
-    border-left: 3px solid #6c757d;
+    border-left: 4px solid #0056b3;
     border: 1px solid #e9ecef;
 }
 
-/* Responsiv tilpasning */
 @media (max-width: 768px) {
     .testfester-item {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
     }
 
-    button.delete {
+    .item-actions {
         align-self: flex-end;
-        margin-top: 0.5rem;
-        width: auto;
+        padding-top: 0;
     }
 
     .button-link {
