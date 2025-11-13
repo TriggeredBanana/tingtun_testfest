@@ -1,4 +1,4 @@
-/* Metode-side spesifikke stiler */
+/* Veiledning-side spesifikke stiler */
 
 .method-intro {
     background-color: #f8f9fa;
@@ -160,7 +160,7 @@
   padding: 0.5rem;
 }
 
-/* Responsive tilpasninger for metode */
+/* Responsive tilpasninger for veiledning */
 @media (max-width: 768px) {
     /* Nummereringspositionen er nå konsistent på tvers av alle skjermstørrelser */
 }

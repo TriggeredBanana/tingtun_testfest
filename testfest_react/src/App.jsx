@@ -5,7 +5,7 @@ import OsloKommune from './pages/OsloKommune';
 import Storebrand from './pages/Storebrand';
 import UiO from './pages/UiO';
 import FAQ from './pages/FAQ';
-import Metode from './pages/Metode';
+import Veiledning from './pages/Veiledning';
 import Testfester from './pages/Testfester';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
@@ -32,7 +32,7 @@ function App() {
             <Route path="/storebrand" element={<Storebrand />} />
             <Route path="/uio" element={<UiO />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/metode" element={<Metode />} /> 
+            <Route path="/veiledning" element={<Veiledning />} /> 
             <Route path="/tjenesteeier" element={<Tjenesteeier />} />
             <Route path="/add" element={<Add />} />
             <Route path="/login" element={<Login />} />
