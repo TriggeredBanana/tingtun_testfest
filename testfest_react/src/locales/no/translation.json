@@ -5,7 +5,7 @@
 		"button_read_more": "Les mer",
 		"button_testfest": "Testfest",
 		"welcome_title": "Velkommen til Testfest",
-		"welcome_paragraph1": "Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Til Testfestene kommer nettstedseiere og mennesker med funksjonsnedsettelse for å teste utvalgte tjenester på ulike måter. Aktuelle verktøy kan være ulike PCer, mobiler, leselister, skjermlesere, skjermforstørrelsesprogramvare og øyesporingsutstyr. Testfestene har allerede bidratt til at Arbeidstilsynet, Oslo kommune, NHN, og Storebrand har funnet og fjernet flere feil. For å legge tilrette for videre bruk av forskningsresultatene etter endt prosjekt, vil vi publisere metode og programvare under en åpen lisens.",
+		"welcome_paragraph1": "Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Til Testfestene kommer nettstedseiere og mennesker med funksjonsnedsettelse for å teste utvalgte tjenester på ulike måter. Aktuelle verktøy kan være ulike PCer, mobiler, leselister, skjermlesere, skjermforstørrelsesprogramvare og øyesporingsutstyr. Testfestene har allerede bidratt til at Arbeidstilsynet, Oslo kommune, NHN, og Storebrand har funnet og fjernet flere feil. For å legge tilrette for videre bruk av forskningsresultatene etter endt prosjekt, vil vi publisere veiledning og programvare under en åpen lisens.",
 		"welcome_paragraph2": "I 2024 gjennomførte vi fem Testfester, fire i Oslo og en i Trondheim.",
 		"welcome_paragraph3_part1": "Foreløpige resultater og steg videre er presentert i en video fra",
 		"welcome_mim_link_text": "Mangfold i Mai 2024",
@@ -26,7 +26,7 @@
 		"home": "Hjem",
 		"testfester": "Testfester",
 		"faq": "Spørsmål og svar",
-		"metode": "Metode",
+		"veiledning": "Veiledning",
 		"admin": "Admin",
 		"login": "Logg inn",
 		"logout": "Logg ut",
@@ -167,7 +167,7 @@
 		"a6_prefix": "For å beskytte persondata vil innhold fra andre nettadresser ikke bli inkludert i skjermbildet. Se også",
 		"a6_link_text": "HTML2Canvas spørsmål og svar",
 		"q7": "Hvorfor startet dere med Testfester?",
-		"a7": "Mange nettsteder har tilbakemeldingsfunksjoner. Selv om muligheten finnes, så er det veldig få brukere som sender tilbakemeldinger til nettstedseierne når de opplever hindringer. Med Testfestene ønsker vi å utvikle og etablere en metode og et verktøy som gjør det enklere å komme sammen for å finne, forstå og løse problemene. Dette er ment som et praktisk steg mot et mer likestilt samfunn.",
+		"a7": "Mange nettsteder har tilbakemeldingsfunksjoner. Selv om muligheten finnes, så er det veldig få brukere som sender tilbakemeldinger til nettstedseierne når de opplever hindringer. Med Testfestene ønsker vi å utvikle og etablere en veiledning og et verktøy som gjør det enklere å komme sammen for å finne, forstå og løse problemene. Dette er ment som et praktisk steg mot et mer likestilt samfunn.",
 		"resources_title": "Mer informasjon om universell utforming",
 		"resources_intro": "Her følger noen lenker til mer informasjon om universell utforming av nettsider og applikasjoner.",
 		"link_wcag": "Retningslinjer for universell utforming av nettinnhold (WCAG)",
@@ -177,8 +177,8 @@
 		"link_standard": "Standard for Universell utforming",
 		"link_presentation": "Presentasjon om Testfestprosjektet"
 	},
-	"metode": {
-		"title": "Testfest metode",
+	"veiledning": {
+		"title": "Testfest veiledning",
 		"intro1": "Viktig å huske at det er tjenestene som blir testet. Det er ikke en eksamen for testerne (brukerne). Testernes fremgangsmåter og kompetanse kan hjelpe til med å avdekke barrierer og til å utforme forbedringer.",
 		"intro2": "Et mål med Testfesten er å finne en god balanse mellom nyttig testing og sosialt samvær, hvor testere og brukere kan bli kjent med hverandre. Vi vil legge opp til å dele erfaringer mellom testere og tjenesteeiere i løpet av kvelden. Testere er ofte motivert av at deres innspill blir brukt til faktiske forbedringer. Flott om dere kan bli enige om forbedringer og gjerne en tidsramme for gjennomføring av utbedringer.",
 		"service_owner": {
