@@ -22,6 +22,8 @@ const AddTestfester = ({ onClose }) => {
   const [testfestID, setTestfestID] = useState(null);
   const [oppgaver, setOppgaver] = useState([{ Tittel: "", Beskrivelse: "" }]);
   const [isEditing, setIsEditing] = useState(false);
+  const [savedOppgaver, setSavedOppgaver] = useState(new Set());
+  const [individuallySavedIndices, setIndividuallySavedIndices] = useState(new Set());
   
   // hente testfest og oppgaver ved redigering
   useEffect(() => {
@@ -116,11 +118,11 @@ const handleSaveAll = async () => {
       Status: testfester.Status
     });
 
-    // del oppgaver i nye eller gamle
-    const existing = oppgaver.filter(o => o.OppgaveID);
-    const newOppgaver = oppgaver.filter(o => !o.OppgaveID); 
+    // del oppgaver i nye eller gamle, men ekskluder allerede lagrede
+    const existing = oppgaver.filter((o, idx) => o.OppgaveID && !savedOppgaver.has(o.OppgaveID) && !individuallySavedIndices.has(idx));
+    const newOppgaver = oppgaver.filter((o, idx) => !o.OppgaveID && !individuallySavedIndices.has(idx)); 
 
-    // Oppdater eksisterende oppgaver
+    // Oppdater eksisterende oppgaver som ikke er lagret
     for (const o of existing) {
       await axios.put(`http://localhost:8800/oppgaver/${o.OppgaveID}`, {
         Tittel: o.Tittel,
@@ -128,7 +130,7 @@ const handleSaveAll = async () => {
       });
     }
 
-    // legg til nye oppgaver
+    // legg til nye oppgaver (bare de som ikke allerede er lagret individuelt)
     if (newOppgaver.length > 0) {
       const nyMedID = newOppgaver.map(o => ({
         ...o,
@@ -138,6 +140,8 @@ const handleSaveAll = async () => {
     }
 
     alert("Alle endringer ble lagret!");
+    // Clear the individually saved indices since everything is now saved
+    setIndividuallySavedIndices(new Set());
     navigate(`/testfester/${idToUse}`);
   } catch (err) {
     console.error("Feil ved lagring:", err);
@@ -271,15 +275,20 @@ const handleSaveAll = async () => {
                             Tittel: oppgave.Tittel,
                             Beskrivelse: oppgave.Beskrivelse
                           });
+                          setSavedOppgaver(prev => new Set([...prev, oppgave.OppgaveID]));
+                          setIndividuallySavedIndices(prev => new Set([...prev, index]));
                           alert("Oppgave oppdatert!");
                         } else {
                           const res = await axios.post("http://localhost:8800/oppgaver", [{
                             ...oppgave,
                             TestfestID: idToUse
                           }]);
+                          const newOppgaveID = res.data[0]?.OppgaveID;
                           const nyeOppgaver = [...oppgaver];
-                          nyeOppgaver[index] = { ...oppgave, OppgaveID: res.data[0]?.OppgaveID };
+                          nyeOppgaver[index] = { ...oppgave, OppgaveID: newOppgaveID };
                           setOppgaver(nyeOppgaver);
+                          setSavedOppgaver(prev => new Set([...prev, newOppgaveID]));
+                          setIndividuallySavedIndices(prev => new Set([...prev, index]));
                           alert("Oppgave lagret!");
                         }
                       } catch (err) {
