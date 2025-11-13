@@ -126,6 +126,8 @@ if (currentUser === null && isAuthenticated) {
                   <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
                     <div className="testfest-info">
                       {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
+                    </div>
+                    <div className="item-actions">
                       <div className="assign-program" onClick={(e) => e.preventDefault()}>
                         <label htmlFor={`program-select-${testfest.TestfestID}`}>
                           Program:
@@ -144,8 +146,6 @@ if (currentUser === null && isAuthenticated) {
                           ))}
                         </select>
                       </div>
-                    </div>
-                    <div className="item-actions">
                       <button className="button-edit" aria-label={`Rediger testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); navigate(`/addTestfester/${testfest.TestfestID}`); }}>
                         Rediger
                       </button>
