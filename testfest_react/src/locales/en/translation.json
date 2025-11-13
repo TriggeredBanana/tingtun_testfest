@@ -26,7 +26,7 @@
 		"home": "Home",
 		"testfester": "Testfests",
 		"faq": "FAQ",
-		"metode": "Method",
+		"veiledning": "Guide",
 		"admin": "Admin",
 		"login": "Log in",
 		"logout": "Log out",
@@ -177,8 +177,8 @@
 		"link_standard": "Accessibility standard",
 		"link_presentation": "Presentation about the Testfest project"
 	},
-	"metode": {
-		"title": "Testfest method",
+	"veiledning": {
+		"title": "Testfest guide",
 		"intro1": "It’s important to remember that it’s the services being tested. It’s not an exam for the testers (users). The testers’ approaches and expertise can help uncover barriers and shape improvements.",
 		"intro2": "A goal of the Testfest is to find a good balance between useful testing and social interaction, where testers and service owners can get to know each other. We plan to share experiences between testers and service owners during the evening. Testers are often motivated when their feedback is used for real improvements. It’s great if you can agree on improvements and preferably a timeline for implementing them.",
 		"service_owner": {

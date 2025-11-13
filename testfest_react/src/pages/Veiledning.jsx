@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../assets/styles/metode.css';
+import '../assets/styles/veiledning.css';
 import deltakereImg from '../assets/images/deltakere.jpg';
 
-const Metode = () => {
+const Veiledning = () => {
   const { t } = useTranslation();
 
-  const serviceOwner = t('metode.service_owner', { returnObjects: true });
-  const tester = t('metode.tester', { returnObjects: true });
+  const serviceOwner = t('veiledning.service_owner', { returnObjects: true });
+  const tester = t('veiledning.tester', { returnObjects: true });
 
   const serviceOwnerSteps = Array.isArray(serviceOwner?.steps) ? serviceOwner.steps : [];
   const testerSteps = Array.isArray(tester?.steps) ? tester.steps : [];
@@ -35,11 +35,11 @@ const Metode = () => {
     <div className="container main-content">
       <div className="row">
         <div className="main">
-          <h1>{t('metode.title')}</h1>
+          <h1>{t('veiledning.title')}</h1>
           
           <div className="method-intro">
-            <p>{t('metode.intro1')}</p>
-            <p>{t('metode.intro2')}</p>
+            <p>{t('veiledning.intro1')}</p>
+            <p>{t('veiledning.intro2')}</p>
           </div>
 
           <div className="role-section service-owner">
@@ -123,7 +123,7 @@ const Metode = () => {
         
         <div className="side">
           <div className="intro-image">
-            <img src={deltakereImg} alt={t('metode.image_alt')} />
+            <img src={deltakereImg} alt={t('veiledning.image_alt')} />
           </div>
         </div>
       </div>
@@ -131,4 +131,4 @@ const Metode = () => {
   );
 };
 
-export default Metode;
+export default Veiledning;
