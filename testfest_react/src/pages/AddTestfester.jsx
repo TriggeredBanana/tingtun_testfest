@@ -208,19 +208,20 @@ const handleSaveAll = async () => {
       <input
         type="date"
         onChange={handleDateChange}
+        onClick={(e) => e.target.showPicker?.()}
         name="Dato"
         value={testfester.Dato || ""} 
         required
       />
       
       {!testfestID ? (
-        <div>
-          <button type="button" onClick={handleClick}>
+        <div className="initial-buttons">
+          <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt">
+            Avbryt
+          </button>
+          <button type="button" onClick={handleClick} className="create-btn" aria-label={TestfestID ? "Oppdater testfest" : "Opprett testfest"}>
             {TestfestID ? "Oppdater testfest" : "Opprett testfest"}
           </button>
-          {onClose && (
-            <button type="button" onClick={onClose}>Avbryt</button>
-          )}
         </div>
     ) : (<>
           <section className="oppgaver-section">
@@ -248,24 +249,66 @@ const handleSaveAll = async () => {
                   }
                 ></textarea>
 
-                <button
-                  type="button"
-                  onClick={() => removeOppgave(index)}
-                  className="remove-btn"
-                >
-                  Fjern oppgave
-                </button>
-                <div>
-            </div>
+                <div className="oppgave-button-group">
+                  <button
+                    type="button"
+                    onClick={() => removeOppgave(index)}
+                    className="remove-btn"
+                    aria-label={`Fjern oppgave ${index + 1}`}
+                  >
+                    Fjern oppgave
+                  </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const oppgave = oppgaver[index];
+                      const idToUse = testfestID || Number(TestfestID);
+                      if (!idToUse) return alert("Ingen testfest valgt.");
+                      
+                      try {
+                        if (oppgave.OppgaveID) {
+                          await axios.put(`http://localhost:8800/oppgaver/${oppgave.OppgaveID}`, {
+                            Tittel: oppgave.Tittel,
+                            Beskrivelse: oppgave.Beskrivelse
+                          });
+                          alert("Oppgave oppdatert!");
+                        } else {
+                          const res = await axios.post("http://localhost:8800/oppgaver", [{
+                            ...oppgave,
+                            TestfestID: idToUse
+                          }]);
+                          const nyeOppgaver = [...oppgaver];
+                          nyeOppgaver[index] = { ...oppgave, OppgaveID: res.data[0]?.OppgaveID };
+                          setOppgaver(nyeOppgaver);
+                          alert("Oppgave lagret!");
+                        }
+                      } catch (err) {
+                        console.error("Feil ved lagring av oppgave:", err);
+                        alert("Kunne ikke lagre oppgaven.");
+                      }
+                    }}
+                    className="save-btn"
+                    aria-label={`Lagre oppgave ${index + 1}`}
+                  >
+                    Lagre oppgave
+                  </button>
+                </div>
               </div>
             ))}
           </section>
-          <button type="button" onClick={addOppgave} className="add-btn">
+          <div className="action-buttons-container">
+            <button type="button" onClick={addOppgave} className="add-btn" aria-label="Legg til ny oppgave">
               + Legg til oppgave
             </button>
-          <button type="button" onClick={handleSaveAll}>
-              {TestfestID ? "Lagre alle endringer" : "Lagre oppgaver"}
-            </button>
+            <div className="button-row">
+              <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt og gå tilbake">
+                Avbryt
+              </button>
+              <button type="button" onClick={handleSaveAll} className="save-all-btn" aria-label="Lagre testfest">
+                Lagre testfest
+              </button>
+            </div>
+          </div>
         </>
       )}
     </div>
