@@ -17,12 +17,8 @@ export const getTestfester = (req, res) => {
   
   const params = [];
 
-  // Hvis ikke innlogget → vis alle
-  if (!bruker) {
-    console.error("Ikke innlogget - viser alle testfester");
-  }
   // Vanlig bruker → vis kun egne
-  else if (!bruker.ErSuperbruker) {
+  if (bruker && !bruker.ErSuperbruker) {
     query += " WHERE t.BrukerID = ?";
     params.push(bruker.BrukerID);
   }
@@ -99,7 +95,7 @@ export const updateProgramForTestfest = (req, res) => {
 
   db.query(
     "UPDATE Testfester SET ProgramID = ? WHERE TestfestID = ?",
-    [ProgramID, TestfestID],
+    [ProgramID, testfestID],
     (err, result) => {
       if (err) {
         console.error("Feil ved tilordning av program:", err);
@@ -167,7 +163,7 @@ export const updateTestfester = (req, res) => {
   let query = "UPDATE Testfester SET Dato = ?, Status = ? WHERE TestfestID = ?";
   let params = [Dato, Status, testfestID];
 
-  if (bruker.ErSuperbruker !== 1) {
+  if (!bruker.ErSuperbruker) {
     query += " AND BrukerID = ?";
     params.push(bruker.BrukerID);
   }
@@ -217,7 +213,7 @@ export const deleteTestfester = (req, res) => {
         return res.status(401).json({ error: "Ikke innlogget" });
       }
 
-      if (Number(bruker.BrukerID) !== Number(eierId) && !ErSuperbruker) {
+      if (Number(bruker.BrukerID) !== Number(eierId) && !bruker.ErSuperbruker) {
         return res.status(403).json({ error: "Du har ikke tillatelse til å slette denne testfesten." });
       }
 

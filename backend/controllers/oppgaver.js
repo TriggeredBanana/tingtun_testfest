@@ -84,7 +84,8 @@ export const updateOppgaver = (req, res) => {
     return res.status(401).json({ error: "Ikke innlogget" });
   }
 
-  if (isNaN(oppgaveID)) {
+  // Sjekk om ID ikke er tall, og om det er et gyldig positivt nummer
+  if (isNaN(oppgaveID || oppgaveID <= 0)) {
     return res.status(400).json({ error: "Ugyldig OppgaveID" });
   }
 
