@@ -17,12 +17,8 @@ export const getTestfester = (req, res) => {
   
   const params = [];
 
-  // Hvis ikke innlogget → vis alle
-  if (!bruker) {
-    // Viser alle testfester
-  }
   // Vanlig bruker → vis kun egne
-  else if (!bruker.ErSuperbruker) {
+  if (bruker && !bruker.ErSuperbruker) {
     query += " WHERE t.BrukerID = ?";
     params.push(bruker.BrukerID);
   }
@@ -34,7 +30,6 @@ export const getTestfester = (req, res) => {
       console.error("Feil ved henting av testfester:", err);
       return res.status(500).json({ error: "Serverfeil" });
     }
-
     res.json(rows);
   });
 };
@@ -42,7 +37,7 @@ export const getTestfester = (req, res) => {
 // Hent testfest etter ID
 export const getTestfesterByID = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
-  
+
   // Validate TestfestID
   if (isNaN(testfestID) || testfestID <= 0) {
     return res.status(400).json({ error: "Ugyldig TestfestID" });
@@ -69,6 +64,15 @@ export const getTestfesterByID = (req, res) => {
     if (data.length === 0) {
       return res.status(404).json({ error: "Testfest ikke funnet" });
     }
+    const Dato = data[0].Dato;
+    let correctDato = Dato;
+
+    if (Dato instanceof Date) {
+      // Konverter til lokal tid og behold kun YYYY-MM-DD
+      const localTid = new Date(Dato.getTime() - Dato.getTimezoneOffset() * 60000);
+      correctDato = localTid.toISOString().split("T")[0];
+    }
+    data[0].Dato = correctDato;
     return res.json(data[0]);
   });
 };
@@ -79,7 +83,7 @@ export const updateProgramForTestfest = (req, res) => {
   const { ProgramID } = req.body;
   const bruker = req.user;
 
-  // Validate TestfestID
+   // Validate TestfestID
   if (isNaN(testfestID) || testfestID <= 0) {
     return res.status(400).json({ error: "Ugyldig TestfestID" });
   }
@@ -135,7 +139,7 @@ export const addTestfester =  (req, res) => {
   );
 };
 
-// Redigere en testfest
+//Redigere en testfest
 export const updateTestfester = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
   const { Dato, Status } = req.body;
@@ -209,8 +213,8 @@ export const deleteTestfester = (req, res) => {
         return res.status(401).json({ error: "Ikke innlogget" });
       }
 
-      if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
-        return res.status(403).json({ error: "Ikke autorisert til å slette" });
+      if (Number(bruker.BrukerID) !== Number(eierId) && !bruker.ErSuperbruker) {
+        return res.status(403).json({ error: "Du har ikke tillatelse til å slette denne testfesten." });
       }
 
       db.query("DELETE FROM Testfester WHERE TestfestID = ?", [testfestID], (err) => {

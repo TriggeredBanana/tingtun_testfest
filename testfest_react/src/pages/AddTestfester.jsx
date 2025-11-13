@@ -7,29 +7,53 @@ import {useNavigate} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
 
-axios.defaults.withCredentials = true; // Sender cookies sendes automatisk
+axios.defaults.withCredentials = true; // Sender cookies automatisk
 
-const AddTestfester = ({ onClose, onAdded }) => {
+const AddTestfester = ({ onClose }) => {
   const { currentUser, authLoading } = useAuth(); // Hent innlogget bruker
   const navigate = useNavigate();
   const { TestfestID } = useParams();
 
   const [testfester,setTestfester] = useState({
       Dato: "",
-      Status: "Kommende",
+      Status: "",
     });
     
   const [testfestID, setTestfestID] = useState(null);
-
-  // useEffect for å hente testfest ved redigering
+  const [oppgaver, setOppgaver] = useState([{ Tittel: "", Beskrivelse: "" }]);
+  const [isEditing, setIsEditing] = useState(false);
+  
+  // hente testfest og oppgaver ved redigering
   useEffect(() => {
     const hentTestfest = async () => {
-      if (!TestfestID) return; // Bare ved redigering
+      if (!TestfestID) return; // kun hvis ID ikke finnes 
       
       try {
+        //hent testfestdata
         const res = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
-        setTestfester(res.data);
+        const data = res.data;
+
+        //konverter dato
+        const Dato = data.Dato ? data.Dato.split("T")[0] : "";
+        setTestfester({
+        Dato: Dato,
+        Status: data.Status || "",
+        });
+
         setTestfestID(res.data.TestfestID);
+        setIsEditing(true);
+
+        //hent oppgaver til testfest
+        const oppgaverRes = await axios.get(`http://localhost:8800/oppgaver/${TestfestID}`);
+        if (oppgaverRes.data && oppgaverRes.data.length > 0) {
+          const oppgaverString = oppgaverRes.data.map(oppgave => ({
+            ...oppgave,
+            Tittel: oppgave.Tittel || "",
+            Beskrivelse: oppgave.Beskrivelse || ""
+          }));
+          setOppgaver(oppgaverString);
+        }
+
       } catch (err) {
         console.error("Kunne ikke hente testfest:", err);
         alert("Kunne ikke hente testfest-data.");
@@ -47,9 +71,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
     }
   }, [currentUser, authLoading, navigate]);
 
-  const handleChange = (e) =>{
-     setTestfester(prev=>({...prev, [e.target.name]: e.target.value}))
-    }
+  //opprett eller oppdater testfest uten oppgaver
   const handleClick = async e => {
         e.preventDefault();
         if (!currentUser || !currentUser.BrukerID) {
@@ -68,8 +90,6 @@ const AddTestfester = ({ onClose, onAdded }) => {
           // Oppdater eksisterende
           await axios.put(`http://localhost:8800/testfester/${TestfestID}`, testfestData);
           alert("Testfest oppdatert!");
-          if (onAdded) onAdded(); 
-          if (onClose) onClose();
         } else {
           // Opprett ny
           const res = await axios.post("http://localhost:8800/testfester", testfestData);
@@ -84,33 +104,47 @@ const AddTestfester = ({ onClose, onAdded }) => {
         }
     }
 
-    const [oppgaver, setOppgaver] = useState([
-    { Tittel: "", Beskrivelse: "" }
-    ]);
-
-    // Lagre alle oppgaver
-    const handleSaveOppgaver = async () => {
+//lagre alle endringer fra redigering eller opprett samtidig
+const handleSaveAll = async () => {
+  try {
     const idToUse = testfestID || Number(TestfestID); // Bruk enten state eller param
-    
-    if (!idToUse) {
-      return alert("Opprett testfest først!");
+    if (!idToUse) return alert("Ingen testfest valgt.");
+
+    // Oppdater testfest
+    await axios.put(`http://localhost:8800/testfester/${idToUse}`, {
+      Dato: testfester.Dato || "", 
+      Status: testfester.Status
+    });
+
+    // del oppgaver i nye eller gamle
+    const existing = oppgaver.filter(o => o.OppgaveID);
+    const newOppgaver = oppgaver.filter(o => !o.OppgaveID); 
+
+    // Oppdater eksisterende oppgaver
+    for (const o of existing) {
+      await axios.put(`http://localhost:8800/oppgaver/${o.OppgaveID}`, {
+        Tittel: o.Tittel,
+        Beskrivelse: o.Beskrivelse
+      });
     }
 
-    const oppgaverMedID = oppgaver.map(o => ({
+    // legg til nye oppgaver
+    if (newOppgaver.length > 0) {
+      const nyMedID = newOppgaver.map(o => ({
         ...o,
-        TestfestID: Number(idToUse) // Passer på at det er et nummer
-    }));
-
-    try {
-        await axios.post("http://localhost:8800/oppgaver", oppgaverMedID);
-        alert("Oppgaver lagret!");
-        navigate(`/testfester/${idToUse}`); 
-    } catch (err) {
-        console.log("Feil ved lagring av oppgaver:", err);
-        alert("Kunne ikke lagre oppgaver. Sjekk konsollen for detaljer.");
+        TestfestID: idToUse
+      }));
+      await axios.post("http://localhost:8800/oppgaver", nyMedID);
     }
-    };
-        
+
+    alert("Alle endringer ble lagret!");
+    navigate(`/testfester/${idToUse}`);
+  } catch (err) {
+    console.error("Feil ved lagring:", err);
+    alert("Noe gikk galt under lagring.");
+  }
+};
+    //oppdater felt for en oppgave
     const handleOppgaveChange = (index, field, value) => {
     const nyeOppgaver = [...oppgaver];
     nyeOppgaver[index] = {
@@ -123,11 +157,29 @@ const AddTestfester = ({ onClose, onAdded }) => {
     const addOppgave = () => {
         setOppgaver([...oppgaver, { Tittel: "", Beskrivelse: "" }]);
     };
-    // Fjern oppgave
-    const removeOppgave = (index) => {
-        const nyeOppgaver = oppgaver.filter((_, i) => i !== index);
-        setOppgaver(nyeOppgaver);
-    };
+
+    //fjerne oppgaver fra database og UI
+    const removeOppgave = async (index) => {
+    const oppgave = oppgaver[index];
+
+    // Hvis oppgaven finnes i databasen
+    if (oppgave.OppgaveID) {
+      const bekreft = window.confirm("Er du sikker på at du vil slette denne oppgaven?");
+      if (!bekreft) return;
+
+      try {
+        await axios.delete(`http://localhost:8800/oppgaver/${oppgave.OppgaveID}`);
+      } catch (err) {
+        console.error("Feil ved sletting av oppgave:", err);
+        alert("Kunne ikke slette oppgaven.");
+        return; 
+      }
+    }
+
+    // Fjern fra UI uansett
+    const nyeOppgaver = oppgaver.filter((_, i) => i !== index);
+    setOppgaver(nyeOppgaver);
+  };
 
     // Bestem status basert på dato
     const handleDateChange = (e) => {
@@ -157,7 +209,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
         type="date"
         onChange={handleDateChange}
         name="Dato"
-        value={testfester.Dato}
+        value={testfester.Dato || ""} 
         required
       />
       
@@ -180,7 +232,7 @@ const AddTestfester = ({ onClose, onAdded }) => {
                 <label>Tittel:</label>
                 <input
                   type="text"
-                  placeholder="Oppgavetittel"
+                  placeholder="Oppgave tittel"
                   value={oppgave.Tittel}
                   onChange={(e) =>
                     handleOppgaveChange(index, "Tittel", e.target.value)
@@ -204,16 +256,16 @@ const AddTestfester = ({ onClose, onAdded }) => {
                   Fjern oppgave
                 </button>
                 <div>
-                <button type="button" onClick={addOppgave} className="add-btn">
-              + Legg til oppgave
-            </button>
-            <button type="button" onClick={handleSaveOppgaver}>
-              Lagre oppgaver
-            </button>
             </div>
               </div>
             ))}
           </section>
+          <button type="button" onClick={addOppgave} className="add-btn">
+              + Legg til oppgave
+            </button>
+          <button type="button" onClick={handleSaveAll}>
+              {TestfestID ? "Lagre alle endringer" : "Lagre oppgaver"}
+            </button>
         </>
       )}
     </div>

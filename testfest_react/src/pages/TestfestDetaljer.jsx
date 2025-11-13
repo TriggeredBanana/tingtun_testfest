@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import '../assets/styles/styles.css';
+import '../assets/styles/testfest.css';
 import { useEffect} from 'react';
 import {useState} from 'react';
 import axios from 'axios';
@@ -30,22 +31,21 @@ const TestfestDetaljer = () => {
       
     
     useEffect(() => {
-  if (!testfest.ProgramID) {
-    console.log("Ingen ProgramID funnet for denne testfesten.");
-    return;
-  } // vent til programID finnes
-  const fetchProgram = async () => {
-    try {
-      const programRes = await axios.get(`http://localhost:8800/program/${testfest.ProgramID}`);
-      setProgram(programRes.data);
-    } catch (err) {
-      console.log("Feil ved henting av program:", err);
-    }
-  };
-  fetchProgram();
+      if (!testfest.ProgramID) {
+        console.log("Ingen ProgramID funnet for denne testfesten.");
+        return;
+      } // vent til programID finnes
+      const fetchProgram = async () => {
+        try {
+          const programRes = await axios.get(`http://localhost:8800/program/${testfest.ProgramID}`);
+          setProgram(programRes.data);
+        } catch (err) {
+          console.log("Feil ved henting av program:", err);
+        }
+      };
+      fetchProgram();
 }, [testfest.ProgramID]);
     
-
   return (
     <div className="container">
       <div className="testfest-detail">
@@ -58,9 +58,9 @@ const TestfestDetaljer = () => {
           <h2>Oppgaver</h2>
           {oppgaver.length > 0 ? (
             <div className="oppgaver-list">
-              {oppgaver.map((oppgave) => (
+              {oppgaver.map((oppgave, index) => (
                 <div key={oppgave.OppgaveID} className="oppgave-card">
-                  <h3>{oppgave.Tittel}</h3>
+                  <h3>Oppgave {index + 1}: {oppgave.Tittel}</h3>
                   <p>{oppgave.Beskrivelse}</p>
                 </div>
               ))}

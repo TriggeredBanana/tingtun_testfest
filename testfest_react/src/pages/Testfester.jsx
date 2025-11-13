@@ -148,7 +148,7 @@ if (currentUser === null && isAuthenticated) {
                   </label>
                 </div>
 
-                <button className="rediger" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
+                <button className="button-edit" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
                 Rediger
               </button>
                 <button className="delete" onClick={() => handleDelete(testfest.TestfestID)}>
@@ -173,7 +173,7 @@ if (currentUser === null && isAuthenticated) {
                 <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
                  {testfest.BedriftNavn || "Ukjent bedrift"} {new Date(testfest.Dato).toLocaleDateString("no-NO")} – {testfest.Status}
                 </Link>
-                <button className="rediger" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
+                <button className="button-edit" onClick={() => navigate(`/addTestfester/${testfest.TestfestID}`)}>
                 Rediger
               </button>
                 <button className="delete" onClick={() => handleDelete(testfest.TestfestID)}>
@@ -189,12 +189,10 @@ if (currentUser === null && isAuthenticated) {
           <h2>Andre Testfester</h2>
           {andresTestfester.length > 0 ? (
             andresTestfester.map(testfest => (
-              <div className="testfester-list" key={testfest.TestfestID}>
-                <ul className="testfester-list">
+              <div className="testfester-item" key={testfest.TestfestID}>  
                 <Link to={`/testfester/${testfest.TestfestID}`} className="list-link">
                   {testfest.BedriftNavn || "Ukjent"} – {new Date(testfest.Dato).toLocaleDateString("no-NO")}
                 </Link>
-                </ul>
               </div>
             ))
           ) : (

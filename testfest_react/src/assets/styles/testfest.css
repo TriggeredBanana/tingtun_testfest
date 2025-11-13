@@ -79,6 +79,70 @@ button.delete:hover {
     transform: translateY(-2px);
 }
 
+.button-edit {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+.button-edit:hover {
+  background-color: #218838;
+}
+
+.oppgaver-section {
+  margin-top: 2rem;
+  background-color: #f1f3f5;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.oppgave-card {
+  margin-top: 1rem;
+  background-color: #fffdfd;
+  border: 0.5px solid #fcf9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  white-space: pre-wrap;
+}
+
+
+.program-schedule {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    white-space: pre-wrap;
+}
+
+.program-schedule h3 {
+    color: #000;
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.program-schedule ul {
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.program-schedule li {
+    background-color: white;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    border-left: 3px solid #6c757d;
+    border: 1px solid #e9ecef;
+}
+
 /* Responsiv tilpasning */
 @media (max-width: 768px) {
     .testfester-item {
@@ -96,27 +160,5 @@ button.delete:hover {
         width: 100%;
         text-align: center;
     }
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* mørk bakgrunn */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  width: 600px;
-  max-width: 90%;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
