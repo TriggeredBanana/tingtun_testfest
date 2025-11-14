@@ -216,7 +216,7 @@
 	},
 	"admin": {
 		"title": "Admin Dashboard",
-		"subtitle": "Administrer brukere med tilgang til å opprette Testfester",
+		"subtitle": "Administrer brukere med tilgang til å opprette Testfester og administrer kveldens program",
 		"load_error": "Kunne ikke laste brukere. Prøv igjen senere.",
 		"delete_error": "Kunne ikke slette bruker",
 		"generic_error": "En feil oppstod",
@@ -224,6 +224,9 @@
 		"add_new_user": "+ Opprett ny bruker",
 		"edit_user": "Rediger bruker",
 		"create_user": "Opprett ny bruker",
+		"program_overview": "Program oversikt",
+		"add_new_program": "+ Legg til nytt program",
+		"edit_program": "Rediger program",
 		"form": {
 			"name_label": "Navn",
 			"name_placeholder": "Skriv inn brukerens fulle navn",
@@ -238,6 +241,10 @@
 			"save_loading": "Lagrer...",
 			"save_changes": "Lagre endringer",
 			"save_create": "Opprett bruker",
+			"save_program": "Opprett program",
+			"edit_program": "Rediger program",
+			"program_placeholder": "Skriv inn programnavn",
+			"point_placeholder": "Skriv inn punkter for programmet",
 			"cancel": "Avbryt"
 		},
 		"validation": {
@@ -263,7 +270,9 @@
 			"edit": "Rediger",
 			"delete": "Slett",
 			"aria_edit": "Rediger {{name}}",
-			"aria_delete": "Slett {{name}}"
+			"aria_delete": "Slett {{name}}",
+			"punkter": "Punkter",
+			"program_name": "Program navn"
 		},
 		"confirm_delete": "Er du sikker på at du vil slette {{name}}?",
 		"stats": {

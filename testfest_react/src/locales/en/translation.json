@@ -216,7 +216,7 @@
 	},
 	"admin": {
 		"title": "Admin Dashboard",
-		"subtitle": "Manage users who can create Testfests",
+		"subtitle": "Manage users who can create Testfests and manage tonights program",
 		"load_error": "Could not load users. Please try again later.",
 		"delete_error": "Could not delete user",
 		"generic_error": "An error occurred",
@@ -224,6 +224,9 @@
 		"add_new_user": "+ Create new user",
 		"edit_user": "Edit user",
 		"create_user": "Create new user",
+		"program_overview": "Program overview",
+		"add_new_program": "+ Add new program",
+		"edit_program": "Edit program",
 		"form": {
 			"name_label": "Name",
 			"name_placeholder": "Enter the user's full name",
@@ -238,6 +241,10 @@
 			"save_loading": "Saving...",
 			"save_changes": "Save changes",
 			"save_create": "Create user",
+			"save_program": "Create program",
+			"edit_program": "Edit program",
+			"program_placeholder": "Enter program name",
+			"point_placeholder": "Enter points for program",
 			"cancel": "Cancel"
 		},
 		"validation": {
@@ -263,7 +270,9 @@
 			"edit": "Edit",
 			"delete": "Delete",
 			"aria_edit": "Edit {{name}}",
-			"aria_delete": "Delete {{name}}"
+			"aria_delete": "Delete {{name}}",
+			"punkter": "Points",
+			"program_name": "Program name"
 		},
 		"confirm_delete": "Are you sure you want to delete {{name}}?",
 		"stats": {
