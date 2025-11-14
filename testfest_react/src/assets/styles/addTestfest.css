@@ -1,15 +1,10 @@
 /* === Skjema-container === */
 .modal-task,
 .form {
-  max-width: 650px;
-  margin: 3rem auto;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 10px;
+  max-width: 1200px;
+  margin: 2rem auto;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  max-height: 90vh;
-  overflow-y: auto;
+  background-color: #ffffff;
 }
 
 /* === Overskrift === */
@@ -26,6 +21,9 @@
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* === Label og input === */
@@ -36,67 +34,106 @@
   color: #111;
 }
 
+.modal-task > label {
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+}
+
 .modal-task input,
 .modal-task textarea {
+  max-width: 600px;
   width: 100%;
   padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
+  display: block;
   border: 1px solid #ced4da;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 1rem;
+  font-family: inherit;
   background-color: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .modal-task input:focus,
 .modal-task textarea:focus {
-  outline: none;
+  outline: 3px solid #212529;
+  outline-offset: 2px;
   border-color: #4A90E2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.modal-task input[type="date"] {
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  min-height: 3rem;
+  cursor: pointer;
 }
 
 /* === Knapper (primær og sekundær) === */
 .modal-task button {
-  display: inline-block;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  margin: 0.5rem;
-}
-
-.modal-task button:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.modal-task button[type="button"]:first-of-type {
-  background-color: #0078d4;
+  transition: background-color 0.2s ease;
   color: #fff;
 }
 
-.modal-task button[type="button"]:first-of-type:hover {
-  background-color: #005fa3;
+.modal-task button:focus {
+  outline: 3px solid #212529;
+  outline-offset: 2px;
 }
 
-.modal-task button[type="button"]:last-of-type {
-  background-color: #0078d4;
+.modal-task button:hover {
+  outline: 3px solid #212529;
+  outline-offset: 2px;
+}
+
+/* Green buttons - save actions */
+.modal-task .save-btn,
+.modal-task .save-all-btn,
+.modal-task .create-btn {
+  background-color: #28a745;
   color: #fff;
 }
 
-.modal-task button[type="button"]:last-of-type:hover {
-  background-color: #005fa3;
+.modal-task .save-btn:hover,
+.modal-task .save-all-btn:hover,
+.modal-task .create-btn:hover {
+  background-color: #218838;
+}
+
+/* Red buttons - remove/cancel actions */
+.modal-task .remove-btn,
+.modal-task .cancel-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.modal-task .remove-btn:hover,
+.modal-task .cancel-btn:hover {
+  background-color: #c82333;
+}
+
+/* Blue button - add action */
+.modal-task .add-btn {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.modal-task .add-btn:hover {
+  background-color: #004494;
 }
 
 /* === Oppgaver-seksjon === */
 .oppgaver-section {
   margin-top: 2rem;
-  background-color: #f1f3f5;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 
 .oppgaver-section h2 {
@@ -109,61 +146,158 @@
 
 /* === Hver oppgave-boks === */
 .oppgave-input {
-  background-color: #fff;
-  border: 1px solid #d1d9e0;
-  border-radius: 6px;
-  padding: 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .oppgave-input h3 {
-  margin-bottom: 0.75rem;
-  color: #111;
+  margin-bottom: 1rem;
+  color: #000;
 }
 
-/* === Knapp-seksjon for oppgaver === */
-.oppgave-input .add-btn,
-.oppgave-input .remove-btn {
-  width: auto;
-  padding: 0.6rem 1.25rem;
-  font-size: 0.95rem;
+.oppgave-input label {
+  display: block;
   font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #000;
+  max-width: 100%;
 }
 
-.oppgave-input .add-btn {
-  background-color: #007bff;
-  color: #fff;
+.oppgave-input input,
+.oppgave-input textarea {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 1rem 0;
+}
+
+/* === Button group for each oppgave === */
+.oppgave-button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
-.oppgave-input .add-btn:hover {
-  background-color: #0069d9;
+.oppgave-button-group .remove-btn {
+  order: 1;
 }
 
-.oppgave-input .remove-btn {
-  background-color: #dc3545;
-  color: white;
-  margin-top: 0.5rem;
+.oppgave-button-group .save-btn {
+  order: 2;
 }
 
-.oppgave-input .remove-btn:hover {
-  background-color: #b02a37;
+/* === Action buttons container === */
+.action-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.button-row .cancel-btn {
+  order: 1;
+}
+
+.button-row .save-all-btn {
+  order: 2;
+}
+
+.action-buttons-container .add-btn {
+  align-self: flex-end;
+}
+
+.button-row .save-all-btn {
+  min-width: 180px;
+}
+
+/* Initial buttons for testfest creation */
+.initial-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.initial-buttons .cancel-btn {
+  order: 1;
+}
+
+.initial-buttons .create-btn {
+  order: 2;
 }
 
 /* === Responsivt === */
 @media (max-width: 768px) {
   .modal-task {
     padding: 1.5rem;
-    margin: 2rem 1rem;
+    margin: 1rem;
   }
 
   .modal-task h1 {
     font-size: 1.5rem;
   }
 
-  .modal-task button {
+  .oppgave-button-group {
+    flex-direction: column;
+  }
+
+  .button-row {
+    flex-direction: column;
     width: 100%;
-    margin: 0.5rem 0;
+  }
+
+  .button-row button {
+    width: 100%;
+  }
+
+  .action-buttons-container .add-btn {
+    width: 100%;
+  }
+
+  .initial-buttons {
+    flex-direction: column;
+  }
+
+  .initial-buttons button {
+    width: 100%;
+  }
+
+  .oppgave-button-group button {
+    width: 100%;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modal-task input,
+  .modal-task textarea,
+  .oppgave-input {
+    border: 2px solid #000;
+  }
+
+  .modal-task button {
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .modal-task button,
+  .modal-task input,
+  .modal-task textarea {
+    transition: none;
   }
 }

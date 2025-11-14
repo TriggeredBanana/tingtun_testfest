@@ -22,6 +22,8 @@ const AddTestfester = ({ onClose }) => {
   const [testfestID, setTestfestID] = useState(null);
   const [oppgaver, setOppgaver] = useState([{ Tittel: "", Beskrivelse: "" }]);
   const [isEditing, setIsEditing] = useState(false);
+  const [savedOppgaver, setSavedOppgaver] = useState(new Set());
+  const [individuallySavedIndices, setIndividuallySavedIndices] = useState(new Set());
   
   // hente testfest og oppgaver ved redigering
   useEffect(() => {
@@ -116,11 +118,11 @@ const handleSaveAll = async () => {
       Status: testfester.Status
     });
 
-    // del oppgaver i nye eller gamle
-    const existing = oppgaver.filter(o => o.OppgaveID);
-    const newOppgaver = oppgaver.filter(o => !o.OppgaveID); 
+    // del oppgaver i nye eller gamle, men ekskluder allerede lagrede
+    const existing = oppgaver.filter((o, idx) => o.OppgaveID && !savedOppgaver.has(o.OppgaveID) && !individuallySavedIndices.has(idx));
+    const newOppgaver = oppgaver.filter((o, idx) => !o.OppgaveID && !individuallySavedIndices.has(idx)); 
 
-    // Oppdater eksisterende oppgaver
+    // Oppdater eksisterende oppgaver som ikke er lagret
     for (const o of existing) {
       await axios.put(`http://localhost:8800/oppgaver/${o.OppgaveID}`, {
         Tittel: o.Tittel,
@@ -128,7 +130,7 @@ const handleSaveAll = async () => {
       });
     }
 
-    // legg til nye oppgaver
+    // legg til nye oppgaver (bare de som ikke allerede er lagret individuelt)
     if (newOppgaver.length > 0) {
       const nyMedID = newOppgaver.map(o => ({
         ...o,
@@ -138,6 +140,8 @@ const handleSaveAll = async () => {
     }
 
     alert("Alle endringer ble lagret!");
+    // Clear the individually saved indices since everything is now saved
+    setIndividuallySavedIndices(new Set());
     navigate(`/testfester/${idToUse}`);
   } catch (err) {
     console.error("Feil ved lagring:", err);
@@ -208,19 +212,20 @@ const handleSaveAll = async () => {
       <input
         type="date"
         onChange={handleDateChange}
+        onClick={(e) => e.target.showPicker?.()}
         name="Dato"
         value={testfester.Dato || ""} 
         required
       />
       
       {!testfestID ? (
-        <div>
-          <button type="button" onClick={handleClick}>
+        <div className="initial-buttons">
+          <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt">
+            Avbryt
+          </button>
+          <button type="button" onClick={handleClick} className="create-btn" aria-label={TestfestID ? "Oppdater testfest" : "Opprett testfest"}>
             {TestfestID ? "Oppdater testfest" : "Opprett testfest"}
           </button>
-          {onClose && (
-            <button type="button" onClick={onClose}>Avbryt</button>
-          )}
         </div>
     ) : (<>
           <section className="oppgaver-section">
@@ -248,24 +253,71 @@ const handleSaveAll = async () => {
                   }
                 ></textarea>
 
-                <button
-                  type="button"
-                  onClick={() => removeOppgave(index)}
-                  className="remove-btn"
-                >
-                  Fjern oppgave
-                </button>
-                <div>
-            </div>
+                <div className="oppgave-button-group">
+                  <button
+                    type="button"
+                    onClick={() => removeOppgave(index)}
+                    className="remove-btn"
+                    aria-label={`Fjern oppgave ${index + 1}`}
+                  >
+                    Fjern oppgave
+                  </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const oppgave = oppgaver[index];
+                      const idToUse = testfestID || Number(TestfestID);
+                      if (!idToUse) return alert("Ingen testfest valgt.");
+                      
+                      try {
+                        if (oppgave.OppgaveID) {
+                          await axios.put(`http://localhost:8800/oppgaver/${oppgave.OppgaveID}`, {
+                            Tittel: oppgave.Tittel,
+                            Beskrivelse: oppgave.Beskrivelse
+                          });
+                          setSavedOppgaver(prev => new Set([...prev, oppgave.OppgaveID]));
+                          setIndividuallySavedIndices(prev => new Set([...prev, index]));
+                          alert("Oppgave oppdatert!");
+                        } else {
+                          const res = await axios.post("http://localhost:8800/oppgaver", [{
+                            ...oppgave,
+                            TestfestID: idToUse
+                          }]);
+                          const newOppgaveID = res.data[0]?.OppgaveID;
+                          const nyeOppgaver = [...oppgaver];
+                          nyeOppgaver[index] = { ...oppgave, OppgaveID: newOppgaveID };
+                          setOppgaver(nyeOppgaver);
+                          setSavedOppgaver(prev => new Set([...prev, newOppgaveID]));
+                          setIndividuallySavedIndices(prev => new Set([...prev, index]));
+                          alert("Oppgave lagret!");
+                        }
+                      } catch (err) {
+                        console.error("Feil ved lagring av oppgave:", err);
+                        alert("Kunne ikke lagre oppgaven.");
+                      }
+                    }}
+                    className="save-btn"
+                    aria-label={`Lagre oppgave ${index + 1}`}
+                  >
+                    Lagre oppgave
+                  </button>
+                </div>
               </div>
             ))}
           </section>
-          <button type="button" onClick={addOppgave} className="add-btn">
+          <div className="action-buttons-container">
+            <button type="button" onClick={addOppgave} className="add-btn" aria-label="Legg til ny oppgave">
               + Legg til oppgave
             </button>
-          <button type="button" onClick={handleSaveAll}>
-              {TestfestID ? "Lagre alle endringer" : "Lagre oppgaver"}
-            </button>
+            <div className="button-row">
+              <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt og gå tilbake">
+                Avbryt
+              </button>
+              <button type="button" onClick={handleSaveAll} className="save-all-btn" aria-label="Lagre testfest">
+                Lagre testfest
+              </button>
+            </div>
+          </div>
         </>
       )}
     </div>

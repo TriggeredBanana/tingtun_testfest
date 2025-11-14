@@ -118,7 +118,12 @@ if (currentUser === null && isAuthenticated) {
       {/* === SUPERBRUKER-VISNING === */}
       {ErSuperbruker && (
         <section>
-          <h2>Alle Testfester (Admin)</h2>
+          <div className="section-header">
+            <h2>Alle Testfester (Admin)</h2>
+            <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
+              Opprett Testfest
+            </button>
+          </div>
           {testfester.length > 0 ? (
             <ul className="testfester-list">
               {testfester.map(testfest => (
@@ -166,7 +171,12 @@ if (currentUser === null && isAuthenticated) {
       {!ErSuperbruker && isAuthenticated && (
         <>
         <section>
-          <h2>Dine Testfester</h2>
+          <div className="section-header">
+            <h2>Dine Testfester</h2>
+            <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
+              Opprett Testfest
+            </button>
+          </div>
           {egneTestfester.length > 0 ? (
             <ul className="testfester-list">
               {egneTestfester.map(testfest => (
@@ -252,12 +262,6 @@ if (currentUser === null && isAuthenticated) {
           </section>
         </>
       )}
-      {/* Opprett ny testfest – bare hvis innlogget */}
-      {isAuthenticated && (
-        <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
-          Opprett Testfest
-        </button>
-      )} 
     </div>
   ); 
 };
