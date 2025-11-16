@@ -34,10 +34,10 @@
 		"lang_en": "Switch to English"
 	},
 	"testfester": {
-		"title": "Previous Testfests",
-		"oslo_link": "Oslo Municipality",
-		"storebrand_link": "Storebrand",
-		"uio_link": "University of Oslo"
+		"past_testfest": "Past Testfester",
+		"present_testfest": "Upcoming Testfester",
+		"add_testfest": "Add Testfest",
+		"edit_testfest": "Edit Testfest"
 	},
 	"login": {
 		"title": "Log in",
@@ -51,103 +51,8 @@
 		"error_required": "Please enter both username and password"
 	},
 	"common": {
-		"delete": "Delete"
-	},
-	"tjenesteeier": {
-		"title": "Service owner",
-		"add_new": "Add new service owner"
-	},
-	"add": {
-		"title": "Add new service owner",
-		"company_placeholder": "Company",
-		"email_placeholder": "Email",
-		"password_placeholder": "Password",
-		"submit": "Add"
-	},
-	"oslo": {
-		"title": "Testfest 3 September - Oslo Municipality",
-		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
-		"intro2": "Please send written feedback via the link under each task.",
-		"task1": { "title": "Task 1: Contact home care services", "text": "You need to send a message to the home care service where you live. Find out how you can send and receive messages with the home care service." },
-		"task2": { "title": "Task 2: How long is the school Christmas holiday?", "text": "You’re planning to travel abroad with your family over New Year. Try to find out when school starts again after the Christmas break." },
-		"task3": { "title": "Task 3: Where can I swim, and what does it cost?", "text": "You want to go swimming at a pool in Oslo this afternoon at 17:30. How would you find where to go, when it closes, and how much it costs?" },
-		"task4": { "title": "Task 4: Why are mobile phones banned in Oslo schools?", "text": "Your child says mobile phones are suddenly banned during school hours. Can you find a news article about this on the municipality’s website?" },
-		"program": {
-			"title": "Oslo Municipality and UiO\nTonight’s program:",
-			"item1": "Welcome – Pizza is served (Christian)",
-			"item2": "Introduction to Testfest (Mikael and Joschua)",
-			"item3": "We start the testing",
-			"item4": "Break with refreshments",
-			"item5": "Further testing and sharing experiences",
-			"item6": "Closing and summary (All)"
-		}
-	},
-	"storebrand": {
-		"title": "Testfest 3 September - Storebrand",
-		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
-		"intro2": "Please send written feedback via the link under each task.",
-		"task1": { "title": "Task 1: Pension savings", "text": "Can you find which pension savings options Storebrand offers?" },
-		"task2": { "title": "Task 2: Travel insurance", "text": "You’re going to travel for 3 months and need travel insurance. What will it cost you with Storebrand?" },
-		"task3": { "title": "Task 3: Car rental", "text": "You’re renting a car while traveling. Check whether the travel insurance covers possible damage and what the deductible will be." },
-		"task4": { "title": "Task 4: Car rental – terms", "text": "The travel insurance has many terms shown in a PDF. Can you find the PDF and determine which expenses are not covered?" },
-		"task5": { "title": "Task 5: Customer service", "text": "You’re unsure about the coverage and want to contact customer service. What do you do?" },
-		"program": {
-			"title": "Oslo Municipality and Storebrand\nTonight’s program:",
-			"item1": "Welcome – Pizza is served (Christian)",
-			"item2": "Introduction to Testfest (Mikael and Joschua)",
-			"item3": "We start the testing",
-			"item4": "Break with refreshments",
-			"item5": "Further testing and sharing experiences",
-			"item6": "Closing and summary (All)"
-		}
-	},
-	"uio": {
-		"title": "Testfest 1 October - UiO",
-		"intro1": "It helps if you 'think aloud' while testing to show how the service works (or not).",
-		"link_text": "The tasks below are based on the \"My Studies\" service you can find at",
-		"link_label": "My Studies.",
-		"task1": {
-			"title": "Task 1: Navigate the timetable",
-			"p1": "1. A friend asks if you can meet next Friday at 13:00. You’re unsure whether this conflicts with your lectures and open My Studies to check your timetable.",
-			"a": "a. Can you find out if you have a lecture at 13:00?",
-			"b": "b. You wonder whether you have a lecture next Wednesday—can you check?",
-			"c": "c. Can you see where this lecture will be held?"
-		},
-		"task2": {
-			"title": "Task 2: Messages",
-			"p1": "1. You like to stay updated on your student messages and you see that you have two unread messages in My Studies.",
-			"a": "a. What are the messages?",
-			"b": "b. For screen reader users: Based on what was read out, is it difficult to understand which messages are unread?",
-			"c": "c. Should this be done in a different way?",
-			"p2": "2. On May 13 you received a message about a survey that you forgot to answer",
-			"d": "a. Can you find it again?",
-			"e": "b. Do you find a survey inside the message?"
-		},
-		"task3": {
-			"title": "Task 3: Checklist",
-			"p1": "1. In My Studies you have a checklist of things to remember as a new student. You’ve been told to remember to register in Studentweb, but you’re unsure whether you’ve done it.",
-			"a": "a. Can you check whether you’re registered in Studentweb?",
-			"p2": "2. You remember that you need to pay the semester fee, but you’re unsure how to pay",
-			"b": "a. Do you find any information about this in the checklist?",
-			"c": "b. Based on the information in the checklist, how would you proceed to pay?",
-			"p3": "3. You wonder when the deadline to pay the semester fee is.",
-			"d": "a. Do you find any information about this in the checklist in My Studies?",
-			"e": "b. Based on the information in the checklist, how would you proceed to pay?"
-		},
-		"extra": {
-			"title": "Extra tasks",
-			"p1": "1. Checklist: You’ve completed all checklist items and want to remove it. Can you find a place to remove it?",
-			"p2": "2. Messages: You only want to see messages sent on a course with the code MAT1110. Can you set this as a filter?"
-		},
-		"program": {
-			"title": "Oslo Municipality and UiO\nTonight’s program:",
-			"item1": "Welcome – Pizza is served (Eva Elida)",
-			"item2": "Introduction to Testfest (Mikael and Joschua)",
-			"item3": "We start the testing",
-			"item4": "Break with refreshments",
-			"item5": "Further testing and sharing experiences",
-			"item6": "Closing and summary (All)"
-		}
+		"delete": "Delete",
+		"edit": "Edit"
 	},
 	"faq": {
 		"title": "Questions and answers",
@@ -252,12 +157,18 @@
 			"username_required": "Username is required",
 			"password_required": "Password is required",
 			"password_mismatch": "Passwords do not match",
-			"password_min": "Password must be at least 6 characters"
+			"password_min": "Password must be at least 6 characters",
+			"programName_required": "Program name is required",
+			"punkter_required": "Points is required"
 		},
 		"loading_users": "Loading users...",
+		"loading_program": "Loading programs...",
 		"empty": {
 			"no_users": "No users created yet.",
-			"cta": "Click \"Create new user\" to get started."
+			"cta": "Click \"Create new user\" to get started.",
+			"no_program": "No Program created yet",
+			"cta_program": "Click Add Program to get started",
+			"no_points": "No points"
 		},
 		"table": {
 			"name": "Name",
