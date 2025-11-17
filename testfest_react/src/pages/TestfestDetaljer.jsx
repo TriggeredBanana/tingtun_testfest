@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import '../assets/styles/styles.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,6 +9,8 @@ axios.defaults.withCredentials = true; // cookies sent automatically
 
 const TestfestDetaljer = () => {
   const { TestfestID } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated, ErSuperbruker, currentUser } = useAuth();
   const [testfest, setTestfester] = useState({});
   const [oppgaver, setOppgaver] = useState([]);
   const [programmer, setProgram] = useState({});

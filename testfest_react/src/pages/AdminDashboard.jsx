@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../assets/styles/admin-dashboard.css';
 import { getUsers, createUser, updateUser, deleteUser } from '../services/brukerService';
+import { getProgram, addProgram, updateProgram, deleteProgram } from '../services/programService';
 
 const AdminDashboard = () => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [isAddingUser, setIsAddingUser] = useState(false);
+  const [isAddingProgram, setIsAddingProgram] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [editingProgram, setEditingProgram] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     brukernavn: '',
@@ -15,12 +19,17 @@ const AdminDashboard = () => {
     passord: '',
     bekreftPassord: ''
   });
+  const [programFormData, setProgramFormData] = useState({
+    Navn: '',
+    Punkter: ''
+  });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
 
   // Last brukere fra API ved komponentmontering
   useEffect(() => {
     fetchUsers();
+    fetchPrograms();
   }, []);
 
   const fetchUsers = async () => {
@@ -37,6 +46,19 @@ const AdminDashboard = () => {
     }
   };
 
+    const fetchPrograms = async () => {
+    try {
+      setLoading(true);
+      const data = await getProgram();
+      setPrograms(data);
+      setApiError('');
+    } catch (error) {
+      setApiError('Kunne ikke laste programmer');
+      console.error('Error fetching programs:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const validateForm = () => {
     const newErrors = {};
 
@@ -64,6 +86,20 @@ const AdminDashboard = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const validateProgramForm = () => {
+    const newErrors = {};
+
+    if (!programFormData.Navn.trim()) {
+      newErrors.Navn = 'Programnavn er påkrevd';
+    }
+    if (!programFormData.Punkter.trim()) {
+      newErrors.Punkter = 'Punkter er påkrevd';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -71,6 +107,21 @@ const AdminDashboard = () => {
       [name]: value
     }));
     // Fjern feil for dette feltet når bruker begynner å skrive
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+    setApiError('');
+  };
+
+  const handleProgramInputChange = (e) => {
+    const { name, value } = e.target;
+    setProgramFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -93,6 +144,17 @@ const AdminDashboard = () => {
     setApiError('');
   };
 
+  const handleAddProgram = () => {
+    setIsAddingProgram(true);
+    setEditingProgram(null);
+    setProgramFormData({
+      Navn: '',
+      Punkter: ''
+    });
+    setErrors({});
+    setApiError('');
+  };
+
   const handleEditUser = (user) => {
     setEditingUser(user);
     setIsAddingUser(true);
@@ -101,6 +163,17 @@ const AdminDashboard = () => {
       navn: user.Navn,
       passord: '',
       bekreftPassord: ''
+    });
+    setErrors({});
+    setApiError('');
+  };
+
+  const handleEditProgram = (program) => {
+    setEditingProgram(program);
+    setIsAddingProgram(true);
+    setProgramFormData({
+      Navn: program.Navn,
+      Punkter: program.Punkter || ''
     });
     setErrors({});
     setApiError('');
@@ -115,6 +188,21 @@ const AdminDashboard = () => {
         setApiError('');
       } catch (error) {
         setApiError(error.message || t('admin.delete_error'));
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const handleDeleteProgram = async (programId, programNavn) => {
+    if (window.confirm(t('admin.confirm_delete', {programNavn}))) {
+      try {
+        setLoading(true);
+        await deleteProgram(programId);
+        await fetchPrograms();
+        setApiError('');
+      } catch (error) {
+        setApiError(error.message || 'Kunne ikke slette program');
       } finally {
         setLoading(false);
       }
@@ -170,6 +258,50 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleProgramSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateProgramForm()) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setApiError('');
+
+      if (editingProgram) {
+        await updateProgram(editingProgram.ProgramID, programFormData);
+      } else {
+        await addProgram(programFormData);
+      }
+
+      await fetchPrograms();
+
+      setIsAddingProgram(false);
+      setEditingProgram(null);
+      setProgramFormData({
+        Navn: '',
+        Punkter: ''
+      });
+      setErrors({});
+    } catch (error) {
+      setApiError(error.message || 'Kunne ikke lagre program');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleProgramCancel = () => {
+    setIsAddingProgram(false);
+    setEditingProgram(null);
+    setProgramFormData({
+      Navn: '',
+      Punkter: ''
+    });
+    setErrors({});
+    setApiError('');
+  };
+
   const handleCancel = () => {
     setIsAddingUser(false);
     setEditingUser(null);
@@ -196,7 +328,7 @@ const AdminDashboard = () => {
             {apiError}
           </div>
         )}
-
+        <div className="admin-layout">
         <div className="admin-content">
           <div className="admin-section">
             <div className="section-header">
@@ -365,6 +497,130 @@ const AdminDashboard = () => {
             )}
           </div>
 
+          {/* PROGRAMMER SEKSJON */}
+          <div className="admin-content">
+          <div className="admin-section">
+            <div className="section-header">
+              <h2>{t('admin.program_overview')}</h2>
+              <button 
+                className="btn btn-primary"
+                onClick={handleAddProgram}
+                disabled={isAddingProgram || loading}
+              >
+                {t('admin.add_new_program')}
+              </button>
+            </div>
+
+            {isAddingProgram && (
+              <div className="user-form-container">
+                <h3>{editingProgram ? t('admin.form.edit_program') : t('admin.form.save_program')}</h3>
+                <form onSubmit={handleProgramSubmit} className="user-form">
+                  <div className="form-group">
+                    <label htmlFor="programNavn">
+                      {t('admin.table.program_name')} <span className="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="programNavn"
+                      name="Navn"
+                      value={programFormData.Navn}
+                      onChange={handleProgramInputChange}
+                      className={errors.Navn ? 'error' : ''}
+                      placeholder={t('admin.form.program_placeholder')}
+                      disabled={loading}
+                    />
+                    {errors.Navn && <span className="error-message">{errors.Navn}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="punkter">
+                      {t('admin.table.punkter')} <span className="required">*</span>
+                    </label>
+                    <textarea
+                      id="punkter"
+                      name="Punkter"
+                      value={programFormData.Punkter}
+                      onChange={handleProgramInputChange}
+                      className={errors.Punkter ? 'error' : ''}
+                      placeholder={t('admin.form.point_placeholder')}
+                      disabled={loading}
+                      rows="4"
+                    />
+                    {errors.Punkter && <span className="error-message">{errors.Punkter}</span>}
+                  </div>
+
+                  <div className="form-actions">
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                      {loading ? 'Lagrer...' : (editingProgram ? t('admin.form.save_changes') : t('admin.form.save_program'))}
+                    </button>
+                    <button type="button" className="btn btn-secondary" onClick={handleProgramCancel} disabled={loading}>
+                      {t('admin.form.cancel')}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {loading && programs.length === 0 ? (
+              <div className="loading-state">
+                <p>Laster programmer...</p>
+              </div>
+            ) : programs.length === 0 ? (
+              <div className="empty-state">
+                <p>Ingen programmer funnet</p>
+                <p>Klikk på "Legg til nytt program" for å komme i gang</p>
+              </div>
+            ) : (
+              <div className="users-table-container">
+                <table className="users-table">
+                  <thead>
+                    <tr>
+                      <th>{t('admin.table.program_name')}</th>
+                      <th>{t('admin.table.punkter')}</th>
+                      <th>{t('admin.table.actions')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {programs.map((program) => (
+                      <tr key={program.ProgramID}>
+                        <td data-label="Programnavn">{program.Navn}</td>
+                        <td data-label="Punkter">
+                          {program.Punkter ? (
+                            <span className="program-punkter">{program.Punkter}</span>
+                          ) : (
+                            <span className="text-muted">Ingen punkter</span>
+                          )}
+                        </td>
+                        <td data-label="Handlinger">
+                          <div className="action-buttons">
+                            <button
+                              className="btn btn-edit"
+                              onClick={() => handleEditProgram(program)}
+                              disabled={loading}
+                              aria-label={`Rediger ${program.Navn}`}
+                            >
+                              {t('admin.table.edit')}
+                            </button>
+                            <button
+                              className="btn btn-delete"
+                              onClick={() => handleDeleteProgram(program.ProgramID, program.Navn)}
+                              disabled={loading}
+                              aria-label={`Slett ${program.Navn}`}
+                            >
+                              {t('admin.table.delete')}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+          </div>
+          </div>
+
           <div className="admin-info">
             <div className="info-card">
               <h3>{t('admin.stats.title')}</h3>
@@ -380,21 +636,21 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="info-card">
-              <h3>{t('admin.info.title')}</h3>
-              <p>{t('admin.info.p1')}</p>
-              <ul>
-                <li>{t('admin.info.li1')}</li>
-                <li>{t('admin.info.li2')}</li>
-                <li>{t('admin.info.li3')}</li>
-              </ul>
-            </div>
+              <div className="info-card">
+                <h3>{t('admin.info.title')}</h3>
+                <p>{t('admin.info.p1')}</p>
+                <ul>
+                  <li>{t('admin.info.li1')}</li>
+                  <li>{t('admin.info.li2')}</li>
+                  <li>{t('admin.info.li3')}</li>
+                </ul>
+              </div>
 
-            <div className="info-card warning">
-              <h3>{t('admin.warning.title')}</h3>
-              <p>{t('admin.warning.p1')}</p>
-              <p>{t('admin.warning.p2')}</p>
-            </div>
+              <div className="info-card warning">
+                <h3>{t('admin.warning.title')}</h3>
+                <p>{t('admin.warning.p1')}</p>
+                <p>{t('admin.warning.p2')}</p>
+              </div>
           </div>
         </div>
       </div>

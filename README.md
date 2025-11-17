@@ -35,9 +35,9 @@ Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, fors
 Nettsiden inneholder:
 - **Informasjon** om Testfest-konseptet og tidligere arrangementer
 - **Testoppgaver** for Oslo kommune, Storebrand og UiO
-- **Metodeguide** for både testere og tjenesteeiere
+- **Veiledning** for både testere og tjenesteeiere
 - **FAQ** med vanlige spørsmål om verktøy og prosess
 
 ## Prosjektbakgrunn
 
-Testfestene er gjennomført med støtte fra Barn- Ungdoms- og familiedirektoratet og har bidratt til konkrete forbedringer hos Arbeidstilsynet, Oslo kommune, NHN og Storebrand. Metode og programvare publiseres under åpen lisens for videre spredning.
+Testfestene er gjennomført med støtte fra Barn- Ungdoms- og familiedirektoratet og har bidratt til konkrete forbedringer hos Arbeidstilsynet, Oslo kommune, NHN og Storebrand. Veiledning og programvare publiseres under åpen lisens for videre spredning.

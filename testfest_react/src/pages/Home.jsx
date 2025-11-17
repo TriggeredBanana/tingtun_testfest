@@ -49,8 +49,7 @@ const Home = () => {
           </button>
         </div>
         <p className="hero-quote">
-          {/* Quote placeholder */}
-          Your quote will go here
+          {t('home.hero_quote')}
         </p>
       </div>
       

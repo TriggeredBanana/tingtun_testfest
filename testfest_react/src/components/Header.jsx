@@ -63,7 +63,7 @@ const Header = () => {
             <li><Link to="/" onClick={closeMenu}>{t('nav.home')}</Link></li>
             <li><Link to="/testfester" onClick={closeMenu}>{t('nav.testfester')}</Link></li>
             <li><Link to="/faq" onClick={closeMenu}>{t('nav.faq')}</Link></li>
-            <li><Link to="/metode" onClick={closeMenu}>{t('nav.metode')}</Link></li>
+            <li><Link to="/veiledning" onClick={closeMenu}>{t('nav.veiledning')}</Link></li>
             {ErSuperbruker ? (
               <li><Link to="/admin" onClick={closeMenu}>{t('nav.admin')}</Link></li>
             ) : null}
