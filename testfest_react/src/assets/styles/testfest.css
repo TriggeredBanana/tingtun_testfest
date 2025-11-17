@@ -120,3 +120,32 @@ button.delete:hover {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+.logg-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.logg-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.logg-section button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logg-section button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

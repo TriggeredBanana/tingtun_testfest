@@ -7,7 +7,8 @@ import {
   updateProgramForTestfest,
   addTestfester, 
   updateTestfester,
-  deleteTestfester
+  deleteTestfester,
+  updateTestfestLogg
 } from "../controllers/testfester.js";
 
 
@@ -19,5 +20,6 @@ router.post("/", verifyToken, addTestfester);
 router.put("/:TestfestID", verifyToken, updateTestfester);
 router.delete("/:TestfestID", verifyToken, deleteTestfester);
 router.put("/:TestfestID/program", verifyToken, updateProgramForTestfest);
+router.put("/:TestfestID/logg", verifyToken, updateTestfestLogg);
 
 export default router;
