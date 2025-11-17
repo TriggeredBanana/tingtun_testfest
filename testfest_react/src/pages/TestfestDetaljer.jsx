@@ -18,9 +18,6 @@ const TestfestDetaljer = () => {
   const [savingLogg, setSavingLogg] = useState(false);
   const [editingLogg, setEditingLogg] = useState(false);
 
-  // From your AuthContext - note: it's currentUser, not user
-  const { currentUser, isAuthenticated } = useAuth();
-
   // Check if current user can see/edit the log
   const canAccessLog = () => {
     if (!isAuthenticated || !currentUser) return false;
