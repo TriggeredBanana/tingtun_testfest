@@ -1,12 +1,10 @@
 import '../assets/styles/testfest.css';
 import '../assets/styles/styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useEffect} from 'react';
-import {useState} from 'react';
+import { useEffect, useState} from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true; //sender cookies sendes automatisk
 
@@ -121,7 +119,7 @@ if (currentUser === null && isAuthenticated) {
           <div className="section-header">
             <h2>Alle Testfester (Admin)</h2>
             <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
-              Opprett Testfest
+              {t('testfester.add_testfest')}
             </button>
           </div>
           {testfester.length > 0 ? (
@@ -152,10 +150,10 @@ if (currentUser === null && isAuthenticated) {
                         </select>
                       </div>
                       <button className="button-edit" aria-label={`Rediger testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); navigate(`/addTestfester/${testfest.TestfestID}`); }}>
-                        Rediger
+                        {t('common.edit')}
                       </button>
                       <button className="button-delete" aria-label={`Slett testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); handleDelete(testfest.TestfestID); }}>
-                        Slett
+                        {t('common.delete')}
                       </button>
                     </div>
                   </Link>
@@ -174,7 +172,7 @@ if (currentUser === null && isAuthenticated) {
           <div className="section-header">
             <h2>Dine Testfester</h2>
             <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
-              Opprett Testfest
+              {t('testfester.add_testfest')}
             </button>
           </div>
           {egneTestfester.length > 0 ? (
@@ -187,10 +185,10 @@ if (currentUser === null && isAuthenticated) {
                     </div>
                     <div className="item-actions">
                       <button className="button-edit" aria-label={`Rediger din testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); navigate(`/addTestfester/${testfest.TestfestID}`); }}>
-                        Rediger
+                        {t('common.edit')}
                       </button>
                       <button className="button-delete" aria-label={`Slett din testfest for ${testfest.BedriftNavn}`} onClick={(e) => { e.preventDefault(); handleDelete(testfest.TestfestID); }}>
-                        Slett
+                        {t('common.delete')}
                       </button>
                     </div>
                   </Link>
@@ -225,7 +223,7 @@ if (currentUser === null && isAuthenticated) {
       {!isAuthenticated && (
         <>
         <section>
-          <h2>Kommende Testfester</h2>
+          <h2>{t('testfester.present_testfest')}</h2>
           {kommende.length > 0 ? (
              <ul className="testfester-list">
               {kommende.map(testfest => (
@@ -243,7 +241,7 @@ if (currentUser === null && isAuthenticated) {
           )}
           </section>
           <section>
-          <h2>Tidligere Testfester</h2>
+          <h2>{t('testfester.past_testfest')}</h2>
           {tidligere.length > 0 ? (
             <ul className="testfester-list">
               {tidligere.map(testfest => (

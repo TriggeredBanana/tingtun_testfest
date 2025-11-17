@@ -1,11 +1,9 @@
 import '../assets/styles/addTestfest.css';
 import '../assets/styles/styles.css';
 import axios from 'axios';
-import React from 'react';
 import {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
-import { useParams } from "react-router-dom";
 
 axios.defaults.withCredentials = true; // Sender cookies automatisk
 

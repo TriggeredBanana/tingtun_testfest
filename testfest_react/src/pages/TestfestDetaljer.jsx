@@ -1,15 +1,15 @@
-import { useParams, useNavigate } from "react-router-dom";
 import '../assets/styles/styles.css';
-import '../assets/styles/testfest.css';
 import '../assets/styles/testfest-pages.css';
-import { useEffect} from 'react';
-import {useState} from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState} from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 axios.defaults.withCredentials = true; //sender cookies automatisk
 
 const TestfestDetaljer = () => {
+  const { t } = useTranslation();
   const { TestfestID } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, ErSuperbruker, currentUser } = useAuth();
@@ -64,7 +64,7 @@ const TestfestDetaljer = () => {
               onClick={() => navigate(`/addTestfester/${TestfestID}`)}
               aria-label="Rediger testfest"
             >
-              Rediger testfest
+              {t('testfester.edit_testfest')}
             </button>
           )}
         </div>
@@ -87,7 +87,7 @@ const TestfestDetaljer = () => {
           <aside className="program-sidebar">
             <div className="program-schedule">
               <h3>Kveldens program</h3>
-              <h4>{programmer.Navn || "Ukjent program"}</h4>
+              <h4>{programmer.Navn || "Ingen program for denne Testfesten"}</h4>
               <ul>
                 <li>{programmer.Punkter || "Ingen punkter for dette programmet"}</li>
               </ul>

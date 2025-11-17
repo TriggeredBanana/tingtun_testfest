@@ -40,7 +40,7 @@ export const addProgram = (req, res) => {
   const bruker = req.user;
 
   if (!bruker || !bruker.ErSuperbruker) {
-    return res.status(401).json({ error: "Ikke admin" });
+    return res.status(401).json({ error: "Ikke innlogget eller admin" });
   }
 
   // Validate input
@@ -109,7 +109,7 @@ export const deleteProgram = (req, res) => {
 
   // Sjekk at bruker er innlogget
   if (!bruker || !bruker.ErSuperbruker) {
-    return res.status(401).json({ error: "Ikke admin" });
+    return res.status(401).json({ error: "Ikke innlogget eller admin" });
   }
 
   // Slett programmet
