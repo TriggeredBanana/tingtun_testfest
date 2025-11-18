@@ -34,10 +34,10 @@
 		"lang_en": "Bytt til engelsk"
 	},
 	"testfester": {
-		"title": "Tidligere Testfester",
-		"oslo_link": "Oslo kommune",
-		"storebrand_link": "Storebrand",
-		"uio_link": "Universitet i Oslo"
+		"past_testfest": "Tidligere Testfester",
+		"present_testfest": "Kommende Testfester",
+		"add_testfest": "Opprett Testfest",
+		"edit_testfest": "Rediger Testfest"
 	},
 	"login": {
 		"title": "Logg inn",
@@ -51,103 +51,8 @@
 		"error_required": "Vennligst fyll inn både brukernavn og passord"
 	},
 	"common": {
-		"delete": "Slett"
-	},
-	"tjenesteeier": {
-		"title": "Tjenesteeier",
-		"add_new": "Legg til ny Tjenesteeier"
-	},
-	"add": {
-		"title": "Legg til ny Tjenesteeier",
-		"company_placeholder": "Bedrift",
-		"email_placeholder": "E-post",
-		"password_placeholder": "Passord",
-		"submit": "Legg til"
-	},
-	"oslo": {
-		"title": "Testfest 3. September - Oslo kommune",
-		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
-		"intro2": "Send gjerne skriftlig tilbakemelding fra lenken under hver oppgave.",
-		"task1": { "title": "Oppgave 1: Kontakt hjemmetjenesten", "text": "Du har behov for å sende en melding til hjemmetjenesten der du bor. Finn ut hvordan du kan sende og motta meldinger til hjemmetjenesten." },
-		"task2": { "title": "Oppgave 2: Hvor lenge varer juleferien i skolen?", "text": "Du planlegger å reise utenlands med familien i nyttårshelgen. Prøv å finne ut når skolen starter opp igjen etter juleferien." },
-		"task3": { "title": "Oppgave 3: Hvor kan jeg svømme, og hva koster det?", "text": "Du ønsker å bade i en svømmehall i Oslo i ettermiddag klokka 17:30. Hvordan vil du gå fram for å finne ut hvor du kan dra, når det stenger og hvor mye det koster?" },
-		"task4": { "title": "Oppgave 4: Hvorfor er det forbud mot mobiltelefoner i Osloskolen?", "text": "Du har fått beskjed fra din sønn/datter at det plutselig er forbudt å bruke mobiltelefon i skoletiden. Klarer du å finne en nyhetssak om dette på kommunenes nettsider?" },
-		"program": {
-			"title": "Oslo kommune og UiO\nPunkter for kveldens program:",
-			"item1": "Velkommen – Pizza er servert (Christian)",
-			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
-			"item3": "Vi setter igang med testene",
-			"item4": "Pause med påfyll",
-			"item5": "Videre testing og deling av erfaringer",
-			"item6": "Avslutning og oppsummering (Alle)"
-		}
-	},
-	"storebrand": {
-		"title": "Testfest 3. September - Storebrand",
-		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
-		"intro2": "Send gjerne skriftlig tilbakemelding fra lenken under hver oppgave.",
-		"task1": { "title": "Oppgave 1: Pensjonssparing", "text": "Kan du finne ut hvilke pensjonssparingmuligheter Storebrand tilbyr?" },
-		"task2": { "title": "Oppgave 2: Reiseforsikring", "text": "Du skal ut å reise i 3 måneder og trenger reiseforsikring. Hva vil det koste deg hos Storebrand?" },
-		"task3": { "title": "Oppgave 3: Leie av bil", "text": "Du skal leie bil under reiser, se om reiseforsikringen dekker evt skader på denne og hva egenandel da vil koste?" },
-		"task4": { "title": "Oppgave 4: Leie av bil - vilkår", "text": "Reiseforsikringen har mange vilkår, disse vises i en pdf, kan du finne pdfen og se om du finner ut hvilke utgifter forsikringen ikke dekker?" },
-		"task5": { "title": "Oppgave 5: Kundeservice", "text": "Du er usikker på om du forstår dekningene og ønsker å kontakte kundeservice. Hva gjør du?" },
-		"program": {
-			"title": "Oslo kommune og Storebrand\nPunkter for kveldens program:",
-			"item1": "Velkommen – Pizza er servert (Christian)",
-			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
-			"item3": "Vi setter igang med testene",
-			"item4": "Pause med påfyll",
-			"item5": "Videre testing og deling av erfaringer",
-			"item6": "Avslutning og oppsummering (Alle)"
-		}
-	},
-	"uio": {
-		"title": "Testfest 1. oktober - UiO",
-		"intro1": "Fint om du kan 'tenke høyt' mens du tester for å vise hvordan tjenesten fungerer (eller ikke).",
-		"link_text": "Oppgavene under tar utgangspunkt i tjenesten \"Mine studier\" du finner på",
-		"link_label": "Mine studier.",
-		"task1": {
-			"title": "Oppgave 1: Navigering i timeplan",
-			"p1": "1. Du har en venn som lurer på om dere kan finne på noe førstkommende fredag kl. 13:00. Du er usikker på om det krasjer med forelesningene dine og tar opp Mine studier for å sjekke timeplanen.",
-			"a": "a. Kan du finne ut om du har forelesning kl 13.00?",
-			"b": "b. Du lurer på om du har forelesning onsdag neste uke, kan du sjekke det?",
-			"c": "c. Finner du ut hvor denne forelesningen skal være?"
-		},
-		"task2": {
-			"title": "Oppgave 2: Beskjeder",
-			"p1": "1. Du liker å holde deg oppdatert på beskjedene du får som student og ser at du har to uleste beskjeder i Mine studier.",
-			"a": "a. Hvilke beskjeder er det?",
-			"b": "b. For de med skjermleser; Basert på det som skjermleseren leste opp, synes du det er vanskelig å forstå hvilke beskjeder som er ulest?",
-			"c": "c. Burde det vært gjort på noen annen måte?",
-			"p2": "2. Den 13.mai mottok du en beskjed om en spørreundersøkelse som du har glemt å svare på",
-			"d": "a. Kan du finne tilbake til den?",
-			"e": "b. Finner du en spørreundersøkelse i beskjeden?"
-		},
-		"task3": {
-			"title": "Oppgave 3: Sjekkliste",
-			"p1": "1. I Mine studier har du en sjekkliste med ting du må huske å gjøre som ny student. Du har fått beskjed om at du må huske å registrere deg i Studentweb, men er usikker på om du har gjort det.",
-			"a": "a. Kan du sjekke om du har registrert deg i Studentweb?",
-			"p2": "2. Du kommer på at du må betale semesteravgiften, men er usikker på hvordan du skal betale",
-			"b": "a. Finner du noe info om det i sjekklisten?",
-			"c": "b. Med infoen du får i sjekkpunktet, hvordan ville du gått frem for å betale?",
-			"p3": "3. Du lurer på når fristen for å betale semesteravgiften er.",
-			"d": "a. Finner du noe info om det i sjekklisten i Mine studier?",
-			"e": "b. Med infoen du får i sjekkpunktet, hvordan ville du gått frem for å betale?"
-		},
-		"extra": {
-			"title": "Ekstra Oppgaver",
-			"p1": "1. Sjekkliste: Du har gjennomført alle punktene i sjekklisten, og ønsker å fjerne den. Finner du noe sted i sjekklisten hvor du kan fjerne den?",
-			"p2": "2. Beskjeder: Du ønsker å kun se beskjeder sendt på et emne, med emnekoden MAT1110. Kan du sette det som et filter for beskjedene?"
-		},
-		"program": {
-			"title": "Oslo kommune og UiO\nPunkter for kveldens program:",
-			"item1": "Velkommen – Pizza er servert (Eva Elida)",
-			"item2": "Introduksjon til Testfest (Mikael og Joschua)",
-			"item3": "Vi setter igang med testene",
-			"item4": "Pause med påfyll",
-			"item5": "Videre testing og deling av erfaringer",
-			"item6": "Avslutning og oppsummering (Alle)"
-		}
+		"delete": "Slett",
+		"edit": "Rediger"
 	},
 	"faq": {
 		"title": "Spørsmål og svar",
@@ -224,7 +129,7 @@
 		"add_new_user": "+ Opprett ny bruker",
 		"edit_user": "Rediger bruker",
 		"create_user": "Opprett ny bruker",
-		"program_overview": "Program oversikt",
+		"program_overview": "Programoversikt",
 		"add_new_program": "+ Legg til nytt program",
 		"edit_program": "Rediger program",
 		"form": {
@@ -252,12 +157,18 @@
 			"username_required": "Brukernavn er påkrevd",
 			"password_required": "Passord er påkrevd",
 			"password_mismatch": "Passordene matcher ikke",
-			"password_min": "Passord må være minst 6 tegn"
+			"password_min": "Passord må være minst 6 tegn",
+			"programName_required": "Program navn er påkrevd",
+			"punkter_required": "Punkter er påkrevd"
 		},
 		"loading_users": "Laster brukere...",
+		"loading_program": "Laster programmer...",
 		"empty": {
 			"no_users": "Ingen brukere opprettet ennå.",
-			"cta": "Klikk på \"Opprett ny bruker\" for å komme i gang."
+			"cta": "Klikk på \"Opprett ny bruker\" for å komme i gang.",
+			"no_program": "Ingen program opprettet ennå",
+			"cta_program": "Klikk på Legg til nytt program for å komme i gang",
+			"no_points": "Ingen punkter"
 		},
 		"table": {
 			"name": "Navn",
@@ -272,7 +183,7 @@
 			"aria_edit": "Rediger {{name}}",
 			"aria_delete": "Slett {{name}}",
 			"punkter": "Punkter",
-			"program_name": "Program navn"
+			"program_name": "Programnavn"
 		},
 		"confirm_delete": "Er du sikker på at du vil slette {{name}}?",
 		"stats": {

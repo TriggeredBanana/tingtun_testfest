@@ -1,13 +1,14 @@
-import { useParams, useNavigate } from "react-router-dom";
 import '../assets/styles/styles.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 axios.defaults.withCredentials = true; // cookies sent automatically
 
 const TestfestDetaljer = () => {
+  const { t } = useTranslation();
   const { TestfestID } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, ErSuperbruker, currentUser } = useAuth();

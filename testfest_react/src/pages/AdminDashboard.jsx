@@ -90,10 +90,10 @@ const AdminDashboard = () => {
     const newErrors = {};
 
     if (!programFormData.Navn.trim()) {
-      newErrors.Navn = 'Programnavn er påkrevd';
+      newErrors.Navn = t('admin.validation.programName_required');
     }
     if (!programFormData.Punkter.trim()) {
-      newErrors.Punkter = 'Punkter er påkrevd';
+      newErrors.Punkter = t('admin.validation.punkter_required');
     }
 
     setErrors(newErrors);
@@ -195,7 +195,7 @@ const AdminDashboard = () => {
   };
 
   const handleDeleteProgram = async (programId, programNavn) => {
-    if (window.confirm(t('admin.confirm_delete', {programNavn}))) {
+    if (window.confirm(t('admin.confirm_delete', {name: programNavn}))) {
       try {
         setLoading(true);
         await deleteProgram(programId);
@@ -563,12 +563,12 @@ const AdminDashboard = () => {
 
             {loading && programs.length === 0 ? (
               <div className="loading-state">
-                <p>Laster programmer...</p>
+                <p>{t('admin.loading_program')}</p>
               </div>
             ) : programs.length === 0 ? (
               <div className="empty-state">
-                <p>Ingen programmer funnet</p>
-                <p>Klikk på "Legg til nytt program" for å komme i gang</p>
+                <p>{t('empty.no_program')}</p>
+                <p>{t('empty.cta_program')}</p>
               </div>
             ) : (
               <div className="users-table-container">
@@ -588,7 +588,7 @@ const AdminDashboard = () => {
                           {program.Punkter ? (
                             <span className="program-punkter">{program.Punkter}</span>
                           ) : (
-                            <span className="text-muted">Ingen punkter</span>
+                            <span className="text-muted">{t('empty.no_points')}</span>
                           )}
                         </td>
                         <td data-label="Handlinger">
