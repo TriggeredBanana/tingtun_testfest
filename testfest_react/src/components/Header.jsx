@@ -70,18 +70,8 @@ const Header = () => {
             {isAuthenticated ? (
               <li>
                 <button 
+                  className="logout-btn"
                   onClick={handleLogout}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    padding: '1rem 1.5rem',
-                    cursor: 'pointer',
-                    color: 'inherit',
-                    fontSize: '1.1rem',
-                    fontWeight: 500,
-                    width: '100%',
-                    textAlign: 'left'
-                  }}
                   aria-label={t('nav.logout')}
                 >
                   {t('nav.logout')}
@@ -92,13 +82,11 @@ const Header = () => {
             )}
             {/* Enkel språkvelger */}
             <li>
-              <div style={{ padding: '0.5rem 1rem' }}>
-                <button
-                  className="lang-toggle-btn"
-                  onClick={toggleLanguage}
-                  aria-label={isNorwegian() ? t('nav.lang_en') : t('nav.lang_no')}
-                >{isNorwegian() ? 'NO' : 'EN'}</button>
-              </div>
+              <button
+                className="lang-toggle-btn"
+                onClick={toggleLanguage}
+                aria-label={isNorwegian() ? t('nav.lang_en') : t('nav.lang_no')}
+              >{isNorwegian() ? 'NO' : 'EN'}</button>
             </li>
           </ul>
         </div>
