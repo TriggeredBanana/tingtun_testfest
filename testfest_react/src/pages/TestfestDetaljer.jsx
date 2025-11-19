@@ -140,11 +140,15 @@ const TestfestDetaljer = () => {
             <h2>Logg for testfesten</h2>
             
             {testfest.Logg && !editingLogg ? (
-              <div className="vis-logg" style={{ padding: "1rem", background: "#f8f8f8", borderRadius: "4px", marginBottom: "1rem" }}>
-                <div style={{ whiteSpace: "pre-wrap", color: "#333", marginBottom: "1rem" }}>
+              <div className="vis-logg">
+                <div className="logg-content">
                   {testfest.Logg}
                 </div>
-                <button onClick={() => setEditingLogg(true)}>
+                <button 
+                  className="edit-logg-btn"
+                  onClick={() => setEditingLogg(true)}
+                  aria-label="Rediger logg"
+                >
                   Rediger logg
                 </button>
               </div>
@@ -158,30 +162,38 @@ const TestfestDetaljer = () => {
                   className="logg-textarea"
                   disabled={savingLogg}
                 />
-                <button onClick={handleSaveLogg} disabled={savingLogg}>
-                  {savingLogg ? "Lagrer..." : "Lagre logg"}
-                </button>
-                {editingLogg && (
-                  <button
-                    type="button"
-                    style={{ marginLeft: "1rem" }}
-                    onClick={() => {
-                      setEditingLogg(false);
-                      setLogg(testfest.Logg || "");
-                    }}
+                <div className="logg-buttons">
+                  <button 
+                    className="save-logg-btn"
+                    onClick={handleSaveLogg} 
+                    disabled={savingLogg}
+                    aria-label="Lagre logg"
                   >
-                    Avbryt
+                    {savingLogg ? "Lagrer..." : "Lagre logg"}
                   </button>
-                )}
+                  {editingLogg && (
+                    <button
+                      type="button"
+                      className="cancel-logg-btn"
+                      onClick={() => {
+                        setEditingLogg(false);
+                        setLogg(testfest.Logg || "");
+                      }}
+                      aria-label="Avbryt redigering"
+                    >
+                      Avbryt
+                    </button>
+                  )}
+                </div>
               </>
             )}
           </section>
         ) : isAuthenticated ? (
-          <p style={{ marginTop: "1rem", color: "#555" }}>
+          <p className="logg-message">
             Du har ikke tilgang til å se logg for denne testfesten. Kun eieren av testfesten og administratorer kan se og redigere logg.
           </p>
         ) : (
-          <p style={{ marginTop: "1rem", color: "#555" }}>
+          <p className="logg-message">
             Logg er kun tilgjengelig for innloggede brukere. Vennligst logg inn for å se og skrive logg.
           </p>
         )}
