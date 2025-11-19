@@ -16,12 +16,16 @@ const TestfestDetaljer = () => {
   const [testfest, setTestfester] = useState({});
   const [oppgaver, setOppgaver] = useState([]);
   const [programmer, setProgram] = useState({});
+  const [logg, setLogg] = useState("");
+  const [savingLogg, setSavingLogg] = useState(false);
+  const [editingLogg, setEditingLogg] = useState(false);
 
   useEffect(()=> {
        const fetchData = async ()=>{
         try{
             const testfestRes = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
             setTestfester(testfestRes.data);
+            setLogg((testfestRes.data && testfestRes.data.Logg) ? testfestRes.data.Logg : "");
 
             // Hent oppgaver for denne testfesten
             const oppgaverRes = await axios.get(`http://localhost:8800/oppgaver/${TestfestID}`);
@@ -51,6 +55,41 @@ const TestfestDetaljer = () => {
 }, [testfest.ProgramID]);
     
   const canEdit = isAuthenticated && (ErSuperbruker || (currentUser && Number(testfest.BrukerID) === Number(currentUser.BrukerID)));
+
+  // Check if current user can see/edit the log
+  const canAccessLog = () => {
+    if (!isAuthenticated || !currentUser) return false;
+    
+    // Superuser can always access
+    if (currentUser.ErSuperbruker) return true;
+    
+    // Owner can access their own testfest
+    if (testfest.BrukerID && Number(currentUser.BrukerID) === Number(testfest.BrukerID)) return true;
+    
+    return false;
+  };
+
+  // Save log (PUT)
+  const handleSaveLogg = async () => {
+    try {
+      setSavingLogg(true);
+      await axios.put(
+        `http://localhost:8800/testfester/${TestfestID}/logg`,
+        { Logg: logg },
+        { withCredentials: true }
+      );
+
+      // Update local copy so UI is in sync
+      setTestfester(prev => ({ ...prev, Logg: logg }));
+      setEditingLogg(false);
+      alert("Logg oppdatert!");
+    } catch (err) {
+      console.error("Feil ved lagring av logg:", err);
+      alert(err.response?.data?.error || "Kunne ikke lagre logg. Sjekk console for mer info.");
+    } finally {
+      setSavingLogg(false);
+    }
+  };
 
   return (
     <div className="container">
@@ -94,6 +133,58 @@ const TestfestDetaljer = () => {
             </div>
           </aside>
         </div>
+
+        {/* ===== LOGG SECTION ===== */}
+        {canAccessLog() ? (
+          <section className="logg-section">
+            <h2>Logg for testfesten</h2>
+            
+            {testfest.Logg && !editingLogg ? (
+              <div className="vis-logg" style={{ padding: "1rem", background: "#f8f8f8", borderRadius: "4px", marginBottom: "1rem" }}>
+                <div style={{ whiteSpace: "pre-wrap", color: "#333", marginBottom: "1rem" }}>
+                  {testfest.Logg}
+                </div>
+                <button onClick={() => setEditingLogg(true)}>
+                  Rediger logg
+                </button>
+              </div>
+            ) : (
+              <>
+                <textarea
+                  value={logg}
+                  onChange={(e) => setLogg(e.target.value)}
+                  placeholder="Skriv hvordan testfesten gikk og hva som kunne vært bedre..."
+                  rows={6}
+                  className="logg-textarea"
+                  disabled={savingLogg}
+                />
+                <button onClick={handleSaveLogg} disabled={savingLogg}>
+                  {savingLogg ? "Lagrer..." : "Lagre logg"}
+                </button>
+                {editingLogg && (
+                  <button
+                    type="button"
+                    style={{ marginLeft: "1rem" }}
+                    onClick={() => {
+                      setEditingLogg(false);
+                      setLogg(testfest.Logg || "");
+                    }}
+                  >
+                    Avbryt
+                  </button>
+                )}
+              </>
+            )}
+          </section>
+        ) : isAuthenticated ? (
+          <p style={{ marginTop: "1rem", color: "#555" }}>
+            Du har ikke tilgang til å se logg for denne testfesten. Kun eieren av testfesten og administratorer kan se og redigere logg.
+          </p>
+        ) : (
+          <p style={{ marginTop: "1rem", color: "#555" }}>
+            Logg er kun tilgjengelig for innloggede brukere. Vennligst logg inn for å se og skrive logg.
+          </p>
+        )}
       </div>
     </div>
   );

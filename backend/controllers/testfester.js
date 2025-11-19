@@ -50,6 +50,7 @@ export const getTestfesterByID = (req, res) => {
       t.Status,
       t.ProgramID,
       t.BrukerID,
+      t.Logg,
       b.Navn AS BedriftNavn
     FROM Testfester t
     LEFT JOIN Brukere b ON t.BrukerID = b.BrukerID
@@ -226,6 +227,48 @@ export const deleteTestfester = (req, res) => {
       });
     }
   );
-};
+  };
 
- 
+  export const updateTestfestLogg = (req, res) => {
+  const testfestID = Number(req.params.TestfestID);
+  const { Logg } = req.body;
+  const bruker = req.user;
+
+  if (!bruker) {
+    return res.status(401).json({ error: "Ikke innlogget" });
+  }
+
+  // First check if testfest exists and get its owner
+  db.query(
+    "SELECT BrukerID FROM Testfester WHERE TestfestID = ?",
+    [testfestID],
+    (err, rows) => {
+      if (err) {
+        console.error("SQL-feil:", err);
+        return res.status(500).json({ error: "Serverfeil" });
+      }
+
+      if (rows.length === 0) {
+        return res.status(404).json({ error: "Testfest ikke funnet" });
+      }
+
+      const eierId = rows[0].BrukerID;
+
+      // Check permissions
+      if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
+        return res.status(403).json({ error: "Du har ikke tilgang til å oppdatere logg" });
+      }
+
+      // Update the log
+      const updateQuery = "UPDATE Testfester SET Logg = ? WHERE TestfestID = ?";
+      db.query(updateQuery, [Logg, testfestID], (updateErr, result) => {
+        if (updateErr) {
+          console.error("SQL-feil ved oppdatering av logg:", updateErr);
+          return res.status(500).json({ error: "Kunne ikke oppdatere logg" });
+        }
+
+        return res.json({ message: "Logg oppdatert" });
+      });
+    }
+  );
+};
