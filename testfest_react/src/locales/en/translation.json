@@ -34,10 +34,67 @@
 		"lang_en": "Switch to English"
 	},
 	"testfester": {
-		"past_testfest": "Past Testfester",
-		"present_testfest": "Upcoming Testfester",
+		"past_testfest": "Past Testfests",
+		"present_testfest": "Upcoming Testfests",
+		"no_past_testfest": "No past Testfests",
+		"no_present_testfester": "No present Testfests",
 		"add_testfest": "Add Testfest",
-		"edit_testfest": "Edit Testfest"
+		"edit_testfest": "Edit Testfest",
+		"own_testfest": "Your Testfests",
+		"other_testfest": "Other Testfests",
+		"no_own_testfest": "You have no own Testfester",
+		"no_other_testfest": "No other Testfests",
+		"no_testfest": "No other Testfests registered",
+		"chose_program": "Choose program",
+		"all_testfest": "All Testfests (Admin)",
+		"tasks": "Tasks",
+		"no_task": "No tasks for this Tesfest",
+		"tonight_program": "Tonights program",
+		"no_program": "No program for this Testfest",
+		"no_points": "No points for this program",
+		"log_testfest": "Log for this Testfest",
+		"edit_log": "Edit logg",
+		"save_log": "Save log",
+		"log_visibility": "You do not have access to view the log for this Testfest. Only the owner of the Testfest and administrators can view and edit the log",
+		"log_loggedin": "The log is only available to logged-in users. Please log in to view and write the log.",
+		"placeholder_log": "Write how the Testfest went and what can be improved...",
+		"alert": {
+			"confirm_delete": "Are you sure you want to delete this Testfest?",
+			"delete_err": "Could not delete Testfest. Try again",
+			"program_err": "Something went wrong with allocation off program. Try again",
+			"log_updated": "Log updated!",
+			"save_log_err": "Could not save log. Check console for more info"
+		}
+	},
+	"add": {
+		"created_by": "Created by",
+		"add_task": "Add tasks",
+		"update_testfest": "Update Testfest",
+			"form": {
+				"task": "Task",
+				"title": "Title:",
+				"description": "Description",
+				"remove_task": "Remove task",
+				"save_task": "Save task",
+				"add_tasks": "+ Add task",
+				"save_testfest": "Save Testfest",
+				"task_title": "Task title"
+			},
+			"alert": {
+				"testfest_error": "Could not get Testfest data",
+				"loggedin": "You must be logged inn to create Testfest",
+				"testfest_updated": "Testfest updated!",
+				"testfest_added": "Testfest created! You can now add Tasks",
+				"testfest_err": "Could not create Testfest. Try again",
+				"chose_testfest": "No Testfest chosen",
+				"saved_changes": "All changes saved!",
+				"saved_err": "Something went wrong with saving. Try again",
+				"confirm_delete": "Are you sure you want to delete this task?",
+				"delete_err": "Could not delete task. Try again",
+				"task_updated": "Task updated!",
+				"task_saved": "Task saved!",
+				"task_err": "Could not save task"
+		}
 	},
 	"login": {
 		"title": "Log in",
@@ -52,7 +109,8 @@
 	},
 	"common": {
 		"delete": "Delete",
-		"edit": "Edit"
+		"edit": "Edit",
+		"date": "Date"
 	},
 	"faq": {
 		"title": "Questions and answers",

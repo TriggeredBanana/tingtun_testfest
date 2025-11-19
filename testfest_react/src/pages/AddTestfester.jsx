@@ -4,10 +4,12 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 axios.defaults.withCredentials = true; // Sender cookies automatisk
 
-const AddTestfester = ({ onClose }) => {
+const AddTestfester = ({}) => {
+  const { t } = useTranslation();
   const { currentUser, authLoading } = useAuth(); // Hent innlogget bruker
   const navigate = useNavigate();
   const { TestfestID } = useParams();
@@ -56,7 +58,7 @@ const AddTestfester = ({ onClose }) => {
 
       } catch (err) {
         console.error("Kunne ikke hente testfest:", err);
-        alert("Kunne ikke hente testfest-data.");
+        alert(t('add.alert.testfest_error'));
       }
     };
 
@@ -75,7 +77,7 @@ const AddTestfester = ({ onClose }) => {
   const handleClick = async e => {
         e.preventDefault();
         if (!currentUser || !currentUser.BrukerID) {
-            alert("Du må være logget inn for å opprette en testfest!");
+            alert(t('add.alert.loggedin'));
             navigate('/login');
             return;
         }
@@ -89,18 +91,18 @@ const AddTestfester = ({ onClose }) => {
         if (TestfestID) {
           // Oppdater eksisterende
           await axios.put(`http://localhost:8800/testfester/${TestfestID}`, testfestData);
-          alert("Testfest oppdatert!");
+          alert(t('add.alert.testfest_updated'));
         } else {
           // Opprett ny
           const res = await axios.post("http://localhost:8800/testfester", testfestData);
           const newID = res.data.TestfestID;
           setTestfestID(newID);
-          alert("Testfest opprettet! Du kan nå legge til oppgaver.");
+          alert(t('add.alert.testfest_added'));
 
         }
       } catch (err) {
           console.log("Feil ved oppretting av testfest:", err);
-          alert("Kunne ikke opprette testfest. Prøv igjen.");
+          alert(t('add.alert.testfest_err'));
         }
     }
 
@@ -108,7 +110,7 @@ const AddTestfester = ({ onClose }) => {
 const handleSaveAll = async () => {
   try {
     const idToUse = testfestID || Number(TestfestID); // Bruk enten state eller param
-    if (!idToUse) return alert("Ingen testfest valgt.");
+    if (!idToUse) return alert(t('add.alert.chose_testfest'));
 
     // Oppdater testfest
     await axios.put(`http://localhost:8800/testfester/${idToUse}`, {
@@ -137,13 +139,13 @@ const handleSaveAll = async () => {
       await axios.post("http://localhost:8800/oppgaver", nyMedID);
     }
 
-    alert("Alle endringer ble lagret!");
+    alert(t('add.alert.saved_changes'));
     // Clear the individually saved indices since everything is now saved
     setIndividuallySavedIndices(new Set());
     navigate(`/testfester/${idToUse}`);
   } catch (err) {
     console.error("Feil ved lagring:", err);
-    alert("Noe gikk galt under lagring.");
+    alert(t('add.alert.saved_err'));
   }
 };
     //oppdater felt for en oppgave
@@ -166,14 +168,14 @@ const handleSaveAll = async () => {
 
     // Hvis oppgaven finnes i databasen
     if (oppgave.OppgaveID) {
-      const bekreft = window.confirm("Er du sikker på at du vil slette denne oppgaven?");
+      const bekreft = window.confirm(t('add.alert.confirm_delete'));
       if (!bekreft) return;
 
       try {
         await axios.delete(`http://localhost:8800/oppgaver/${oppgave.OppgaveID}`);
       } catch (err) {
         console.error("Feil ved sletting av oppgave:", err);
-        alert("Kunne ikke slette oppgaven.");
+        alert(t('add.alert.delete_err'));
         return; 
       }
     }
@@ -201,10 +203,10 @@ const handleSaveAll = async () => {
     
     return (
     <div className="modal-task">
-      <h1>{TestfestID ? "Rediger Testfest" : "Opprett Testfest"}</h1>
+      <h1>{TestfestID ? t('testfester.edit_testfest') : t('testfester.add_testfest')}</h1>
       {/* Vis hvem som oppretter */}
             {currentUser && (
-                <p>Opprettes av: <strong>{currentUser.Navn}</strong></p>
+                <p>{t('add.created_by')} <strong>{currentUser.Navn}</strong></p>
             )}
       <label>Dato:</label>
       <input
@@ -219,32 +221,32 @@ const handleSaveAll = async () => {
       {!testfestID ? (
         <div className="initial-buttons">
           <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt">
-            Avbryt
+            {t('admin.form.cancel')}
           </button>
           <button type="button" onClick={handleClick} className="create-btn" aria-label={TestfestID ? "Oppdater testfest" : "Opprett testfest"}>
-            {TestfestID ? "Oppdater testfest" : "Opprett testfest"}
+            {TestfestID ? t('add.update_testfest') : t('testfester.add_testfest')}
           </button>
         </div>
     ) : (<>
           <section className="oppgaver-section">
-            <h2>Legg til oppgaver</h2>
+            <h2>{t('add.add_task')} </h2>
 
             {oppgaver.map((oppgave, index) => (
               <div key={index} className="oppgave-input">
-                <h3>Oppgave {index + 1}</h3>
-                <label>Tittel:</label>
+                <h3>{t('add.form.task')} {index + 1}</h3>
+                <label>{t('add.form.title')}</label>
                 <input
                   type="text"
-                  placeholder="Oppgave tittel"
+                  placeholder={t('add.form.task_title')}
                   value={oppgave.Tittel}
                   onChange={(e) =>
                     handleOppgaveChange(index, "Tittel", e.target.value)
                   }
                 />
 
-                <label>Beskrivelse:</label>
+                <label>{t('add.form.description')}</label>
                 <textarea
-                  placeholder="Beskrivelse"
+                  placeholder={t('add.form.description')}
                   value={oppgave.Beskrivelse}
                   onChange={(e) =>
                     handleOppgaveChange(index, "Beskrivelse", e.target.value)
@@ -258,14 +260,14 @@ const handleSaveAll = async () => {
                     className="remove-btn"
                     aria-label={`Fjern oppgave ${index + 1}`}
                   >
-                    Fjern oppgave
+                    {t('add.form.remove_task')}
                   </button>
                   <button
                     type="button"
                     onClick={async () => {
                       const oppgave = oppgaver[index];
                       const idToUse = testfestID || Number(TestfestID);
-                      if (!idToUse) return alert("Ingen testfest valgt.");
+                      if (!idToUse) return alert(t('add.alert.chose_testfest'));
                       
                       try {
                         if (oppgave.OppgaveID) {
@@ -275,7 +277,7 @@ const handleSaveAll = async () => {
                           });
                           setSavedOppgaver(prev => new Set([...prev, oppgave.OppgaveID]));
                           setIndividuallySavedIndices(prev => new Set([...prev, index]));
-                          alert("Oppgave oppdatert!");
+                          alert(t('add.alert.task_updated'));
                         } else {
                           const res = await axios.post("http://localhost:8800/oppgaver", [{
                             ...oppgave,
@@ -287,17 +289,17 @@ const handleSaveAll = async () => {
                           setOppgaver(nyeOppgaver);
                           setSavedOppgaver(prev => new Set([...prev, newOppgaveID]));
                           setIndividuallySavedIndices(prev => new Set([...prev, index]));
-                          alert("Oppgave lagret!");
+                          alert(t('add.alert.task_saved'));
                         }
                       } catch (err) {
                         console.error("Feil ved lagring av oppgave:", err);
-                        alert("Kunne ikke lagre oppgaven.");
+                        alert(t('add.alert.task_err'));
                       }
                     }}
                     className="save-btn"
                     aria-label={`Lagre oppgave ${index + 1}`}
                   >
-                    Lagre oppgave
+                    {t('add.form.save_task')}
                   </button>
                 </div>
               </div>
@@ -305,14 +307,14 @@ const handleSaveAll = async () => {
           </section>
           <div className="action-buttons-container">
             <button type="button" onClick={addOppgave} className="add-btn" aria-label="Legg til ny oppgave">
-              + Legg til oppgave
+              {t('add.form.add_tasks')}
             </button>
             <div className="button-row">
               <button type="button" onClick={() => navigate('/testfester')} className="cancel-btn" aria-label="Avbryt og gå tilbake">
-                Avbryt
+                {t('admin.form.cancel')}
               </button>
               <button type="button" onClick={handleSaveAll} className="save-all-btn" aria-label="Lagre testfest">
-                Lagre testfest
+                {t('add.form.save_testfest')}
               </button>
             </div>
           </div>

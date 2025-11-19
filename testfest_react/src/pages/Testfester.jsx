@@ -43,7 +43,7 @@ useEffect(() => {
 
   //slette testfest, kun for brukere og admin
   const handleDelete = async (TestfestID) => {
-    if (!window.confirm("Er du sikker på at du vil slette denne testfesten?")) return;
+    if (!window.confirm(t('testfester.alert.confirm_delete') )) return;
 
     try {
       await axios.delete(`http://localhost:8800/testfester/${TestfestID}`, {
@@ -56,7 +56,7 @@ useEffect(() => {
       setTestfester(prev => prev.filter(t => t.TestfestID !== TestfestID));
     } catch (err) {
       console.error("Feil ved sletting:", err);
-      alert("Kunne ikke slette testfesten.");
+      alert(t('testfester.alert.delete_err'));
     }
   };
 
@@ -87,7 +87,7 @@ useEffect(() => {
         setTestfester(prev => prev.map(t => t.TestfestID === TestfestID ? { ...t, ProgramID } : t));
       } catch (err) {
         console.error("Kunne ikke tilordne program:", err);
-        alert("Noe gikk galt ved tilordning av program. Sjekk console.");
+        alert(t('testfester.alert.program_err'));
       } finally {
         setLoadingAssign(prev => ({ ...prev, [TestfestID]: false }));
       }
@@ -117,7 +117,7 @@ if (currentUser === null && isAuthenticated) {
       {ErSuperbruker && (
         <section>
           <div className="section-header">
-            <h2>Alle Testfester (Admin)</h2>
+            <h2>{t('testfester.all_testfest')}</h2>
             <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
               {t('testfester.add_testfest')}
             </button>
@@ -141,7 +141,7 @@ if (currentUser === null && isAuthenticated) {
                           onChange={(e) => handleAssignProgram(testfest.TestfestID, Number(e.target.value) || null)}
                           disabled={loadingAssign[testfest.TestfestID]}
                         >
-                          <option value="">Velg program</option>
+                          <option value="">{t('testfester.chose_program')}</option>
                           {programmer.map(program => (
                             <option key={program.ProgramID} value={program.ProgramID}>
                               {program.Navn}
@@ -161,7 +161,7 @@ if (currentUser === null && isAuthenticated) {
               ))}
             </ul>
           ) : (
-            <p>Ingen Testfester registrert</p>
+            <p>{t('testfester.no_testfest')}</p>
           )}
         </section>
       )}
@@ -170,7 +170,7 @@ if (currentUser === null && isAuthenticated) {
         <>
         <section>
           <div className="section-header">
-            <h2>Dine Testfester</h2>
+            <h2>{t('testfester.own_testfest')}</h2>
             <button className="button-link" onClick={() => navigate(`/addTestfester`)}>
               {t('testfester.add_testfest')}
             </button>
@@ -196,11 +196,11 @@ if (currentUser === null && isAuthenticated) {
               ))}
             </ul>
           ) : (
-            <p>Du har ingen egne Testfester</p>
+            <p>{t('testfester.no_own_testfest')}</p>
           )}
           </section>
           <section>
-          <h2>Andre Testfester</h2>
+          <h2>{t('testfester.other_testfest')}</h2>
           {andresTestfester.length > 0 ? (
             <ul className="testfester-list">
               {andresTestfester.map(testfest => (
@@ -214,7 +214,7 @@ if (currentUser === null && isAuthenticated) {
               ))}
             </ul>
           ) : (
-            <p>Ingen andre Testfester</p>
+            <p>{t('testfester.no_other_testfest')}</p>
           )}
           </section>
         </>
@@ -237,7 +237,7 @@ if (currentUser === null && isAuthenticated) {
               ))}
             </ul>
           ) : (
-            <p>Ingen kommende testfester</p>
+            <p>{t('testfester.no_present_testfest')}</p>
           )}
           </section>
           <section>
@@ -255,7 +255,7 @@ if (currentUser === null && isAuthenticated) {
               ))}
             </ul>
           ) : (
-            <p>Ingen tidligere Testfester</p>
+            <p>{t('testfester.no_past_testfest')}</p>
           )}
           </section>
         </>
