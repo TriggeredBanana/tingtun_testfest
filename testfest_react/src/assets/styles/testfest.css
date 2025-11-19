@@ -126,12 +126,12 @@
 .button-link {
     display: inline-block;
     margin: 0;
-    padding: 0.8rem 1.5rem;
-    background-color: #0056b3;
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
     color: white;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
-    border-radius: 6px;
+    border-radius: 4px;
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -141,10 +141,10 @@
 
 .button-link:hover,
 .button-link:focus {
-    background-color: #004494;
+    background-color: #0052a3;
     color: white;
     text-decoration: none;
-    outline: 3px solid #212529;
+    outline: 3px solid #4A90E2;
     outline-offset: 2px;
 }
 
