@@ -82,10 +82,10 @@ const TestfestDetaljer = () => {
       // Update local copy so UI is in sync
       setTestfester(prev => ({ ...prev, Logg: logg }));
       setEditingLogg(false);
-      alert("Logg oppdatert!");
+      alert(t('testfester.alert.log_updated'));
     } catch (err) {
       console.error("Feil ved lagring av logg:", err);
-      alert(err.response?.data?.error || "Kunne ikke lagre logg. Sjekk console for mer info.");
+      alert(err.response?.data?.error || t('testfester.alert.save_log_err'));
     } finally {
       setSavingLogg(false);
     }
@@ -96,7 +96,7 @@ const TestfestDetaljer = () => {
       <div className="testfest-detail">
         <h1>{testfest.BedriftNavn || "Ukjent testfest"}</h1>
         <div className="testfest-header-row">
-          <p className="testfest-date"><strong>Dato:</strong> {new Date(testfest.Dato).toLocaleDateString("no-NO")}</p>
+          <p className="testfest-date"><strong>{t('common.date')}</strong> {new Date(testfest.Dato).toLocaleDateString("no-NO")}</p>
           {canEdit && (
             <button 
               className="edit-testfest-btn" 
@@ -109,26 +109,26 @@ const TestfestDetaljer = () => {
         </div>
         <div className="testfest-content-grid">
           <section className="oppgaver-section">
-            <h2>Oppgaver</h2>
+            <h2>{t('testfester.tasks')}</h2>
             {oppgaver.length > 0 ? (
               <div className="oppgaver-list">
                 {oppgaver.map((oppgave, index) => (
                   <div key={oppgave.OppgaveID} className="oppgave-card">
-                    <h3>Oppgave {index + 1}: {oppgave.Tittel}</h3>
+                    <h3>{t('add.form.task')} {index + 1}: {oppgave.Tittel}</h3>
                     <p>{oppgave.Beskrivelse}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p>Ingen oppgaver for denne testfesten</p>
+              <p>{t('testfester.no_task')}</p>
             )}
           </section>
           <aside className="program-sidebar">
             <div className="program-schedule">
-              <h3>Kveldens program</h3>
-              <h4>{programmer.Navn || "Ingen program for denne Testfesten"}</h4>
+              <h3>{t('testfester.tonight_program')}</h3>
+              <h4>{programmer.Navn || t('testfester.no_program')}</h4>
               <ul>
-                <li>{programmer.Punkter || "Ingen punkter for dette programmet"}</li>
+                <li>{programmer.Punkter || t('testfester.no_points')}</li>
               </ul>
             </div>
           </aside>
@@ -137,7 +137,7 @@ const TestfestDetaljer = () => {
         {/* ===== LOGG SECTION ===== */}
         {canAccessLog() ? (
           <section className="logg-section">
-            <h2>Logg for testfesten</h2>
+            <h2>{t('testfester.log_testfest')}</h2>
             
             {testfest.Logg && !editingLogg ? (
               <div className="vis-logg">
@@ -149,7 +149,7 @@ const TestfestDetaljer = () => {
                   onClick={() => setEditingLogg(true)}
                   aria-label="Rediger logg"
                 >
-                  Rediger logg
+                  {t('testfester.edit_log')}
                 </button>
               </div>
             ) : (
@@ -157,7 +157,7 @@ const TestfestDetaljer = () => {
                 <textarea
                   value={logg}
                   onChange={(e) => setLogg(e.target.value)}
-                  placeholder="Skriv hvordan testfesten gikk og hva som kunne vært bedre..."
+                  placeholder={t('testfester.placeholder_log')}
                   rows={6}
                   className="logg-textarea"
                   disabled={savingLogg}
@@ -169,7 +169,7 @@ const TestfestDetaljer = () => {
                     disabled={savingLogg}
                     aria-label="Lagre logg"
                   >
-                    {savingLogg ? "Lagrer..." : "Lagre logg"}
+                    {savingLogg ? t('admin.form.save_loading') : t('testfester.save_log')}
                   </button>
                   {editingLogg && (
                     <button
@@ -181,7 +181,7 @@ const TestfestDetaljer = () => {
                       }}
                       aria-label="Avbryt redigering"
                     >
-                      Avbryt
+                      {t('admin.form.cancel')}
                     </button>
                   )}
                 </div>
@@ -190,11 +190,11 @@ const TestfestDetaljer = () => {
           </section>
         ) : isAuthenticated ? (
           <p className="logg-message">
-            Du har ikke tilgang til å se logg for denne testfesten. Kun eieren av testfesten og administratorer kan se og redigere logg.
+            {t('testfester.log_visibility')}
           </p>
         ) : (
           <p className="logg-message">
-            Logg er kun tilgjengelig for innloggede brukere. Vennligst logg inn for å se og skrive logg.
+            {t('testfester.log_loggedin')}
           </p>
         )}
       </div>

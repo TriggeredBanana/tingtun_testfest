@@ -36,8 +36,65 @@
 	"testfester": {
 		"past_testfest": "Tidligere Testfester",
 		"present_testfest": "Kommende Testfester",
+		"no_past_testfest": "Ingen tidligere Testfester",
+		"no_present_testfester": "Ingen kommende testfester",
 		"add_testfest": "Opprett Testfest",
-		"edit_testfest": "Rediger Testfest"
+		"edit_testfest": "Rediger Testfest",
+		"own_testfest": "Dine Testfester",
+		"other_testfest": "Andre Testfester",
+		"no_own_testfest": "Du har ingen Testfest",
+		"no_other_testfest": "Ingen andre Testfester",
+		"no_testfest": "Ingen Testfester registrert",
+		"chose_program": "Velg program",
+		"all_testfest": "Alle Testfester (Admin)",
+		"tasks": "Oppgaver",
+		"no_task": "Ingen oppgaver til denne Testfesten",
+		"tonight_program": "Kveldens program",
+		"no_program": "Ingen program for denne Testfesten",
+		"no_points": "Ingen punkter for dette programmet",
+		"log_testfest": "Logg for denne testfesten",
+		"edit_log": "Rediger logg",
+		"save_log": "Lagre logg",
+		"log_visibility": "Du har ikke tilgang til å se logg for denne testfesten. Kun eieren av testfesten og administratorer kan se og redigere logg.",
+		"log_loggedin": "Logg er kun tilgjengelig for innloggede brukere. Vennligst logg inn for å se og skrive logg.",
+		"placeholder_log": "Skriv hvordan testfesten gikk og hva som kunne vært bedre...",
+		"alert": {
+			"confirm_delete": "Er du sikker på at du vil slette denne Testfesten?",
+			"delete_err": "Kunne ikke slette Testfest. Prøv på nytt",
+			"program_err": "Noe gikk galt ved tilordning av program. Prøv på nytt.",
+			"log_updated": "Logg oppdatert!",
+			"save_log_err": "Kunne ikke lagre logg. Sjekk console for mer info."
+		}
+	},
+	"add": {
+		"created_by": "Opprettes av",
+		"add_task": "Legg til oppgaver",
+		"update_testfest": "Oppdater Testfest",
+			"form": {
+				"task": "Oppgave",
+				"title": "Tittel:",
+				"description": "Beskrivelse",
+				"remove_task": "Fjern oppgave",
+				"save_task": "Lagre oppgave",
+				"add_tasks": "+ Legg til oppgave",
+				"save_testfest": "Lagre Testfest",
+				"task_title": "Oppgavetittel"
+			},
+		"alert": {
+			"testfest_error": "Kunne ikke hente Testfestdata",
+			"loggedin": "Du må være logget inn for å opprette en testfest!",
+			"testfest_updated": "Testfest oppdatert!",
+			"testfest_added": "Testfest opprettet! Du kan nå legge til oppgaver",
+			"testfest_err": "Kunne ikke opprette testfest. Prøv igjen",
+			"chose_testfest": "Ingen testfest valgt",
+			"saved_changes": "Alle endringer ble lagret!",
+			"saved_err": "Noe gikk galt under lagring",
+			"confirm_delete": "Er du sikker på at du vil slette denne oppgaven?",
+			"delete_err": "Kunne ikke slette oppgaven",
+			"task_updated": "Oppgave oppdatert!",
+			"task_saved": "Oppgave lagret!",
+			"task_err": "Kunne ikke lagre oppgaven"
+		}
 	},
 	"login": {
 		"title": "Logg inn",
@@ -52,7 +109,8 @@
 	},
 	"common": {
 		"delete": "Slett",
-		"edit": "Rediger"
+		"edit": "Rediger",
+		"date": "Dato"
 	},
 	"faq": {
 		"title": "Spørsmål og svar",
