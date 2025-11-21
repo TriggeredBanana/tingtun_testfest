@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from 'react-i18next';
 
-axios.defaults.withCredentials = true; //sender cookies automatisk
+axios.defaults.withCredentials = true; // sends cookies automatically
 
 const TestfestDetaljer = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const TestfestDetaljer = () => {
             setTestfester(testfestRes.data);
             setLogg((testfestRes.data && testfestRes.data.Logg) ? testfestRes.data.Logg : "");
 
-            // Hent oppgaver for denne testfesten
+            // Fetch tasks for this testfest
             const oppgaverRes = await axios.get(`http://localhost:8800/oppgaver/${TestfestID}`);
             setOppgaver(oppgaverRes.data);
         } catch(err){
@@ -42,7 +42,7 @@ const TestfestDetaljer = () => {
       if (!testfest.ProgramID) {
         console.log("Ingen ProgramID funnet for denne testfesten.");
         return;
-      } // vent til programID finnes
+      } // wait until programID exists
       const fetchProgram = async () => {
         try {
           const programRes = await axios.get(`http://localhost:8800/program/${testfest.ProgramID}`);
@@ -134,7 +134,7 @@ const TestfestDetaljer = () => {
           </aside>
         </div>
 
-        {/* ===== LOGG SECTION ===== */}
+        {/* ===== LOG SECTION ===== */}
         {canAccessLog() ? (
           <section className="logg-section">
             <h2>{t('testfester.log_testfest')}</h2>

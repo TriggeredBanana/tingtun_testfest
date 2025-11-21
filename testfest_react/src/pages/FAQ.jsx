@@ -8,7 +8,7 @@ const FAQ = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(Array(7).fill(false));
 
-  // Bytt åpen/lukket for valgt element
+  // Toggle open/closed for selected element
   const toggle = (i) => {
     setOpen((prev) => {
       const next = [...prev];
@@ -43,7 +43,7 @@ const FAQ = () => {
                       className={`expandable-content ${open[i] ? 'open' : ''}`}
                       hidden={!open[i]}
                     >
-                      {/* Gjør det mulig å inkludere lenker i svarene */}
+                      {/* Makes it possible to include links in the answers */}
                       <div className="faq-answer-inner">
                         {i === 0 && <p>{t('faq.a1')}</p>}
                         {i === 1 && (

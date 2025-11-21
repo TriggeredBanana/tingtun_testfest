@@ -6,7 +6,7 @@ import { useEffect, useState} from 'react';
 import axios from 'axios';
 import { useAuth } from "../context/AuthContext";
 
-axios.defaults.withCredentials = true; //sender cookies sendes automatisk
+axios.defaults.withCredentials = true; // sends cookies automatically
 
 const Testfester = () => {
     const { t } = useTranslation();
@@ -24,9 +24,9 @@ useEffect(() => {
       let url = "http://localhost:8800/testfester"; 
 
       if (isAuthenticated && currentUser && currentUser.BrukerID) {
-        // Innlogget bruker
+        // Logged in user
       } else if (isAuthenticated) {
-        // Venter på brukerdata
+        // Waiting for user data
         return; 
       }
 
@@ -41,7 +41,7 @@ useEffect(() => {
 }, [isAuthenticated, currentUser, authLoading]);
 
 
-  //slette testfest, kun for brukere og admin
+  // delete testfest, only for users and admin
   const handleDelete = async (TestfestID) => {
     if (!window.confirm(t('testfester.alert.confirm_delete') )) return;
 
@@ -60,7 +60,7 @@ useEffect(() => {
     }
   };
 
-    //Hent programmer (kun for admin)
+    // Fetch programs (only for admin)
    useEffect(() => {
     if (ErSuperbruker) {
       const fetchProgrammer = async () => {
@@ -83,7 +83,7 @@ useEffect(() => {
           BrukerID: isAuthenticated?.BrukerID,
           ErSuperbruker: ErSuperbruker
         });
-        // Oppdater state lokalt slik at UI viser nytt valg uten reload
+        // Update state locally so UI shows new choice without reload
         setTestfester(prev => prev.map(t => t.TestfestID === TestfestID ? { ...t, ProgramID } : t));
       } catch (err) {
         console.error("Kunne ikke tilordne program:", err);
@@ -93,11 +93,11 @@ useEffect(() => {
       }
     };
 
-//filtrer basert på status
+// filter based on status
 const kommende = testfester.filter(t => t.Status === "Kommende");
 const tidligere = testfester.filter(t => t.Status === "Tidligere");
 
-// Hvis innlogget bruker: del egne/andres testfester
+// If logged in user: split own/others testfests
 let egneTestfester = [];
 let andresTestfester = [];
 
@@ -113,7 +113,7 @@ if (currentUser === null && isAuthenticated) {
     <div className="container main-content testfester-page">
       <h1>Testfester</h1>
 
-      {/* === SUPERBRUKER-VISNING === */}
+      {/* === SUPERUSER VIEW === */}
       {ErSuperbruker && (
         <section>
           <div className="section-header">
@@ -165,7 +165,7 @@ if (currentUser === null && isAuthenticated) {
           )}
         </section>
       )}
-            {/* === BRUKER-VISNING === */}
+            {/* === USER VIEW === */}
       {!ErSuperbruker && isAuthenticated && (
         <>
         <section>
@@ -219,7 +219,7 @@ if (currentUser === null && isAuthenticated) {
           </section>
         </>
       )}
-            {/* === IKKE INNLOGGET-VISNING === */}
+            {/* === NOT LOGGED IN VIEW === */}
       {!isAuthenticated && (
         <>
         <section>

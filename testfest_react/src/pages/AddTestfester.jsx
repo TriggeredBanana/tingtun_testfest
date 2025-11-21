@@ -6,11 +6,11 @@ import {useNavigate, useParams} from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from 'react-i18next';
 
-axios.defaults.withCredentials = true; // Sender cookies automatisk
+axios.defaults.withCredentials = true; // Sends cookies automatically
 
 const AddTestfester = ({}) => {
   const { t } = useTranslation();
-  const { currentUser, authLoading } = useAuth(); // Hent innlogget bruker
+  const { currentUser, authLoading } = useAuth(); // Get logged in user
   const navigate = useNavigate();
   const { TestfestID } = useParams();
 
@@ -25,17 +25,17 @@ const AddTestfester = ({}) => {
   const [savedOppgaver, setSavedOppgaver] = useState(new Set());
   const [individuallySavedIndices, setIndividuallySavedIndices] = useState(new Set());
   
-  // hente testfest og oppgaver ved redigering
+  // fetch testfest and tasks when editing
   useEffect(() => {
     const hentTestfest = async () => {
-      if (!TestfestID) return; // kun hvis ID ikke finnes 
+      if (!TestfestID) return; // only if ID exists 
       
       try {
-        //hent testfestdata
+        // fetch testfest data
         const res = await axios.get(`http://localhost:8800/testfester/${TestfestID}`);
         const data = res.data;
 
-        //konverter dato
+        // convert date
         const Dato = data.Dato ? data.Dato.split("T")[0] : "";
         setTestfester({
         Dato: Dato,
@@ -45,7 +45,7 @@ const AddTestfester = ({}) => {
         setTestfestID(res.data.TestfestID);
         setIsEditing(true);
 
-        //hent oppgaver til testfest
+        // fetch tasks for testfest
         const oppgaverRes = await axios.get(`http://localhost:8800/oppgaver/${TestfestID}`);
         if (oppgaverRes.data && oppgaverRes.data.length > 0) {
           const oppgaverString = oppgaverRes.data.map(oppgave => ({
@@ -65,7 +65,7 @@ const AddTestfester = ({}) => {
     hentTestfest();
   }, [TestfestID]);
 
-  // useEffect for å sjekke autentisering
+  // useEffect to check authentication
   useEffect(() => {
     if (!authLoading && !currentUser) {
       alert("Du må være logget inn!");
@@ -73,7 +73,7 @@ const AddTestfester = ({}) => {
     }
   }, [currentUser, authLoading, navigate]);
 
-  //opprett eller oppdater testfest uten oppgaver
+  // create or update testfest without tasks
   const handleClick = async e => {
         e.preventDefault();
         if (!currentUser || !currentUser.BrukerID) {
@@ -89,11 +89,11 @@ const AddTestfester = ({}) => {
 
       try {
         if (TestfestID) {
-          // Oppdater eksisterende
+          // Update existing
           await axios.put(`http://localhost:8800/testfester/${TestfestID}`, testfestData);
           alert(t('add.alert.testfest_updated'));
         } else {
-          // Opprett ny
+          // Create new
           const res = await axios.post("http://localhost:8800/testfester", testfestData);
           const newID = res.data.TestfestID;
           setTestfestID(newID);
@@ -106,23 +106,23 @@ const AddTestfester = ({}) => {
         }
     }
 
-//lagre alle endringer fra redigering eller opprett samtidig
+// save all changes from editing or create simultaneously
 const handleSaveAll = async () => {
   try {
-    const idToUse = testfestID || Number(TestfestID); // Bruk enten state eller param
+    const idToUse = testfestID || Number(TestfestID); // Use either state or param
     if (!idToUse) return alert(t('add.alert.chose_testfest'));
 
-    // Oppdater testfest
+    // Update testfest
     await axios.put(`http://localhost:8800/testfester/${idToUse}`, {
       Dato: testfester.Dato || "", 
       Status: testfester.Status
     });
 
-    // del oppgaver i nye eller gamle, men ekskluder allerede lagrede
+    // split tasks into new or old, but exclude already saved ones
     const existing = oppgaver.filter((o, idx) => o.OppgaveID && !savedOppgaver.has(o.OppgaveID) && !individuallySavedIndices.has(idx));
     const newOppgaver = oppgaver.filter((o, idx) => !o.OppgaveID && !individuallySavedIndices.has(idx)); 
 
-    // Oppdater eksisterende oppgaver som ikke er lagret
+    // Update existing tasks that are not saved
     for (const o of existing) {
       await axios.put(`http://localhost:8800/oppgaver/${o.OppgaveID}`, {
         Tittel: o.Tittel,
@@ -130,7 +130,7 @@ const handleSaveAll = async () => {
       });
     }
 
-    // legg til nye oppgaver (bare de som ikke allerede er lagret individuelt)
+    // add new tasks (only those not already saved individually)
     if (newOppgaver.length > 0) {
       const nyMedID = newOppgaver.map(o => ({
         ...o,
@@ -148,7 +148,7 @@ const handleSaveAll = async () => {
     alert(t('add.alert.saved_err'));
   }
 };
-    //oppdater felt for en oppgave
+    // update field for a task
     const handleOppgaveChange = (index, field, value) => {
     const nyeOppgaver = [...oppgaver];
     nyeOppgaver[index] = {
@@ -157,16 +157,16 @@ const handleSaveAll = async () => {
     };
     setOppgaver(nyeOppgaver);
   };
-    // Legg til ny Oppgave
+    // Add new Task
     const addOppgave = () => {
         setOppgaver([...oppgaver, { Tittel: "", Beskrivelse: "" }]);
     };
 
-    //fjerne oppgaver fra database og UI
+    // remove tasks from database and UI
     const removeOppgave = async (index) => {
     const oppgave = oppgaver[index];
 
-    // Hvis oppgaven finnes i databasen
+    // If the task exists in the database
     if (oppgave.OppgaveID) {
       const bekreft = window.confirm(t('add.alert.confirm_delete'));
       if (!bekreft) return;
@@ -180,12 +180,12 @@ const handleSaveAll = async () => {
       }
     }
 
-    // Fjern fra UI uansett
+    // Remove from UI anyway
     const nyeOppgaver = oppgaver.filter((_, i) => i !== index);
     setOppgaver(nyeOppgaver);
   };
 
-    // Bestem status basert på dato
+    // Determine status based on date
     const handleDateChange = (e) => {
     const dato = e.target.value;
     
@@ -204,7 +204,7 @@ const handleSaveAll = async () => {
     return (
     <div className="modal-task">
       <h1>{TestfestID ? t('testfester.edit_testfest') : t('testfester.add_testfest')}</h1>
-      {/* Vis hvem som oppretter */}
+      {/* Show who is creating */}
             {currentUser && (
                 <p>{t('add.created_by')} <strong>{currentUser.Navn}</strong></p>
             )}

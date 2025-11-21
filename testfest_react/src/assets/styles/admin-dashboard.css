@@ -1,4 +1,4 @@
-/* Admin Dashboard stiler */
+/* Admin Dashboard Styles */
 .admin-dashboard {
   max-width: 1400px;
   margin: 0 auto;
@@ -65,7 +65,7 @@
   margin: 0;
 }
 
-/* Knapper */
+/* Buttons */
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;
@@ -128,7 +128,7 @@
   background-color: #c82333;
 }
 
-/* Brukerskjema */
+/* User Form */
 .user-form-container {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -219,7 +219,7 @@
   margin-top: 0.5rem;
 }
 
-/* Brukertabell */
+/* User Table */
 .users-table-container {
   overflow-x: auto;
   background-color: #fff;
@@ -262,7 +262,7 @@
   gap: 0.5rem;
 }
 
-/* Tom tilstand */
+/* Empty State */
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
@@ -276,7 +276,7 @@
   margin: 0.5rem 0;
 }
 
-/* Infokort */
+/* Info Card */
 .info-card {
   background-color: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -326,7 +326,7 @@
   color: #0066cc;
 }
 
-/* Varslingsstiler */
+/* Alert Styles */
 .alert {
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -340,14 +340,14 @@
   border: 1px solid #fcc;
 }
 
-/* Lastetilstand */
+/* Loading State */
 .loading-state {
   text-align: center;
   padding: 3rem;
   color: #666;
 }
 
-/* Badge-stiler */
+/* Badge Styles */
 .badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -366,7 +366,7 @@
   color: white;
 }
 
-/* Responsivt design */
+/* Responsive Design */
 @media (max-width: 1200px) {
   .admin-content {
     flex-direction: column;
@@ -403,7 +403,7 @@
     width: 100%;
   }
 
-  /* Responsiv tabell */
+  /* Responsive Table */
   .users-table thead {
     display: none;
   }
@@ -473,7 +473,7 @@
   }
 }
 
-/* Høykontrastmodus */
+/* High Contrast Mode */
 @media (prefers-contrast: high) {
   .admin-dashboard {
     background-color: #fff;
@@ -499,7 +499,7 @@
   }
 }
 
-/* Redusert bevegelse */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .form-group input {

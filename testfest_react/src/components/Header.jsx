@@ -10,17 +10,17 @@ const Header = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  // Veksle menyen for mobil
+  // Toggle menu for mobile
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Lukk menyen etter navigasjon
+  // Close menu after navigation
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // Håndter utlogging
+  // Handle logout
   const handleLogout = () => {
     logout();
     closeMenu();
@@ -28,7 +28,7 @@ const Header = () => {
 
   };
 
-  // Bytt språk mellom norsk og engelsk (én knapp som toggler)
+  // Switch language between Norwegian and English (one button toggle)
   const isNorwegian = () => {
     const lng = i18n.language || '';
     return lng.startsWith('no') || lng.startsWith('nb');
@@ -40,7 +40,7 @@ const Header = () => {
   };
   
   if (isLoading) {
-    return <header>Laster...</header>; // eller null
+    return <header>Laster...</header>; // or null
   }
   return (
     <header className="header">
@@ -80,7 +80,7 @@ const Header = () => {
             ) : (
               <li><Link to="/login" onClick={closeMenu}>{t('nav.login')}</Link></li>
             )}
-            {/* Enkel språkvelger */}
+            {/* Simple language selector */}
             <li>
               <button
                 className="lang-toggle-btn"

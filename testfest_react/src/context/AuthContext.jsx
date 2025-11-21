@@ -14,12 +14,12 @@ export const AuthProvider = ({ children }) => {
   const [authLoading, setAuthLoading] = useState(true);
 
 
-  // Kjør ved oppstart
+  // Run on startup
 useEffect(() => {
   const checkAuth = async () => {
     try {
       const res = await fetch("http://localhost:8800/brukere/verify", {
-        credentials: "include", // send med cookies
+        credentials: "include", // send with cookies
       });
       const data = await res.json();
       if (res.ok && data.authenticated) {
@@ -68,7 +68,7 @@ const login = async (brukernavn, passord) => {
 
 
   const logout = async () => {
-    await axios.post("http://localhost:8800/brukere/logout"); // Du kan lage en logout-route som sletter cookien
+    await axios.post("http://localhost:8800/brukere/logout"); // Create a logout route that deletes the cookie
     setIsAuthenticated(false);
     setErSuperbruker(false);
     setCurrentUser(null);

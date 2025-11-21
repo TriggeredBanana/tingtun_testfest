@@ -1,6 +1,6 @@
-/* Felles stiler for testfest-sider */
+/* Common Styles for Testfest Pages */
 
-/* Header row with date and edit button */
+/* Header Row with Date and Edit Button */
 .testfest-header-row {
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@
     outline-offset: 2px;
 }
 
-/* Two-column grid layout */
+/* Two-Column Grid Layout */
 .testfest-content-grid {
     display: grid;
     grid-template-columns: 1fr 400px;
@@ -141,7 +141,7 @@
     border: 1px solid #e9ecef;
 }
 
-/* UiO-spesifikke stiler */
+/* UiO Specific Styles */
 .uio-link {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -174,7 +174,7 @@
     font-weight: 500;
 }
 
-/* Varianter for ulike organisasjoner */
+/* Variants for Different Organizations */
 .financial-task {
     background-color: #ffffff;
     border-left-color: #495057;
@@ -198,7 +198,7 @@
     color: #000;
 }
 
-/* Responsive tilpasninger for testfest sider */
+/* Responsive Adjustments for Testfest Pages */
 @media (max-width: 968px) {
     .testfest-content-grid {
         grid-template-columns: 1fr;
@@ -209,7 +209,7 @@
     }
 }
 
-/* ===== LOGG SECTION STYLES ===== */
+/* ===== LOG SECTION STYLES ===== */
 .logg-section {
     margin-top: 2rem;
     padding: 1.5rem;

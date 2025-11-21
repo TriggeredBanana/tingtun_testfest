@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:8800/brukere';
 
-// Hent alle brukere
+// Get all users
 export const getUsers = async () => {
   try {
     const response = await fetch(API_URL);
@@ -14,7 +14,7 @@ export const getUsers = async () => {
   }
 };
 
-// Opprett ny bruker
+// Create new user
 export const createUser = async (brukerData) => {
   try {
     const response = await fetch(API_URL, {
@@ -38,7 +38,7 @@ export const createUser = async (brukerData) => {
   }
 };
 
-// Oppdater bruker
+// Update user
 export const updateUser = async (brukerId, brukerData) => {
   try {
     const response = await fetch(`${API_URL}/${brukerId}`, {
@@ -62,7 +62,7 @@ export const updateUser = async (brukerId, brukerData) => {
   }
 };
 
-// Slett bruker
+// Delete user
 export const deleteUser = async (brukerId) => {
   try {
     const response = await fetch(`${API_URL}/${brukerId}`, {
