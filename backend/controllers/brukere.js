@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; 
 import { getJwtSecret } from "../middleware/jwtConfig.js";
 
-// Hent alle brukere (uten passord!)
+// Get all users (without passwords!)
 export const getUsers = (req, res) => {
   const q = "SELECT BrukerID, Brukernavn, Navn, ErSuperbruker, Opprettet, Oppdatert FROM Brukere ORDER BY Opprettet DESC";
   
@@ -16,7 +16,7 @@ export const getUsers = (req, res) => {
   });
 };
 
-// Hent én bruker basert på ID
+// Get one user based on ID
 export const getUserById = (req, res) => {
   const brukerId = req.params.id;
   const q = "SELECT BrukerID, Brukernavn, Navn, ErSuperbruker, Opprettet, Oppdatert FROM Brukere WHERE BrukerID = ?";
@@ -33,12 +33,12 @@ export const getUserById = (req, res) => {
   });
 };
 
-// Opprett ny bruker
+// Create new user
 export const addUser = async (req, res) => {
   try {
     const { brukernavn, navn, passord, erSuperbruker } = req.body;
 
-    // Validering
+    // Validation
     if (!brukernavn || !navn || !passord) {
       return res.status(400).json({ error: "Brukernavn, navn og passord er påkrevd" });
     }
@@ -47,7 +47,7 @@ export const addUser = async (req, res) => {
       return res.status(400).json({ error: "Passord må være minst 6 tegn" });
     }
 
-    // Sjekk om brukernavn allerede eksisterer
+    // Check if username already exists
     const checkQ = "SELECT BrukerID FROM Brukere WHERE Brukernavn = ?";
     db.query(checkQ, [brukernavn], async (err, data) => {
       if (err) {
@@ -59,11 +59,11 @@ export const addUser = async (req, res) => {
         return res.status(409).json({ error: "Brukernavn er allerede i bruk" });
       }
 
-      // Hash passord
+      // Hash password
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(passord, saltRounds);
 
-      // Sett inn ny bruker
+      // Insert new user
       const insertQ = "INSERT INTO Brukere (Brukernavn, Navn, PassordHash, ErSuperbruker) VALUES (?, ?, ?, ?)";
       const values = [brukernavn, navn, hashedPassword, erSuperbruker || false];
 
@@ -84,7 +84,7 @@ export const addUser = async (req, res) => {
   }
 };
 
-// Oppdater bruker
+// Update user
 export const updateUser = async (req, res) => {
   try {
     const brukerId = req.params.id;
@@ -94,7 +94,7 @@ export const updateUser = async (req, res) => {
       return res.status(400).json({ error: "Navn er påkrevd" });
     }
 
-    // Hvis passord er inkludert, hash det
+    // If password is included, hash it
     if (passord) {
       if (passord.length < 6) {
         return res.status(400).json({ error: "Passord må være minst 6 tegn" });
@@ -115,7 +115,7 @@ export const updateUser = async (req, res) => {
         return res.json({ message: "Bruker oppdatert!" });
       });
     } else {
-      // Oppdater kun navn
+      // Update only name
       const q = "UPDATE Brukere SET Navn = ? WHERE BrukerID = ?";
       db.query(q, [navn, brukerId], (err, result) => {
         if (err) {
@@ -134,11 +134,11 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// Slett bruker
+// Delete user
 export const deleteUser = (req, res) => {
   const brukerId = req.params.id;
   
-  // Forhindre sletting av siste superbruker
+  // Prevent deletion of the last superuser
   const checkQ = "SELECT COUNT(*) as antallSuperbrukere FROM Brukere WHERE ErSuperbruker = TRUE";
   db.query(checkQ, (err, data) => {
     if (err) {
@@ -177,7 +177,7 @@ export const deleteUser = (req, res) => {
   });
 };
 
-// Login (autentisering)
+// Login (authentication)
 export const loginUser = (req, res) => {
   const { brukernavn, passord } = req.body;
 
@@ -206,7 +206,7 @@ export const loginUser = (req, res) => {
       return res.status(401).json({ error: "Ugyldig brukernavn eller passord" });
     }
 
-    // Lag JWT-token med ALL nødvendig brukerinfo
+    // Create JWT token with ALL necessary user info
     const token = jwt.sign(
       { 
         BrukerID: user.BrukerID,
@@ -218,7 +218,7 @@ export const loginUser = (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // Send token som HTTP-only cookie
+    // Send token as HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", 
@@ -226,7 +226,7 @@ export const loginUser = (req, res) => {
       maxAge: 3600000 
     });
 
-    // Send brukerdata (uten passord)
+    // Send user data (without password)
     return res.json({
       success: true,
       bruker: {
@@ -239,7 +239,7 @@ export const loginUser = (req, res) => {
   });
 };
 
-//Håndtere logout
+// Handle logout
 export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -250,7 +250,7 @@ export const logoutUser = (req, res) => {
   return res.json({ success: true, message: "Du er logget ut" });
 };
 
-// Verifiser om bruker er logget inn via cookie (JWT)
+// Verify if user is logged in via cookie (JWT)
 export const verifyUser = (req, res) => {
   try {
     if (!req.user || !req.isAuthenticated) {

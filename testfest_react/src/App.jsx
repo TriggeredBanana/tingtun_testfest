@@ -15,7 +15,7 @@ import AddTestfester from './pages/AddTestfester';
 import './assets/styles/styles.css';
 import './assets/styles/index.css';
 
-// begynn på toppen når bytter side
+// Start at the top when changing pages
 const Wrapper = ({ children }) => {
   const location = useLocation();
 

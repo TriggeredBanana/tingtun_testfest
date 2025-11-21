@@ -1,6 +1,6 @@
 const API_URL = 'http://localhost:8800/program';
 
-// Hent alle programmer
+// Get all programs
 export const getProgram = async () => {
   try {
     const response = await fetch(API_URL, {
@@ -16,7 +16,7 @@ export const getProgram = async () => {
   }
 };
 
-// Opprett nytt program
+// Create new program
 export const addProgram = async (programData) => {
   try {
     const response = await fetch(API_URL, {
@@ -49,7 +49,7 @@ export const addProgram = async (programData) => {
   }
 };
 
-// Oppdater program
+// Update program
 export const updateProgram = async (ProgramID, programData) => {
   try {
     const response = await fetch(`${API_URL}/${ProgramID}`, {
@@ -74,7 +74,7 @@ export const updateProgram = async (ProgramID, programData) => {
   }
 };
 
-// Slett program
+// Delete program
 export const deleteProgram = async (ProgramID) => {
   try {
     const response = await fetch(`${API_URL}/${ProgramID}`, {

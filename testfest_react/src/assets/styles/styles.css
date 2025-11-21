@@ -1,4 +1,4 @@
-/* Generelle stiler for universell utforming */
+/* General Styles for Universal Design */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,13 +17,13 @@ body {
     background-color: #fff;
 }
 
-/* Forbedret fokussynlighet for tilgjengelighet */
+/* Improved Focus Visibility for Accessibility */
 *:focus {
     outline: 3px solid #4A90E2;
     outline-offset: 2px;
 }
 
-/* Overskrifter med god kontrast */
+/* Headings with Good Contrast */
 h1, h2, h3, h4, h5, h6 {
     margin: 1.5rem 0 1rem 0;
     color: #000;
@@ -35,14 +35,14 @@ h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
 h4 { font-size: 1.25rem; }
 
-/* Tekst og avsnitt */
+/* Text and Paragraphs */
 p {
     margin: 0 0 1rem 0;
     max-width: 95ch; /* Konsistent lesebredde */
     color: #000;
 }
 
-/* Lenker med god kontrast */
+/* Links with Good Contrast */
 a {
     color: #0066cc;
     text-decoration: underline;
@@ -54,7 +54,7 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
-/* Lister */
+/* Lists */
 ul, ol {
     margin: 0 0 1rem 2rem;
 }
@@ -64,7 +64,7 @@ li {
     color: #000;
 }
 
-/* Bilder */
+/* Images */
 img {
     max-width: 100%;
     height: auto;
@@ -86,14 +86,14 @@ img {
     object-position: center;
 }
 
-/* Responsivt layout */
+/* Responsive Layout */
 .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
-/* Header og navigasjon */
+/* Header and Navigation */
 .header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
@@ -126,7 +126,7 @@ img {
     vertical-align: middle;
 }
 
-/* Hamburgermeny knapp */
+/* Hamburger Menu Button */
 .menu-toggle {
     display: none;
     background: none;
@@ -144,7 +144,7 @@ img {
     outline-offset: 2px;
 }
 
-/* Navigasjon */
+/* Navigation */
 .menu {
     list-style: none;
     display: flex;
@@ -179,7 +179,7 @@ img {
     color: #fff;
 }
 
-/* Logout button styling */
+/* Logout Button Styling */
 .menu .logout-btn {
     border: 2px solid #dc3545;
     background-color: #fef5f5;
@@ -194,7 +194,7 @@ img {
     border-color: #dc3545;
 }
 
-/* Språkvelger knapp */
+/* Language Selector Button */
 .menu .lang-toggle-btn {
     display: inline-flex;
     align-items: center;
@@ -225,7 +225,7 @@ img {
     outline-offset: 2px;
 }
 
-/* Hovedinnhold */
+/* Main Content */
 .main-content {
     padding: 2rem 0;
     min-height: 60vh;
@@ -248,7 +248,7 @@ img {
     min-width: 400px;
 }
 
-/* Oppgaver og innholdsbokser */
+/* Tasks and Content Boxes */
 .task {
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
@@ -279,9 +279,9 @@ img {
     color: #000;
 }
 
-/* Hero Section styles */
+/* Hero Section Styles */
 .hero-section {
-  min-height: 80vh; /* Changed from 100vh to allow content below */
+  min-height: 80vh; /* Is set to allow content below */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,12 +304,12 @@ img {
   font-style: italic;
 }
 
-/* Content section styles */
+/* Content Section Styles */
 .content-section {
   padding-top: 2rem;
 }
 
-/* slightly larger buttons but not full-screen */
+/* Slightly Larger Buttons but Not Full-Screen */
 .button-container {
   display: flex;
   gap: 1.5rem;
@@ -326,19 +326,19 @@ img {
   min-width: 200px;
 }
 
-/* ensure scroll target is visible under sticky header */
+/* Ensure Scroll Target is Visible Under Sticky Header */
 .main h1 {
   scroll-margin-top: 88px; /* adjust if your header height differs */
 }
 
-/* keep existing hero styles for mobile adjustments */
+/* Keep Existing Hero Styles for Mobile Adjustments */
 @media (max-width: 768px) {
   .hero-small { min-height: 180px; padding: 1rem; }
   .button-container { flex-direction: column; gap: 0.75rem; }
   .main-button { width: 100%; min-width: 0; padding: 0.9rem 1rem; font-size: 1rem; }
 }
 
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .button-container {
     flex-direction: column;
@@ -347,7 +347,7 @@ img {
   
 }
 
-/* Tablet responsiv design */
+/* Tablet Responsive Design */
 @media (max-width: 1500px) {
     .container {
         max-width: 100%;
@@ -369,7 +369,7 @@ img {
     }
 }
 
-/* Hamburgermeny aktivering */
+/* Hamburger Menu Activation */
 @media (max-width: 1100px) {
     .menu-toggle {
         display: block;
@@ -420,7 +420,7 @@ img {
     }
 }
 
-/* Stablet layout under 1000px */
+/* Stacked Layout Under 1000px */
 @media (max-width: 1000px) {
     .row {
         flex-direction: column;
@@ -434,7 +434,7 @@ img {
     }
 }
 
-/* Tablet portrett */
+/* Tablet Portrait */
 @media (max-width: 768px) {
     .container {
         padding: 0 1.5rem;
@@ -520,7 +520,7 @@ img {
     }
 }
 
-/* Print-stiler */
+/* Print Styles */
 @media print {
     .header, .menu {
         display: none;
@@ -541,7 +541,7 @@ img {
     }
 }
 
-/* Høy kontrast modus */
+/* High Contrast Mode */
 @media (prefers-contrast: high) {
     body {
         background-color: #fff;
@@ -565,7 +565,7 @@ img {
     }
 }
 
-/* Redusert bevegelse */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -597,7 +597,7 @@ img {
   font-weight: 600;
 }
 
-/* single button container and button rules */
+/* Single Button Container and Button Rules */
 .button-container {
   display: flex;
   gap: 1.5rem;
@@ -622,7 +622,7 @@ img {
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* Read-more style (light) and primary action (Testfest) */
+/* Read-More Style (Light) and Primary Action (Testfest) */
 .main-button.read-more {
   background-color: #f8f9fa;
   color: #212529;
@@ -634,18 +634,18 @@ img {
   color: white;
 }
 
-/* ensure main page title lands below sticky header when scrolled to */
+/* Ensure Main Page Title Lands Below Sticky Header When Scrolled To */
 .main h1 {
   scroll-margin-top: var(--header-height);
 }
 
-/* ensure welcome title scrolls into view below sticky header */
+/* Ensure Welcome Title Scrolls Into View Below Sticky Header */
 :root { --header-height: 88px; } /* adjust if needed */
 .welcome-section h1 {
   scroll-margin-top: var(--header-height);
 }
 
-/* responsive adjustments for hero/buttons */
+/* Responsive Adjustments for Hero/Buttons */
 @media (max-width: 768px) {
   .hero-full { min-height: calc(100vh - 64px); padding: 1rem; }
   .button-container { flex-direction: column; gap: 0.75rem; }

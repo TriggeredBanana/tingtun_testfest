@@ -1,4 +1,4 @@
-//samme fallback for alt
+// Same fallback for everything
 export function getJwtSecret() {
   const secret = process.env.JWT_SECRET;
 

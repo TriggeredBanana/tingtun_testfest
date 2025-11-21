@@ -1,7 +1,7 @@
 import db from "../connect.js";
 
 export const getTestfester = (req, res) => {
-  const bruker = req.user; // Kommer fra verifyToken hvis innlogget
+  const bruker = req.user; // Comes from verifyToken if logged in
 
   let query = `
     SELECT 
@@ -17,7 +17,7 @@ export const getTestfester = (req, res) => {
   
   const params = [];
 
-  // Vanlig bruker → vis kun egne
+  // Regular user -> show only own
   if (bruker && !bruker.ErSuperbruker) {
     query += " WHERE t.BrukerID = ?";
     params.push(bruker.BrukerID);
@@ -34,7 +34,7 @@ export const getTestfester = (req, res) => {
   });
 };
 
-// Hent testfest etter ID
+// Get testfest by ID
 export const getTestfesterByID = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
 
@@ -69,7 +69,7 @@ export const getTestfesterByID = (req, res) => {
     let correctDato = Dato;
 
     if (Dato instanceof Date) {
-      // Konverter til lokal tid og behold kun YYYY-MM-DD
+      // Convert to local time and keep only YYYY-MM-DD
       const localTid = new Date(Dato.getTime() - Dato.getTimezoneOffset() * 60000);
       correctDato = localTid.toISOString().split("T")[0];
     }
@@ -78,7 +78,7 @@ export const getTestfesterByID = (req, res) => {
   });
 };
 
-// Tildel program (kun admin)
+// Assign program (admin only)
 export const updateProgramForTestfest = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
   const { ProgramID } = req.body;
@@ -89,7 +89,7 @@ export const updateProgramForTestfest = (req, res) => {
     return res.status(400).json({ error: "Ugyldig TestfestID" });
   }
 
-  // Sjekk at bruker er admin
+  // Check that user is admin
   if (!bruker || !bruker.ErSuperbruker) {
     return res.status(403).json({ error: "Kun superbruker kan tilordne program" });
   }
@@ -112,7 +112,7 @@ export const updateProgramForTestfest = (req, res) => {
   );
 };
 
-// Legg til en testfest, må være innlogget
+// Add a testfest, must be logged in
 export const addTestfester =  (req, res) => {
   const bruker = req.user;
   if (!bruker) return res.status(401).json({ error: "Ikke innlogget" });
@@ -140,7 +140,7 @@ export const addTestfester =  (req, res) => {
   );
 };
 
-//Redigere en testfest
+// Edit a testfest
 export const updateTestfester = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
   const { Dato, Status } = req.body;
@@ -160,7 +160,7 @@ export const updateTestfester = (req, res) => {
     return res.status(400).json({ error: "Dato og Status er påkrevd" });
   }
 
-  // Admin kan redigere alle, vanlige brukere bare sine egne
+  // Admin can edit all, regular users only their own
   let query = "UPDATE Testfester SET Dato = ?, Status = ? WHERE TestfestID = ?";
   let params = [Dato, Status, testfestID];
 
@@ -185,7 +185,7 @@ export const updateTestfester = (req, res) => {
   });
 };
 
-// Slett testfest (kun eier eller admin)
+// Delete testfest (owner or admin only)
 export const deleteTestfester = (req, res) => {
   const bruker = req.user;
   const testfestID = Number(req.params.TestfestID);

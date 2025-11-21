@@ -1,43 +1,57 @@
-# Testfest.no - Forbedret versjon
+# Tingtun Testfest - Refactored Version
 
-Dette er en ny og forbedret (refactored) versjon av **testfest.no**, en nettside for Testfest-arrangementer som samler nettstedseiere og brukere med funksjonsnedsettelser for å teste og forbedre digitale tjenester.
+This is a new and improved (refactored) version of **testfest.no**, a web application for managing "Testfests"-events where website owners and users with disabilities collaborate to test and improve digital services.
 
-## Om Testfest
+## About Testfest
 
-Målet med Testfestene er å komme sammen i en trivelig ramme for å finne, forstå og fjerne feil på nettsider. Deltakere inkluderer:
-- **Nettstedseiere** fra organisasjoner som Oslo kommune, Storebrand og Universitetet i Oslo
-- **Brukere med funksjonsnedsettelser** som tester med hjelpemidler som skjermlesere, forstørrelsesprogram og øyesporingsutstyr
+The goal of Testfests is to come together in a pleasant setting to find, understand, and remove errors on websites. Participants include:
+- **Website Owners** from various organizations.
+- **Users with disabilities** who test using assistive technologies like screen readers, magnification software.
 
-## Forbedringer i denne versjonen
+## Key Features
 
-### 🎨 **Designforbedringer**
-- Renset og profesjonell design
-- Konsistent bruk av sort tekst for optimal lesbarhet
-- Forbedret navigasjon med tydeligere hover-effekter
+### 📅 **Event & Program Management**
+- **Testfest Events:** View upcoming and past events with detailed information.
+- **Program Schedule:** Manage and view the schedule for each event.
+- **Admin Dashboard:** Comprehensive dashboard for administrators to manage users and programs.
 
-### ♿ **Tilgjengelighetsfokus**
-- Høy kontrast mellom tekst og bakgrunn
-- Forbedret fokussynlighet for tastaturnavigasjon  
-- Konsistent layout på alle sider
-- Støtte for hjelpemidler og skjermlesere
+### 👥 **User Management**
+- **Role-based Access:** Support for Administrators (SuperUsers), users and guests.
+- **Secure Authentication:** JWT-based login system with secure cookie handling.
+- **User Administration:** Admins can create, edit, and delete users directly from the dashboard.
 
-### 📐 **Layout og struktur**
-- Standardisert breddefordeling mellom innhold og bilder
-- Responsiv design som fungerer på alle enheter
-- God utnyttelse av skjermplass mens man beholder enkel oversikt
+### ♿ **Accessibility First**
+- **High Contrast:** Optimized color contrast for better readability.
+- **Keyboard Navigation:** Enhanced focus visibility and logical tab order.
+- **Screen Reader Support:** Built with semantic HTML and ARIA labels where necessary.
+- **Consistent Layout:** Predictable navigation and structure across all pages.
 
-### 🔧 **Tekniske forbedringer**
-- Oppryddet HTML og CSS-struktur med konsistente stiler
-- Optimalisert for moderne nettlesere
+### 🌍 **Internationalization**
+- **Bilingual Support:** Fully localized for both Norwegian (Bokmål) and English.
+- **Language Switcher:** Easy toggling between languages.
 
-## Innhold
+## Technical Platform
 
-Nettsiden inneholder:
-- **Informasjon** om Testfest-konseptet og tidligere arrangementer
-- **Testoppgaver** for Oslo kommune, Storebrand og UiO
-- **Veiledning** for både testere og tjenesteeiere
-- **FAQ** med vanlige spørsmål om verktøy og prosess
+The project is structured as a monorepo containing a Node.js backend and a React frontend.
 
-## Prosjektbakgrunn
+- **Frontend:** React (v19), Vite, React Router, Axios, i18next.
+- **Backend:** Node.js, Express, MySQL/MariaDB, JWT Authentication.
 
-Testfestene er gjennomført med støtte fra Barn- Ungdoms- og familiedirektoratet og har bidratt til konkrete forbedringer hos Arbeidstilsynet, Oslo kommune, NHN og Storebrand. Veiledning og programvare publiseres under åpen lisens for videre spredning.
+## Documentation & Setup
+
+For detailed information on setup, installation, and running the application, please refer to the documentation in the respective folders:
+
+- **Frontend (testfest_react):** [Information_FE.md](./testfest_react/Information_FE.md)
+- **Backend (backend):** [Information_BE.md](./backend/Information_BE.md)
+
+## Improvements in this Version
+
+### 🎨 **Design**
+- Clean and professional design with consistent styling.
+- Improved navigation with clear hover effects.
+- Responsive design that works seamlessly on all devices.
+
+### 🔧 **Technical**
+- **Modern Stack:** Upgraded to React 19 and Vite for faster development and better performance.
+- **Code Quality:** Refactored codebase with cleaner component structure and consistent coding standards.
+- **Security:** Improved security with input validation.

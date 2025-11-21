@@ -1,4 +1,4 @@
-/* Veiledning-side spesifikke stiler */
+/* Guidance Page Specific Styles */
 
 .method-intro {
     background-color: #f8f9fa;
@@ -118,8 +118,6 @@
     color: #000;
 }
 
-/* Add these new styles while keeping existing ones */
-
 .expandable-item {
   margin: 0.5rem 0;
 }
@@ -158,9 +156,4 @@
 .expandable-content.open {
   max-height: 500px;
   padding: 0.5rem;
-}
-
-/* Responsive tilpasninger for veiledning */
-@media (max-width: 768px) {
-    /* Nummereringspositionen er nå konsistent på tvers av alle skjermstørrelser */
 }

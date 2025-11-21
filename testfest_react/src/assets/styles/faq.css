@@ -1,4 +1,4 @@
-/* FAQ-side spesifikke stiler */
+/* FAQ Page Specific Styles */
 
 .faq-item {
     margin: 2rem 0;
@@ -108,7 +108,7 @@
   }
 }
 
-/* Video og media lenker */
+/* Video and Media Links */
 .media-link {
     background-color: #f8f9fa;
     padding: 0.5rem 1rem;
@@ -124,7 +124,7 @@
     color: #000;
 }
 
-/* Responsive tilpasninger for FAQ */
+/* Responsive Adjustments for FAQ */
 @media (max-width: 768px) {
     .faq-resources {
         padding: 1rem;

@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
 
-  // Last brukere fra API ved komponentmontering
+  // Load users from API on component mount
   useEffect(() => {
     fetchUsers();
     fetchPrograms();
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
       ...prev,
       [name]: value
     }));
-    // Fjern feil for dette feltet når bruker begynner å skrive
+    // Remove error for this field when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
         await deleteUser(brukerId);
-        await fetchUsers(); // Oppdater liste
+        await fetchUsers(); // update list
         setApiError('');
       } catch (error) {
         setApiError(error.message || t('admin.delete_error'));
@@ -221,14 +221,14 @@ const AdminDashboard = () => {
       setApiError('');
 
       if (editingUser) {
-        // Oppdater eksisterende bruker
+        // Update existing user
         const updateData = {
           navn: formData.navn,
           ...(formData.passord ? { passord: formData.passord } : {})
         };
         await updateUser(editingUser.BrukerID, updateData);
       } else {
-        // Legg til ny bruker
+        // Add new user
         const newUserData = {
           brukernavn: formData.brukernavn,
           navn: formData.navn,
@@ -238,10 +238,10 @@ const AdminDashboard = () => {
         await createUser(newUserData);
       }
 
-      // Oppdater brukerliste
+      // Update user list
       await fetchUsers();
 
-      // Tilbakestill skjema
+      // Reset form
       setIsAddingUser(false);
       setEditingUser(null);
       setFormData({
@@ -497,7 +497,7 @@ const AdminDashboard = () => {
             )}
           </div>
 
-          {/* PROGRAMMER SEKSJON */}
+          {/* PROGRAMS SECTION */}
           <div className="admin-content">
           <div className="admin-section">
             <div className="section-header">

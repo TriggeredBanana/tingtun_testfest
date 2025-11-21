@@ -1,4 +1,4 @@
-/* Index/Hjem-side spesifikke stiler */
+/* Index/Home Page Specific Styles */
 
 .welcome-section {
     text-align: left;
@@ -43,7 +43,7 @@
     margin-top: 0;
 }
 
-/* Responsive tilpasninger for forsiden */
+/* Responsive Adjustments for Home Page */
 @media (max-width: 768px) {
     .welcome-section h2 {
         font-size: 1.75rem;

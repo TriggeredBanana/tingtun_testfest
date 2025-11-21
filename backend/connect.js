@@ -14,7 +14,7 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-// Test tilkobling
+// Test connection
 db.getConnection((err, connection) => {
   if (err) {
     console.error("Feil ved tilkobling til databasen:", err);
