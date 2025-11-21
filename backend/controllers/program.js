@@ -1,6 +1,6 @@
 import db from "../connect.js";
 
-//Hent spesifikke program
+// Get specific program
 export const getProgrambyID = (req, res) => {
   const programID = Number(req.params.ProgramID);
   
@@ -22,7 +22,7 @@ export const getProgrambyID = (req, res) => {
   });
 };
 
-// Hent alle program
+// Get all programs
 export const getProgram = (req, res) => {
   const q = "SELECT * FROM Program";
   db.query(q, (err, data) => {
@@ -34,7 +34,7 @@ export const getProgram = (req, res) => {
   });
 };
 
-//legg til program
+// Add program
 export const addProgram = (req, res) => {
   const { Navn, Punkter } = req.body;
   const bruker = req.user;
@@ -57,7 +57,7 @@ export const addProgram = (req, res) => {
   });
 };
 
-// Redigere en testfest
+// Update program
 export const updateProgram = (req, res) => {
   const programID = Number(req.params.ProgramID);
   const { Navn , Punkter } = req.body;
@@ -68,7 +68,7 @@ export const updateProgram = (req, res) => {
     return res.status(400).json({ error: "Ugyldig ProgramID" });
   }
 
-  // Sjekk innlogging
+  // Check login
   if (!bruker || !bruker.ErSuperbruker) {
     return res.status(401).json({ error: "Ikke innlogget eller admin" });
   }
@@ -97,29 +97,29 @@ export const updateProgram = (req, res) => {
   });
 };
 
-// Slette et program (kun superbruker)
+// Delete a program (superuser only)
 export const deleteProgram = (req, res) => {
   const bruker = req.user;
   const programID = Number(req.params.ProgramID);
 
-  // Sjekk at programID er gyldig
+  // Check that programID is valid
   if (isNaN(programID) || programID <= 0) {
     return res.status(400).json({ error: "Ugyldig ProgramID" });
   }
 
-  // Sjekk at bruker er innlogget
+  // Check that user is logged in
   if (!bruker || !bruker.ErSuperbruker) {
     return res.status(401).json({ error: "Ikke innlogget eller admin" });
   }
 
-  // Slett programmet
+  // Delete the program
   db.query("DELETE FROM Program WHERE ProgramID = ?", [programID], (err, result) => {
     if (err) {
       console.error("Feil ved sletting:", err);
       return res.status(500).json({ error: "Kunne ikke slette program" });
     }
 
-    // Hvis program ikke ble funnet
+    // If program was not found
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Program ikke funnet" });
     }

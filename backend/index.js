@@ -21,7 +21,7 @@ app.use(cors({
     credentials: true
 }));
 
-// Ruter
+// Routes
 app.use("/brukere", userRoutes);
 app.use("/testfester", testfesterRoutes);
 app.use("/oppgaver", oppgaverRoutes);

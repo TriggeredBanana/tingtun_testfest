@@ -1,14 +1,14 @@
 import db from "../connect.js";
-import Joi from "joi"; // Valideringsbibliotek
+import Joi from "joi"; // Validation library
 
-// Valideringskjema
+// Validation schema
 const oppgaveSchema = Joi.object({
   Tittel: Joi.string().trim().required(),
   Beskrivelse: Joi.string().trim().required(),
   TestfestID: Joi.number().integer().required()
 });
 
-// Hent oppgaver med testfestID
+// Get tasks with testfestID
 export const getOppgaverByTestfestID = (req, res) => {
   const testfestID = Number(req.params.TestfestID);
   if (isNaN(testfestID)) {
@@ -26,7 +26,7 @@ export const getOppgaverByTestfestID = (req, res) => {
   });
 };
 
-// Legg til oppgaver
+// Add tasks
 export const addOppgaver = async (req, res) => {
   const oppgaver = req.body;
   const bruker = req.user;
@@ -39,7 +39,7 @@ export const addOppgaver = async (req, res) => {
     return res.status(400).json({ error: "Oppgaver må være en ikke-tom array" });
   }
 
-  // Valider hvert objekt med Joi
+  // Validate each object with Joi
   for (let i = 0; i < oppgaver.length; i++) {
     const { error } = oppgaveSchema.validate(oppgaver[i]);
     if (error) {
@@ -50,7 +50,7 @@ export const addOppgaver = async (req, res) => {
   }
 
   try {
-    // Bruker "Promise.all" for ordentlig async håndtering
+    // Use "Promise.all" for proper async handling
     const insertPromises = oppgaver.map((oppgave) => {
       return new Promise((resolve, reject) => {
         const q = "INSERT INTO Oppgaver (Tittel, Beskrivelse, TestfestID) VALUES (?, ?, ?)";
@@ -74,7 +74,7 @@ export const addOppgaver = async (req, res) => {
   }
 };
 
-//oppdater oppgaver
+// Update tasks
 export const updateOppgaver = (req, res) => {
   const oppgaveID = Number(req.params.OppgaveID);
   const { Tittel, Beskrivelse } = req.body;
@@ -84,7 +84,7 @@ export const updateOppgaver = (req, res) => {
     return res.status(401).json({ error: "Ikke innlogget" });
   }
 
-  // Sjekk om ID ikke er tall, og om det er et gyldig positivt nummer
+  // Check if ID is not a number, and if it is a valid positive number
   if (isNaN(oppgaveID || oppgaveID <= 0)) {
     return res.status(400).json({ error: "Ugyldig OppgaveID" });
   }
@@ -92,7 +92,7 @@ export const updateOppgaver = (req, res) => {
   if (!Tittel || !Beskrivelse) {
     return res.status(400).json({ error: "Tittel og Beskrivelse er påkrevd" });
   }
-  // Først sjekk om bruker eier testfesten (eller er admin)
+  // First check if user owns the testfest (or is admin)
   const checkQ = `
     SELECT o.OppgaveID, t.BrukerID 
     FROM Oppgaver o
@@ -111,12 +111,12 @@ export const updateOppgaver = (req, res) => {
 
     const eierId = rows[0].BrukerID;
 
-    // Sjekk autorisasjon
+    // Check authorization
     if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
       return res.status(403).json({ error: "Ikke autorisert til å oppdatere denne oppgaven" });
     }
 
-    // Oppdater oppgaven
+    // Update the task
     const updateQ = "UPDATE Oppgaver SET Tittel = ?, Beskrivelse = ? WHERE OppgaveID = ?";
     const values = [Tittel, Beskrivelse, oppgaveID];
 
@@ -136,7 +136,7 @@ export const updateOppgaver = (req, res) => {
 };
 
 
-// Slett oppgaver
+// Delete tasks
 export const deleteOppgaver = (req, res) => {
   const oppgaveID = Number(req.params.OppgaveID);
   const bruker = req.user;
@@ -149,7 +149,7 @@ export const deleteOppgaver = (req, res) => {
     return res.status(400).json({ error: "Ugyldig OppgaveID" });
   }
 
-  // Først sjekk om bruker eier testfesten (eller er admin)
+  // First check if user owns the testfest (or is admin)
   const checkQ = `
     SELECT o.OppgaveID, t.BrukerID 
     FROM Oppgaver o
@@ -169,12 +169,12 @@ export const deleteOppgaver = (req, res) => {
 
     const eierId = rows[0].BrukerID;
 
-    // Sjekk autorisasjon
+    // Check authorization
     if (bruker.BrukerID !== eierId && !bruker.ErSuperbruker) {
       return res.status(403).json({ error: "Ikke autorisert til å slette denne oppgaven" });
     }
 
-    // Slett oppgaven
+    // Delete the task
     const deleteQ = "DELETE FROM Oppgaver WHERE OppgaveID = ?";
     db.query(deleteQ, [oppgaveID], (err, result) => {
       if (err) {

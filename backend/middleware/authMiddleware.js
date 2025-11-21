@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
     return next();
   }
 
-  //fallback
+  // Fallback
   jwt.verify(token, getJwtSecret(), (err, decoded) => {
     if (err) {
       console.error("JWT-verifisering feilet:", err.message);
@@ -20,7 +20,7 @@ export const verifyToken = (req, res, next) => {
     }
 
     req.user = decoded;
-    req.user.ErSuperbruker = Boolean(decoded.ErSuperbruker); //ErSuperbruker til ren boolean 
+    req.user.ErSuperbruker = Boolean(decoded.ErSuperbruker); // ErSuperbruker to pure boolean 
     req.isAuthenticated = true;
 
     next();
